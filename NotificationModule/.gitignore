@@ -105,3 +105,13 @@ GitHub.sublime-settings
 
 # .gitignore
 .env
+
+# igmore __pycache__ directories
+__pycache__/
+# will ignore complied Python files
+*.py[cod]
+
+# ignore migration files
+migrations/
+
+
