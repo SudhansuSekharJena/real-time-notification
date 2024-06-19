@@ -32,11 +32,43 @@ def get_response_data(success, message=None, data=None):
         response_data['data'] = data
     return response_data
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import json
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+# HANDLING THE NOTIFICATIONS COMING FROM POSTMAN AND SENDING IT TO FRONTEND
+# class SendNotificationAPI(APIView):
+#     def post(self, request):
+#         try:
+#             message = request.data.get("message")
+#             notification_type = request.data.get("notification_type")
+
+#             if not message or not notification_type:
+#                 return Response(get_response_data(False, "Message and notification type are required"), status=status.HTTP_400_BAD_REQUEST)
+            
+#             # accessing the channel layer to communicate
+#             channel_layer = get_channel_layer()
+#             async_to_sync(channel_layer.group_send)(
+#                 "Our_clients",
+#                 {
+#                     "type": "send_notification",
+#                     "message": message,
+#                     "notification_type": notification_type,
+#                 }
+#             )
+
+#             return Response(get_response_data(True, "Notification sent successfully"), status=status.HTTP_200_OK)
+#         except Exception as e:
+#             logger.error(f"Unexpected error in send_notification: {e}", exc_info=True)
+#             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class UserAPI(APIView):
     
-    def __init__(self, user_service: UserService):
-        self.user_service = user_service
+    def __init__(self):
+        self.user_service = UserService()
         
     def get(self, request):
         try:

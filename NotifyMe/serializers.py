@@ -1,6 +1,6 @@
-# import serializers from rest_framework
-
 import logging
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
 from rest_framework import serializers
@@ -9,88 +9,95 @@ from .models.subscription import Subscription
 from .models.subscriptionPlan import SubscriptionPlan
 from .models.user import User
 from django.utils import timezone
-from datetime import datetime
 from datetime import timedelta
 from .models.notificationType import NotificationType
 from .constants import *
 
 logger = logging.getLogger(__name__)
+
 class UserSerializer(serializers.ModelSerializer):
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
 
     class Meta:
         model = User
         fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
-        depth=1
-        
-    def get_endtime(self, validated_data, start_date):
-      subscription_plan = validated_data.pop('subscription_plan')
-      if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
-          end_date = start_date + timedelta(days=30)
-      elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
-          end_date = start_date + timedelta(days=3*30)
-      elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
-          end_date = start_date + timedelta(days=6*30)
-      elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
-          end_date = start_date + timedelta(days=365)
-      else:
-          end_date = None
-      
-      
-      
-    
-    # THIS IS HELPING IN CREATING SUBSCRIPTION INSTANCE FROM THE INSIDE OF USER... 
+        depth = 1
+
+    def get_endtime(self, subscription_plan, start_date):
+        if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
+            return start_date + timedelta(days=30)
+        elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
+            return start_date + timedelta(days=3 * 30)
+        elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
+            return start_date + timedelta(days=6 * 30)
+        elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
+            return start_date + timedelta(days=365)
+        else:
+            return None
+
     def create(self, validated_data):
-      try:
-          subscription_plan = validated_data.pop('subscription_plan')
-          
-          user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
-          
-          # Create a new Subscription
-          Subscription.objects.create(
-              user_id=user,
-              subscription_plan=subscription_plan,
-              start_date=timezone.now(),
-              end_date = self.get_endtime(validated_data, start_date=timezone.now())     
-          )
-          logger.info(f"User created successfully with ID: {user.id}")
-          return user
-      except IntegrityError as e:
-        error_message = str(e)
-        raise ValidationError(f"IntegrityError: {error_message}")
-      except Exception as e:
-        error_message = str(e)
-        raise ValidationError(f"An error occured: {error_message}")
-    
-    
+        try:
+            subscription_plan = validated_data.pop('subscription_plan')
+
+            if subscription_plan is None:
+                raise ValidationError("The 'subscription_plan' field is required.")
+
+            user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
+
+            # Create a new Subscription
+            start_date = timezone.now()
+            end_date = self.get_endtime(subscription_plan, start_date)
+            if end_date is None:
+                raise ValidationError("Invalid subscription plan")
+
+            Subscription.objects.create(
+                user_id=user,
+                subscription_plan=subscription_plan,
+                start_date=start_date,
+                end_date=end_date    
+            )
+
+            logger.info(f"User created successfully with ID: {user.id}")
+
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                "Our_clients",
+                {
+                    "type": "send_notification",
+                    "message": f"New user {user.email_id} created",
+                    "notification_type": "New User"
+                }
+            )
+
+            return user
+        except IntegrityError as e:
+            error_message = str(e)
+            raise ValidationError(f"IntegrityError: {error_message}")
+        except Exception as e:
+            error_message = str(e)
+            raise ValidationError(f"An error occurred: {error_message}")
+
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['subscription_plan'] = instance.subscription_plan.subscription_plan
         return representation
-        
-        
-    
+
 class SubscriptionSerializer(serializers.ModelSerializer):
-  user_id = serializers.PrimaryKeyRelatedField(queryset = User.objects.all()) 
-  
-  subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
-  
-  class Meta:
-    model = Subscription
-    fields = '__all__'
-  
-  # this code is responsible for showing Subscription_plan insted of id.
-  def to_representation(self, instance):
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
+
+    class Meta:
+        model = Subscription
+        fields = '__all__'
+
+    def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['subscription_plan'] = instance.subscription_plan.subscription_plan
         return representation
-    
 
 class NotificationSerializer(serializers.ModelSerializer):
-  notification_type = serializers.PrimaryKeyRelatedField(queryset=NotificationType.objects.all())
-  
-  class Meta:
-    model = Notification
-    fields = '__all__'
-    
-    
+    notification_type = serializers.PrimaryKeyRelatedField(queryset=NotificationType.objects.all())
+
+    class Meta:
+        model = Notification
+        fields = '__all__'

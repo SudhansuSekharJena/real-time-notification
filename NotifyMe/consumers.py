@@ -23,13 +23,14 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         notification_type = text_data_json['notification_type']
 
         # Send message to room group
-        await self.channel_layer.group_send(
-            self.group_name, {
-                "type": "send_notification",
-                "message": message,
-                "notification_type": notification_type
-                }
-        )
+        if message and notification_type:
+            await self.channel_layer.group_send(
+                self.group_name, {
+                    "type": "send_notification",
+                    "message": message,
+                    "notification_type": notification_type
+                    }
+            )
         
         self.send(text_data=json.dumps({
             'message': text_data_json['message'],
