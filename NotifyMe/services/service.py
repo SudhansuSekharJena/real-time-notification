@@ -1,3 +1,5 @@
+
+import logging
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from NotifyMe.models.notification import Notification
 from NotifyMe.models.notificationType import NotificationType
@@ -6,33 +8,24 @@ from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from NotifyMe.models.user import User
 from django.db import DatabaseError
 
+logger = logging.getLogger(__name__)
 class UserService:
     def get_user_data(self, request):
         try:
             users = User.objects.all()
             return users
         except ObjectDoesNotExist as e:
-            print(f"Object does not exist error: {e}")
+            logger.error(f"Object does not exist error: {e}")
             return None
         except MultipleObjectsReturned as e:
-            print(f"Multiple objects returned error: {e}")
+            logger.error(f"Multiple objects returned error: {e}")
             return None
         except DatabaseError as e:
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
             return None
         except Exception as e:
-            print(f"General error: {e}")
+            logger.error(f"General error: {e}")
             return None
-        
-    # def user_exists(self, user_id):
-    #     try:
-    #         User.objects.get(id=user_id)
-    #         return True
-    #     except User.DoesNotExist:
-    #         return False
-    #     except Exception as e:
-    #         print(f"General error: {e}")
-    #         return None
         
         
     def get_userId_data(self, data):
@@ -54,16 +47,16 @@ class SubscriptionService:
             subscriptions = Subscription.objects.all()
             return subscriptions
         except ObjectDoesNotExist as e:
-            print(f"Object does not exist error: {e}")
+            logger.error(f"Object does not exist error: {e}")
             return None
         except MultipleObjectsReturned as e:
-            print(f"Multiple objects returned error: {e}")
+            logger.error(f"Multiple objects returned error: {e}")
             return None
         except DatabaseError as e:
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
             return None
         except Exception as e:
-            print(f"General error: {e}")
+            logger.error(f"General error: {e}")
             return None
         
     def get_subscriptionId_data(self, data):
@@ -83,16 +76,16 @@ class NotificationService:
             notifications = Notification.objects.all()
             return notifications
         except ObjectDoesNotExist as e:
-            print(f"Object does not exist error: {e}")
+            logger.error(f"Object does not exist error: {e}")
             return None
         except MultipleObjectsReturned as e:
-            print(f"Multiple objects returned error: {e}")
+            logger.error(f"Multiple objects returned error: {e}")
             return None
         except DatabaseError as e:
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
             return None
         except Exception as e:
-            print(f"General error: {e}")
+            logger.error(f"General error: {e}")
             return None
 
     def get_notification_type_data(self, request):
@@ -100,16 +93,16 @@ class NotificationService:
             notification_types = NotificationType.objects.all()
             return notification_types
         except ObjectDoesNotExist as e:
-            print(f"Object does not exist error: {e}")
+            logger.error(f"Object does not exist error: {e}")
             return None
         except MultipleObjectsReturned as e:
-            print(f"Multiple objects returned error: {e}")
+            logger.error(f"Multiple objects returned error: {e}")
             return None
         except DatabaseError as e:
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
             return None
         except Exception as e:
-            print(f"General error: {e}")
+            logger.error(f"General error: {e}")
             return None
         
     def get_notificationId_data(self, data):
@@ -129,14 +122,14 @@ class SubscriptionPlanService:
             subscription_plans = SubscriptionPlan.objects.all()
             return subscription_plans
         except ObjectDoesNotExist as e:
-            print(f"Object does not exist error: {e}")
+            logger.error(f"Object does not exist error: {e}")
             return None
         except MultipleObjectsReturned as e:
-            print(f"Multiple objects returned error: {e}")
+            logger.error(f"Multiple objects returned error: {e}")
             return None
         except DatabaseError as e:
-            print(f"Database error: {e}")
+            logger.error(f"Database error: {e}")
             return None
         except Exception as e:
-            print(f"General error: {e}")
+            logger.error(f"General error: {e}")
             return None

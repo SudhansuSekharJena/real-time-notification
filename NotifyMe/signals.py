@@ -11,7 +11,7 @@ def send_notification(sender, instance, created, **kwargs):
     channel_layer = get_channel_layer()
     notification_type = instance.notification_type.notification_type
     async_to_sync(channel_layer.group_send)(
-      'notification_broadcast',
+      "Our_clients",
       {
         'type':'send_notification',
         'message': instance.message,

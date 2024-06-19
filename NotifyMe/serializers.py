@@ -1,5 +1,6 @@
 # import serializers from rest_framework
-
+from django.db import IntegrityError
+from rest_framework.exceptions import ValidationError
 from rest_framework import serializers
 from .models.notification import Notification 
 from .models.subscription import Subscription
@@ -18,39 +19,45 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
         depth=1
+        
+    def get_endtime(self, validated_data, start_date):
+      subscription_plan = validated_data.pop('subscription_plan')
+      if subscription_plan.subscription_plan == plans["basic_plan"]:
+          end_date = start_date + timedelta(days=30)
+      elif subscription_plan.subscription_plan == plans["regular_plan"]:
+          end_date = start_date + timedelta(days=3*30)
+      elif subscription_plan.subscription_plan == plans["standard_plan"]:
+          end_date = start_date + timedelta(days=6*30)
+      elif subscription_plan.subscription_plan == plans["premium_plan"]:
+          end_date = start_date + timedelta(days=365)
+      else:
+          end_date = None
+      
+      
+      
     
     # THIS IS HELPING IN CREATING SUBSCRIPTION INSTANCE FROM THE INSIDE OF USER... 
     def create(self, validated_data):
-        subscription_plan = validated_data.pop('subscription_plan')
-        user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
-        
-        start_date = timezone.now()
-        
-        if subscription_plan.subscription_plan == BASIC_PLAN:
-          end_date = start_date + timedelta(days=30)
-        elif subscription_plan.subscription_plan == REGULAR_PLAN:
-          end_date = start_date + timedelta(days=3*30)
-        elif subscription_plan.subscription_plan == STANDARD_PLAN:
-          end_date = start_date + timedelta(days=6*30)
-        elif subscription_plan.subscription_plan == PREMIUM_PLAN:
-          end_date = start_date + timedelta(days=365)
-        else:
-          end_date = None
+      try:
+          subscription_plan = validated_data.pop('subscription_plan')
           
-        
-        
-        # Create a new Subscription
-        Subscription.objects.create(
-            user_id=user,
-            subscription_plan=subscription_plan,
-            start_date=timezone.now(),
-            end_date = end_date
-              
-            
-            
-        )
-        
-        return user
+          user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
+          
+          # Create a new Subscription
+          Subscription.objects.create(
+              user_id=user,
+              subscription_plan=subscription_plan,
+              start_date=timezone.now(),
+              end_date = self.get_endtime(validated_data, start_date=timezone.now())     
+          )
+          
+          return user
+      except IntegrityError as e:
+        error_message = str(e)
+        raise ValidationError(f"IntegrityError: {error_message}")
+      except Exception as e:
+        error_message = str(e)
+        raise ValidationError(f"An error occured: {error_message}")
     
     
     def to_representation(self, instance):

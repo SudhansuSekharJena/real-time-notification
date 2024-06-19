@@ -5,7 +5,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.group_name = "notification_broadcast"
+        self.group_name = "Our_clients"
 
         # Join room group
         await self.channel_layer.group_add(self.group_name, self.channel_name)

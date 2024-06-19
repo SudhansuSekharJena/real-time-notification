@@ -16,28 +16,10 @@ from rest_framework.views import APIView
 from NotifyMe.services.service import *
 from channels.layers import get_channel_layer
 from django.http import HttpResponse
-# logger = logging.getLogger(__name__)
-# logging.basicConfig(level=logging.INFO)
 
 from asgiref.sync import async_to_sync
 logger = logging.getLogger(__name__)
 
-# def index(request):
-#     return render(request, 'index.html', {'room_name': "broadcast"
-        
-#     })
-  
-# test request...  
-# def test(Request):
-#     channel_layer = get_channel_layer()
-#     async_to_sync(channel_layer.group_send)(
-#         "notification_broadcast",
-#         {
-#             'type': 'send_notification',
-#             'message': 'Notification'
-#         }
-#     )
-#     return HttpResponse("Done")
 
 # ---------USER-API---------------- 
 # DONOT CALL MODEL INSIDE VIEW---> ONLY CALL SERVICE AND SERIALIZER
