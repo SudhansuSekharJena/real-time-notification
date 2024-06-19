@@ -1,8 +1,8 @@
 # NotifyMe/constants.py
 
 plans = {
-  "basic_plan":"BASIC",
-  "regular_plan": "REGULAR",
-  "standard_plan": "STANDARD",
-  "premium_plan": "PREMIUM"
+  "BASIC_PLAN":"BASIC",
+  "REGULAR_PLAN": "REGULAR",
+  "STANDARD_PLAN": "STANDARD",
+  "PREMIUM_PLAN": "PREMIUM"
 }

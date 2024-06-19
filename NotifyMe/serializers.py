@@ -1,4 +1,6 @@
 # import serializers from rest_framework
+
+import logging
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
 from rest_framework import serializers
@@ -12,6 +14,7 @@ from datetime import timedelta
 from .models.notificationType import NotificationType
 from .constants import *
 
+logger = logging.getLogger(__name__)
 class UserSerializer(serializers.ModelSerializer):
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
 
@@ -22,13 +25,13 @@ class UserSerializer(serializers.ModelSerializer):
         
     def get_endtime(self, validated_data, start_date):
       subscription_plan = validated_data.pop('subscription_plan')
-      if subscription_plan.subscription_plan == plans["basic_plan"]:
+      if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
           end_date = start_date + timedelta(days=30)
-      elif subscription_plan.subscription_plan == plans["regular_plan"]:
+      elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
           end_date = start_date + timedelta(days=3*30)
-      elif subscription_plan.subscription_plan == plans["standard_plan"]:
+      elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
           end_date = start_date + timedelta(days=6*30)
-      elif subscription_plan.subscription_plan == plans["premium_plan"]:
+      elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
           end_date = start_date + timedelta(days=365)
       else:
           end_date = None
@@ -50,7 +53,7 @@ class UserSerializer(serializers.ModelSerializer):
               start_date=timezone.now(),
               end_date = self.get_endtime(validated_data, start_date=timezone.now())     
           )
-          
+          logger.info(f"User created successfully with ID: {user.id}")
           return user
       except IntegrityError as e:
         error_message = str(e)
