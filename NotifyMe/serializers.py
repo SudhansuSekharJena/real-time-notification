@@ -1,3 +1,4 @@
+import json
 import logging
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -12,41 +13,38 @@ from django.utils import timezone
 from datetime import timedelta
 from .models.notificationType import NotificationType
 from .constants import *
+from NotifyMe.services.service import UserService
 
 logger = logging.getLogger(__name__)
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(UserService, serializers.ModelSerializer):
+    
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
+   
+
+
 
     class Meta:
         model = User
         fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
         depth = 1
-
-    def get_endtime(self, subscription_plan, start_date):
-        if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
-            return start_date + timedelta(days=30)
-        elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
-            return start_date + timedelta(days=3 * 30)
-        elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
-            return start_date + timedelta(days=6 * 30)
-        elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
-            return start_date + timedelta(days=365)
-        else:
-            return None
+        
 
     def create(self, validated_data):
         try:
+            
             subscription_plan = validated_data.pop('subscription_plan')
 
             if subscription_plan is None:
-                raise ValidationError("The 'subscription_plan' field is required.")
+                raise ValidationError("The 'subscription_plan' field is required.") # User: User object (31)
 
             user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
+            
 
             # Create a new Subscription
             start_date = timezone.now()
-            end_date = self.get_endtime(subscription_plan, start_date)
+            end_date = self.get_endtime(subscription_plan
+                                        , start_date)
             if end_date is None:
                 raise ValidationError("Invalid subscription plan")
 
@@ -58,16 +56,6 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
             logger.info(f"User created successfully with ID: {user.id}")
-
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)(
-                "Our_clients",
-                {
-                    "type": "send_notification",
-                    "message": f"New user {user.email_id} created",
-                    "notification_type": "New User"
-                }
-            )
 
             return user
         except IntegrityError as e:
@@ -100,4 +88,10 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Notification
+        fields = '__all__'
+        
+
+class SubscriptionPlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubscriptionPlan
         fields = '__all__'

@@ -8,7 +8,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         self.group_name = "Our_clients"
 
         # Join room group
-        await self.channel_layer.group_add(self.group_name, self.channel_name)
+        await self.channel_layer.group_add(self.group_name, self.channel_name) 
+        # self.channel_layer.group_add() takes self.group_name and self_channel_name as argument
 
         await self.accept()
 
@@ -18,24 +19,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     # Receive message from WebSocket
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json["message"]
-        notification_type = text_data_json['notification_type']
-
-        # Send message to room group
-        if message and notification_type:
-            await self.channel_layer.group_send(
-                self.group_name, {
-                    "type": "send_notification",
-                    "message": message,
-                    "notification_type": notification_type
-                    }
-            )
+        pass
         
-        self.send(text_data=json.dumps({
-            'message': text_data_json['message'],
-            'status': 'Received'
-        }))
 
     # Receive message from room group
     async def send_notification(self, event):
@@ -44,3 +29,12 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({'message':message}))
+        
+    async def subscription_plan_added(self, event):
+        message = event["message"]
+        await self.send(text_data = json.dumps({"message": message}))
+        
+        
+    async def user_added(self, event):
+        message = event["message"]
+        await self.send(text_data=json.dumps({"message":message}))

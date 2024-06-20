@@ -18,7 +18,7 @@ from channels.auth import AuthMiddlewareStack
 from NotifyMe.routing import websocket_urlpatterns
 from channels.sessions import SessionMiddlewareStack
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'NotificationModule.settings')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'NotificationModule.settings')
 django.setup()
 
 application = ProtocolTypeRouter({

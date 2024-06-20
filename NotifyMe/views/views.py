@@ -5,15 +5,13 @@ from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
-from ..serializers import UserSerializer, SubscriptionSerializer, NotificationSerializer
+from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer
 from NotifyMe.models.user import User
-from NotifyMe.models.notification import Notification
-from NotifyMe.models.notificationType import NotificationType
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from rest_framework import status 
 from rest_framework.views import APIView
-from NotifyMe.services.service import *
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
 from channels.layers import get_channel_layer
 from django.http import HttpResponse
 
@@ -39,36 +37,11 @@ import json
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-# HANDLING THE NOTIFICATIONS COMING FROM POSTMAN AND SENDING IT TO FRONTEND
-# class SendNotificationAPI(APIView):
-#     def post(self, request):
-#         try:
-#             message = request.data.get("message")
-#             notification_type = request.data.get("notification_type")
-
-#             if not message or not notification_type:
-#                 return Response(get_response_data(False, "Message and notification type are required"), status=status.HTTP_400_BAD_REQUEST)
-            
-#             # accessing the channel layer to communicate
-#             channel_layer = get_channel_layer()
-#             async_to_sync(channel_layer.group_send)(
-#                 "Our_clients",
-#                 {
-#                     "type": "send_notification",
-#                     "message": message,
-#                     "notification_type": notification_type,
-#                 }
-#             )
-
-#             return Response(get_response_data(True, "Notification sent successfully"), status=status.HTTP_200_OK)
-#         except Exception as e:
-#             logger.error(f"Unexpected error in send_notification: {e}", exc_info=True)
-#             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class UserAPI(APIView):
     
     def __init__(self):
-        self.user_service = UserService()
+        self.user_service = UserService() # instance of UserService class get created here...
         
     def get(self, request):
         try:
@@ -293,117 +266,67 @@ class SubscriptionAPI(APIView):
             logger.error(f"Unexpected error in DELETE /subscriptions: {e}", exc_info=True)
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#---------------NOTIFICATION-API---------------------
-
-class NotificationAPI(APIView):
-    def __init__(self, notification_service: NotificationService):
-        self.notification_service = notification_service
-    
+class SubscriptionPlanAPI(APIView):
+    def __init__(self):
+        self.subscriptionPlan_service = SubscriptionPlanService()
+        
     def get(self, request):
         try:
-            objects = self.notification_service.get_notification_data(request)
-            serializer = NotificationSerializer(objects, many=True)
-            logger.info(f"Retrieved {len(objects)} notifications for user {request.user.id}")
+            logger.info("Fetching Subscription-Plan data")
+            objects = self.subscriptionPlan_service.get_subscriptionPlan_data(request)
+            serializer = SubscriptionPlanSerializer(objects, many=True)
+            logger.info("Successfully fetched SubscriptionPlan data")
             return Response(get_response_data(True, data=serializer.data))
-        except self.notification_service.get_notificationDatabase().DoesNotExist:
-            logger.warning(f"No notifications found for user {request.user.id}")
-            return Response(get_response_data(False, "No notifications found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user.id} to access notifications")
+            logger.warning("Permission denied while fetching Subscription-Plan data")
             return Response(get_response_data(False, "You don't have permission to access this data"), status=status.HTTP_403_FORBIDDEN)
         except Exception as e:
-            logger.error(f"Unexpected error in GET /notifications: {e}", exc_info=True)
+            logger.error(f"Unexpected error occurred while fetching user data: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+        
     def post(self, request):
-        try:
-            serializer = NotificationSerializer(data=request.data)
-            if serializer.is_valid():
-                notification = serializer.save()
-                logger.info(f"Notification {notification.id} created by user {request.user.id}")
-                return Response(get_response_data(True, "Notification added successfully", {"notification_id": notification.id}), status=status.HTTP_201_CREATED)
-            else:
-                logger.warning(f"Invalid notification data submitted by user {request.user.id}: {serializer.errors}")
-                return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except IntegrityError:
-            logger.warning(f"Duplicate notification attempted by user {request.user.id}")
-            return Response(get_response_data(False, "A notification with this information already exists"), status=status.HTTP_409_CONFLICT)
-        except ValidationError as e:
-            logger.warning(f"Validation error for notification by user {request.user.id}: {e}")
-            return Response(get_response_data(False, str(e)), status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Unexpected error in POST /notifications: {e}", exc_info=True)
-            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    def put(self, request):
-        try:
+            logger.info("Creating new Subscription-Plan")
             data = request.data
-            notification = self.notification_service.get_notificationId_data(data)
-            serializer = NotificationSerializer(notification, data=data)
+            serializer = SubscriptionPlanSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-                logger.info(f"Notification {notification.id} updated by user {request.user.id}")
-                return Response(get_response_data(True, "Updated successfully"))
+                logger.info("Subscription-Plan created successfully")
+                return Response(get_response_data(True, "Subscription-Plan added successfully"), status = status.HTTP_201_CREATED)
             else:
-                logger.warning(f"Invalid update data for notification {notification.id} by user {request.user.id}: {serializer.errors}")
+                logger.warning(f"Validation error occurred while creating a Subscription-Plan: {serializer.errors}")
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.notification_service.get_notificationDatabase().DoesNotExist:
-            logger.warning(f"Update attempted on non-existent notification by user {request.user.id}")
-            return Response(get_response_data(False, "Notification not found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user.id} to update notification {data.get('id')}")
-            return Response(get_response_data(False, "You don't have permission to update this notification"), status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            logger.warning(f"Missing 'id' in PUT request data from user {request.user.id}")
-            return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Unexpected error in PUT /notifications: {e}", exc_info=True)
-            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    def patch(self, request):
-        try:
-            data = request.data
-            notification = self.notification_service.get_notificationId_data(data)
-            serializer = NotificationSerializer(notification, data=data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                logger.info(f"Notification {notification.id} patched by user {request.user.id}")
-                return Response(get_response_data(True, "Patched successfully"))
-            else:
-                logger.warning(f"Invalid patch data for notification {notification.id} by user {request.user.id}: {serializer.errors}")
-                return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.notification_service.get_notificationDatabase().DoesNotExist:
-            logger.warning(f"Patch attempted on non-existent notification by user {request.user.id}")
-            return Response(get_response_data(False, "Notification not found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user.id} to patch notification {data.get('id')}")
-            return Response(get_response_data(False, "You don't have permission to update this notification"), status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            logger.warning(f"Missing 'id' in PATCH request data from user {request.user.id}")
-            return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Unexpected error in PATCH /notifications: {e}", exc_info=True)
-            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+            
     def delete(self, request):
         try:
-            data = request.data
-            notification = self.notification_service.get_notificationId_data(data)
-            notification.delete()
-            logger.info(f"Notification {data.get('id')} deleted by user {request.user.id}")
+            logger.info("Deleting a Subscription-Plan")
+            data = request.data # id came in Json--deserialize it
+            subscriptionPlan = self.subscriptionPlan_service.get_subscriptionPlan_id(data)
+            subscriptionPlan.delete()
+            logger.info("Subscription-Plan deleted successfully")
             return Response(get_response_data(True, "Deleted successfully"))
-        except self.notification_service.get_notificationDatabase().DoesNotExist:
-            logger.warning(f"Deletion attempted on non-existent notification by user {request.user.id}")
-            return Response(get_response_data(False, "Notification not found"), status=status.HTTP_404_NOT_FOUND)
+        except self.subscriptionPlan_service.get_subscriptionPlanDatabase().DoesNotExist:
+            logger.warning("Subscription-Plan not found for deletion")
+            return Response(get_response_data(False, "Subscription-Plan not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user.id} to delete notification {data.get('id')}")
-            return Response(get_response_data(False, "You don't have permission to delete this notification"), status=status.HTTP_403_FORBIDDEN)
+            logger.warning("Permission denied while deleting Subscription-Plan data")
+            return Response(get_response_data(False, "You don't have permission to delete this Subscription-Plan"), status=status.HTTP_403_FORBIDDEN)
         except KeyError:
-            logger.warning(f"Missing 'id' in DELETE request data from user {request.user.id}")
+            logger.warning("Missing 'id' in the request data for deletion")
             return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            logger.error(f"Unexpected error in DELETE /notifications: {e}", exc_info=True)
+            logger.error(f"Unexpected error occurred while deleting a Subscription-Plan: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+        
+        
+        
+                
+            
+        
+    
+        
+        
+        
   
   
 

@@ -1,5 +1,7 @@
 
 import logging
+from datetime import timedelta
+from NotifyMe.constants import *
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from NotifyMe.models.notification import Notification
 from NotifyMe.models.notificationType import NotificationType
@@ -38,6 +40,18 @@ class UserService:
     
     def get_subscriptionPlanDatabase(self):
         return SubscriptionPlan
+    
+    def get_endtime(self, subscription_plan, start_date):
+        if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
+            return start_date + timedelta(days=30)
+        elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
+            return start_date + timedelta(days=3 * 30)
+        elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
+            return start_date + timedelta(days=6 * 30)
+        elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
+            return start_date + timedelta(days=365)
+        else:
+            return None
         
         
 
@@ -64,7 +78,7 @@ class SubscriptionService:
         return subscription
     
     
-    def get_subscriptionDatabase(self):
+    def get_subscriptionDatabase(self): # returns dataabse to check is the database exists
         return Subscription
     
     
@@ -117,7 +131,7 @@ class NotificationService:
 
 
 class SubscriptionPlanService:
-    def get_subscription_plan_data(self, request):
+    def get_subscriptionPlan_data(self, request):
         try:
             subscription_plans = SubscriptionPlan.objects.all()
             return subscription_plans
@@ -133,3 +147,13 @@ class SubscriptionPlanService:
         except Exception as e:
             logger.error(f"General error: {e}")
             return None
+        
+        
+    def get_subscriptionPlan_id(self, data):
+        subscriptionPlan = SubscriptionPlan.objects.all(id=data.get('id'))
+        return subscriptionPlan
+    
+    def get_subscriptionPlanDatabase(self):
+        return SubscriptionPlan
+        
+        
