@@ -14,3 +14,11 @@ plans_duration = {
   "STANDARD": 180,
   "PREMIUM": 365
 }
+
+plans_id = {
+  "BASIC": 1,
+  "REGULAR": 2,
+  "STANDARD": 3,
+  "PREMIUM": 4
+}
+

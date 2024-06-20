@@ -1,8 +1,5 @@
 import json
-
 from channels.generic.websocket import AsyncWebsocketConsumer
-
-
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.group_name = "Our_clients"
@@ -29,10 +26,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({'message':message}))
-        
-    async def subscription_plan_added(self, event):
-        message = event["message"]
-        await self.send(text_data = json.dumps({"message": message}))
         
         
     async def user_added(self, event):

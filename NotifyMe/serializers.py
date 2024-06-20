@@ -1,16 +1,15 @@
-import json
+
 import logging
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from rest_framework.exceptions import ValidationError
+from django.db import IntegrityError, DatabaseError
 from rest_framework import serializers
 from .models.notification import Notification 
 from .models.subscription import Subscription
 from .models.subscriptionPlan import SubscriptionPlan
 from .models.user import User
-from django.utils import timezone
-from datetime import timedelta
+
 from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
@@ -34,7 +33,23 @@ class UserSerializer(serializers.ModelSerializer):
         
     # CREATE CLASS CALL...
     def create(self, validated_data):
-        return self.user_service.create_user(validated_data)
+        try:
+            return self.user_service.create_user(validated_data)
+        except IntegrityError as e:
+            error_message = str(e)
+            raise ValidationError(f"IntegrityError: {error_message}")
+        except ObjectDoesNotExist as e:
+            error_message = str(e)
+            raise ValidationError(f"Object does not exist: {error_message}")
+        except DatabaseError as e:
+            error_message = str(e)
+            raise ValidationError(f"Database error: {error_message}")
+        except MultipleObjectsReturned as e:
+            error_message = str(e)
+            raise ValidationError(f"Multiple objects returned: {error_message}")
+        except Exception as e:
+            error_message = str(e)
+            raise ValidationError(f"An unexpected error occurred: {error_message}")
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
