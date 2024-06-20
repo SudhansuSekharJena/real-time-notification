@@ -29,41 +29,9 @@ class UserSerializer(UserService, serializers.ModelSerializer):
         fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
         depth = 1
         
-
+    # CREATE CLASS CALL...
     def create(self, validated_data):
-        try:
-            
-            subscription_plan = validated_data.pop('subscription_plan')
-
-            if subscription_plan is None:
-                raise ValidationError("The 'subscription_plan' field is required.") # User: User object (31)
-
-            user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
-            
-
-            # Create a new Subscription
-            start_date = timezone.now()
-            end_date = self.get_endtime(subscription_plan
-                                        , start_date)
-            if end_date is None:
-                raise ValidationError("Invalid subscription plan")
-
-            Subscription.objects.create(
-                user_id=user,
-                subscription_plan=subscription_plan,
-                start_date=start_date,
-                end_date=end_date    
-            )
-
-            logger.info(f"User created successfully with ID: {user.id}")
-
-            return user
-        except IntegrityError as e:
-            error_message = str(e)
-            raise ValidationError(f"IntegrityError: {error_message}")
-        except Exception as e:
-            error_message = str(e)
-            raise ValidationError(f"An error occurred: {error_message}")
+        return self.create_user(validated_data)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

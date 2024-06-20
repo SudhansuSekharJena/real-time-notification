@@ -6,3 +6,11 @@ plans = {
   "STANDARD_PLAN": "STANDARD",
   "PREMIUM_PLAN": "PREMIUM"
 }
+
+
+plans_duration = {
+  "BASIC": 30,
+  "REGULAR": 90,
+  "STANDARD": 180,
+  "PREMIUM": 365
+}

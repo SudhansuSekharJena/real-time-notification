@@ -11,7 +11,7 @@ from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from rest_framework import status 
 from rest_framework.views import APIView
-from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService, NotificationService
 from channels.layers import get_channel_layer
 from django.http import HttpResponse
 
@@ -38,6 +38,18 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
 
+class NotifySubscriptionEnd(APIView):
+    
+    def __init__(self):
+        self.subscription_service = SubscriptionService()
+        self.user_service = UserService()
+        self.notification_service = NotificationService()
+        
+    # def get(self, request):
+    #     subscriptions = self.subscription_service.get_subscription_data(request)
+    #     for subscription in subscriptions:
+            
+        
 class UserAPI(APIView):
     
     def __init__(self):
