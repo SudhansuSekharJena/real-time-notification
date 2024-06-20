@@ -81,7 +81,7 @@ class UserAPI(APIView):
             else:
                 logger.warning(f"Validation error occurred while creating a user: {serializer.errors}")
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.user_service.get_subscriptionPlanDatabase().DoesNotExist:
+        except self.user_service.get_subscriptionPlanModel().DoesNotExist:
             logger.warning("Invalid subscription plan ID provided")
             return Response(get_response_data(False, "Invalid subscription plan ID"), status=status.HTTP_400_BAD_REQUEST)
         except IntegrityError:
@@ -107,7 +107,7 @@ class UserAPI(APIView):
             else:
                 logger.warning(f"Validation error occurred while updating a user: {serializer.errors}")
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.user_service.get_userDatabase().DoesNotExist:
+        except self.user_service.get_userModel().DoesNotExist:
             logger.warning("User not found for update")
             return Response(get_response_data(False, "User not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -133,7 +133,7 @@ class UserAPI(APIView):
             else:
                 logger.warning(f"Validation error occurred while patching a user: {serializer.errors}")
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.user_service.get_userDatabase().DoesNotExist:
+        except self.user_service.get_userModel().DoesNotExist:
             logger.warning("User not found for patch")
             return Response(get_response_data(False, "User not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -154,7 +154,7 @@ class UserAPI(APIView):
             user.delete()
             logger.info("User deleted successfully")
             return Response(get_response_data(True, "Deleted successfully"))
-        except self.user_service.get_userDatabase().DoesNotExist:
+        except self.user_service.get_userModel().DoesNotExist:
             logger.warning("User not found for deletion")
             return Response(get_response_data(False, "User not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -180,7 +180,7 @@ class SubscriptionAPI(APIView):
             objects = self.subscription_service.get_subscription_data(request)
             serializer = SubscriptionSerializer(objects, many=True)
             return Response(get_response_data(True, data=serializer.data))
-        except self.subscription_service.get_subscriptionDatabase().DoesNotExist:
+        except self.subscription_service.get_subscriptionModel().DoesNotExist:
             logger.warning(f"No subscriptions found for user {request.user}")
             return Response(get_response_data(False, "No subscriptions found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -221,7 +221,7 @@ class SubscriptionAPI(APIView):
                 return Response(get_response_data(True, "Updated successfully"))
             else:
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.subscription_service.get_subscriptionDatabase().DoesNotExist:
+        except self.subscription_service.get_subscriptionModel().DoesNotExist:
             logger.warning(f"Update attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -245,7 +245,7 @@ class SubscriptionAPI(APIView):
                 return Response(get_response_data(True, "Patched successfully"))
             else:
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except self.subscription_service.get_subscriptionDatabase().DoesNotExist:
+        except self.subscription_service.get_subscriptionModel().DoesNotExist:
             logger.warning(f"Patch attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -265,7 +265,7 @@ class SubscriptionAPI(APIView):
             subscription.delete()
             logger.info(f"Subscription {subscription.id} deleted by user {request.user}")
             return Response(get_response_data(True, "Deleted successfully"))
-        except self.subscription_service.get_subscriptionDatabase().DoesNotExist:
+        except self.subscription_service.get_subscriptionModel().DoesNotExist:
             logger.warning(f"Deletion attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -316,7 +316,7 @@ class SubscriptionPlanAPI(APIView):
             subscriptionPlan.delete()
             logger.info("Subscription-Plan deleted successfully")
             return Response(get_response_data(True, "Deleted successfully"))
-        except self.subscriptionPlan_service.get_subscriptionPlanDatabase().DoesNotExist:
+        except self.subscriptionPlan_service.get_subscriptionPlanModel().DoesNotExist:
             logger.warning("Subscription-Plan not found for deletion")
             return Response(get_response_data(False, "Subscription-Plan not found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:

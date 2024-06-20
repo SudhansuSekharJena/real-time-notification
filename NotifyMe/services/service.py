@@ -17,7 +17,7 @@ from django.db import DatabaseError
 logger = logging.getLogger(__name__)
 
 class UserService:
-    def get_user_data(self, request):
+    def get_user_data(self):
         try:
             users = User.objects.all()
             return users
@@ -40,10 +40,10 @@ class UserService:
         return user
     
     
-    def get_userDatabase(self):
+    def get_userModel(self):
         return User
     
-    def get_subscriptionPlanDatabase(self):
+    def get_subscriptionPlanModel(self):
         return SubscriptionPlan
     
     def get_endtime(self, subscription_plan, start_date):
@@ -117,61 +117,31 @@ class SubscriptionService:
             return None
         
     def get_subscriptionId_data(self, data):
-        subscription = Subscription.objects.get(id=data.get('id'))
-        return subscription
+        try:
+            subscription_id = data.get('id')
+            if subscription_id is None:
+                logger.error("No ID provided in the data.")
+                return None
+            
+            subscription = Subscription.objects.get(id=subscription_id)
+            return subscription
+        except ObjectDoesNotExist:
+            logger.error("Subscription with the given ID does not exist.")
+            return None
+        except MultipleObjectsReturned:
+            logger.error("Multiple subscriptions found with the same ID.")
+            return None
+        except DatabaseError as e:
+            logger.error(f"Database error: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {e}")
+            return None
     
     
-    def get_subscriptionDatabase(self): # returns dataabse to check is the database exists
+    def get_subscriptionModel(self): # returns model to check is the model exists
         return Subscription
     
-    
-    
-
-class NotificationService:
-    def get_notification_data(self, request):
-        try:
-            notifications = Notification.objects.all()
-            return notifications
-        except ObjectDoesNotExist as e:
-            logger.error(f"Object does not exist error: {e}")
-            return None
-        except MultipleObjectsReturned as e:
-            logger.error(f"Multiple objects returned error: {e}")
-            return None
-        except DatabaseError as e:
-            logger.error(f"Database error: {e}")
-            return None
-        except Exception as e:
-            logger.error(f"General error: {e}")
-            return None
-
-    def get_notification_type_data(self, request):
-        try:
-            notification_types = NotificationType.objects.all()
-            return notification_types
-        except ObjectDoesNotExist as e:
-            logger.error(f"Object does not exist error: {e}")
-            return None
-        except MultipleObjectsReturned as e:
-            logger.error(f"Multiple objects returned error: {e}")
-            return None
-        except DatabaseError as e:
-            logger.error(f"Database error: {e}")
-            return None
-        except Exception as e:
-            logger.error(f"General error: {e}")
-            return None
-        
-    def get_notificationId_data(self, data):
-        notification = Notification.objects.get(id=data.get('id')) 
-        return notification
-    
-    def get_notificationDatabase(self):
-        return Notification
-    
-    
-    
-
 
 class SubscriptionPlanService:
     def get_subscriptionPlan_data(self, request):
@@ -196,7 +166,7 @@ class SubscriptionPlanService:
         subscriptionPlan = SubscriptionPlan.objects.all(id=data.get('id'))
         return subscriptionPlan
     
-    def get_subscriptionPlanDatabase(self):
+    def get_subscriptionPlanModel(self):
         return SubscriptionPlan
         
         

@@ -17,7 +17,10 @@ from NotifyMe.services.service import UserService
 
 logger = logging.getLogger(__name__)
 
-class UserSerializer(UserService, serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    
+    def __init__(self):
+        self.user_service = UserService()
     
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
    
@@ -31,7 +34,7 @@ class UserSerializer(UserService, serializers.ModelSerializer):
         
     # CREATE CLASS CALL...
     def create(self, validated_data):
-        return self.create_user(validated_data)
+        return self.user_service.create_user(validated_data)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
