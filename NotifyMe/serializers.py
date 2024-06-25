@@ -17,21 +17,17 @@ from NotifyMe.services.service import UserService
 logger = logging.getLogger(__name__)
 
 class UserSerializer(serializers.ModelSerializer):
-    
-    def __init__(self):
-        self.user_service = UserService()
-    
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
-   
-
-
 
     class Meta:
         model = User
         fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
         depth = 1
-        
-    # CREATE CLASS CALL...
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user_service = UserService()
+
     def create(self, validated_data):
         try:
             return self.user_service.create_user(validated_data)

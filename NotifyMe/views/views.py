@@ -69,12 +69,12 @@ class NotifySubscriptionEndAPI(APIView):
 class UserAPI(APIView):
     
     def __init__(self):
-        self.user_service = UserService() # instance of UserService class get created here...
+        self.user_service = UserService()
         
     def get(self, request):
         try:
             logger.info("Fetching user data")
-            objects = self.user_service.get_user_data(request)
+            objects = self.user_service.get_user_data()
             serializer = UserSerializer(objects, many=True)
             logger.info("Successfully fetched user data")
             return Response(get_response_data(True, data=serializer.data))
@@ -181,8 +181,7 @@ class UserAPI(APIView):
             return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Unexpected error occurred while deleting a user: {e}")
-            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
- 
+            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
  
 #----------SUBSCRIPTION-API----------------      
     

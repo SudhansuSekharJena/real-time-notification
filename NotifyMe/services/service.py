@@ -38,7 +38,6 @@ class UserService:
         except Exception as e:
             logger.error(f"General error: {e}")
             return None
-        
 
     def get_userId_data(self, data):
         try:
@@ -53,11 +52,8 @@ class UserService:
         except ValueError as e:
             raise ValueError(str(e))
         except Exception as e:
-            # Log the error here if you have a logging system set up
             raise Exception(f"An error occurred while fetching user data: {str(e)}")
 
-
-    
     def get_endtime(self, subscription_plan, start_date):
         try:
             plan_type = subscription_plan.subscription_plan
@@ -82,23 +78,18 @@ class UserService:
         except Exception as e:
             logging.error(f"An unexpected error occurred: {e}")
         return None
-       
         
     def create_user(self, validated_data):
         try:
-            
             subscription_plan = validated_data.pop('subscription_plan')
 
             if subscription_plan is None:
-                raise ValidationError("The 'subscription_plan' field is required.") # User: User object (31)
+                raise ValidationError("The 'subscription_plan' field is required.")
 
             user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
-            
 
-            # Create a new Subscription
             start_date = timezone.now()
-            end_date = self.get_endtime(subscription_plan
-                                        , start_date)
+            end_date = self.get_endtime(subscription_plan, start_date)
             if end_date is None:
                 raise ValidationError("Invalid subscription plan")
 
@@ -110,7 +101,6 @@ class UserService:
             )
 
             logger.info(f"User created successfully with ID: {user.id}")
-
             return user
         except IntegrityError as e:
             error_message = str(e)
@@ -120,7 +110,6 @@ class UserService:
             error_message = str(e)
             logger.error(f"Unexpected error: {error_message}")
             raise ValidationError(f"An error occurred: {error_message}")
-        
         
 
 class SubscriptionService:
