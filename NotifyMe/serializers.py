@@ -9,7 +9,7 @@ from .models.notification import Notification
 from .models.subscription import Subscription
 from .models.subscriptionPlan import SubscriptionPlan
 from .models.user import User
-
+from .models.maintenanceModel import MaintenanceModel
 from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
@@ -80,4 +80,10 @@ class NotificationSerializer(serializers.ModelSerializer):
 class SubscriptionPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubscriptionPlan
+        fields = '__all__'
+
+
+class MaintenanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaintenanceModel
         fields = '__all__'

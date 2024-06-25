@@ -1,15 +1,21 @@
 import logging
+from django.utils import timezone
+from datetime import timedelta
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer
+from ..serializers import MaintenanceSerializer
 from NotifyMe.models.user import User
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
+from NotifyMe.models.maintenanceModel import MaintenanceModel
+from datetime import datetime
 from rest_framework import status 
 from rest_framework.views import APIView
-from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService, SubscriptionNotificationService, MaintenanceNotificationService
+from NotifyMe.constants import plans, plans_duration, plans_id
 
 
 
@@ -34,8 +40,31 @@ import json
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
+class NotifySubscriptionEndAPI(APIView):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.subscription_notification_service = SubscriptionNotificationService()
 
+    def get(self, request):
+        try:
+            expiration_threshold = timezone.now() + timedelta(days=7)
+            expired_subscriptions = self.subscription_notification_service.get_expiring_subscriptions(expiration_threshold)
             
+            for subscription in expired_subscriptions:
+                try:
+                    self.subscription_notification_service.send_expiration_notification(subscription)
+                except Exception as e:
+                    logger.error(f"Failed to send notification for subscription {subscription.id}: {e}")
+                    continue
+            
+            response_data = get_response_data(success=True, message="Notifications sent")
+            return Response(response_data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            logger.error(f"Failed to check expiring subscriptions: {e}")
+            response_data = get_response_data(success=False, message=str(e))
+            return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                           
         
 class UserAPI(APIView):
     
@@ -158,8 +187,8 @@ class UserAPI(APIView):
 #----------SUBSCRIPTION-API----------------      
     
 class SubscriptionAPI(APIView):
-    def __init__(self, subscription_service: SubscriptionService):
-        self.subscription_service = subscription_service
+    def __init__(self):
+        self.subscription_service = SubscriptionService()
         
 
     def get(self, request):
@@ -167,7 +196,7 @@ class SubscriptionAPI(APIView):
             objects = self.subscription_service.get_subscription_data(request)
             serializer = SubscriptionSerializer(objects, many=True)
             return Response(get_response_data(True, data=serializer.data))
-        except self.subscription_service.get_subscriptionModel().DoesNotExist:
+        except Subscription.DoesNotExist:
             logger.warning(f"No subscriptions found for user {request.user}")
             return Response(get_response_data(False, "No subscriptions found"), status=status.HTTP_404_NOT_FOUND)
         except PermissionDenied:
@@ -318,9 +347,29 @@ class SubscriptionPlanAPI(APIView):
             
         
         
+class MaintenanceNotificationAPI(APIView):
+    def __init__(self):
+        self.maintenance_notification_service = MaintenanceNotificationService()
         
-                
-            
+    def get(self, request):
+        objects = self.maintenance_notification_service.get_maintenance_data()
+        serializer = MaintenanceSerializer(objects, many=True)
+        logger.info("Successfully fetched Maintenance data")
+        return Response(get_response_data(True, data=serializer.data))
+    
+    
+    def post(self, request):
+        logger.info("Creating new Maintenance Notification")
+        data = request.data 
+        serializer = MaintenanceSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            logger.info("Maintenance Alert created Successfully")
+            return Response(get_response_data(True, "Maintenance Alert added successfully"), status=status.HTTP_201_CREATED)
+        else:
+            logger.warning(f"Validation error occurred while creating a maintenance alert: {serializer.errors}")
+            return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+    
         
     
         

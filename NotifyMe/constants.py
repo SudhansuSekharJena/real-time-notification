@@ -16,9 +16,19 @@ plans_duration = {
 }
 
 plans_id = {
-  "BASIC": 1,
-  "REGULAR": 2,
-  "STANDARD": 3,
-  "PREMIUM": 4
+  1: "BASIC",
+  2: "REGULAR",
+  3: "STANDARD",
+  4: "PREMIUM"
+}
+
+notification_type_id={
+  1: "NEW FEATURE ADDED",
+  2: "SESSION STARTED",
+  3:"SESSION ENDED",
+  4:"PRIVATE MESSAGE",
+  5:"MAINTENANCE ALERT",
+  6:"SUBSCRIPTION PLAN UPDATE",
+  7:"GIVE SUGGESTIONS"
 }
 
