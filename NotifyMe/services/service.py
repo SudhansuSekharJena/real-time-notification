@@ -59,16 +59,29 @@ class UserService:
 
     
     def get_endtime(self, subscription_plan, start_date):
-        if subscription_plan.subscription_plan == plans["BASIC_PLAN"]:
-            return start_date + timedelta(days=plans_duration["BASIC"])
-        elif subscription_plan.subscription_plan == plans["REGULAR_PLAN"]:
-            return start_date + timedelta(days=plans_duration["REGULAR"])
-        elif subscription_plan.subscription_plan == plans["STANDARD_PLAN"]:
-            return start_date + timedelta(days=plans_duration["STANDARD"])
-        elif subscription_plan.subscription_plan == plans["PREMIUM_PLAN"]:
-            return start_date + timedelta(days=plans_duration["PREMIUM"])
-        else:
-            return None
+        try:
+            plan_type = subscription_plan.subscription_plan
+            
+            if plan_type == plans["BASIC_PLAN"]:
+                return start_date + timedelta(days=plans_duration["BASIC"])
+            elif plan_type == plans["REGULAR_PLAN"]:
+                return start_date + timedelta(days=plans_duration["REGULAR"])
+            elif plan_type == plans["STANDARD_PLAN"]:
+                return start_date + timedelta(days=plans_duration["STANDARD"])
+            elif plan_type == plans["PREMIUM_PLAN"]:
+                return start_date + timedelta(days=plans_duration["PREMIUM"])
+            else:
+                raise ValueError("Invalid subscription plan")
+        
+        except KeyError as e:
+            logging.error(f"KeyError: {e} - One of the keys was not found in the plans or plans_duration dictionary.")
+        except TypeError as e:
+            logging.error(f"TypeError: {e} - There was an issue with the type of an argument.")
+        except AttributeError as e:
+            logging.error(f"AttributeError: {e} - The subscription_plan object does not have the expected attribute.")
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+        return None
        
         
     def create_user(self, validated_data):
