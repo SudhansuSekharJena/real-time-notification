@@ -29,10 +29,10 @@ class UserService:
             users = User.objects.all()
             return users
         except DatabaseError as e:
-            logger.error(f"Failed to retireve all users due to a database error: {e}", exc_info=True)
+            logger.error(f"Failed to retrieve all users due to a database error: {e}", exc_info=True)
             raise e
         except Exception as e:
-            logger.error(f"General error: {e}", exc_info=True)
+            logger.error(f"An Unexpected error occured while retrieving all users: {e}", exc_info=True)
             raise e 
 
     def get_user_by_id(self, data):
@@ -61,7 +61,7 @@ class UserService:
             logger.error(f"User with id {user_id} does not exist: {e}", exc_info=True)
             raise e
         except Exception as e:
-            logger.error(f"An error occurred while fetching user data: {e}", exc_info=True)
+            logger.error(f"An Unexpected error occurred while fetching user data: {e}", exc_info=True)
             raise e
 
 class UserService:

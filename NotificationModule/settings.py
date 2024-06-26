@@ -37,8 +37,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'daphne',
-    'django_celery_beat',
-    'django_celery_results',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -194,22 +192,3 @@ LOGGING = {
 }
 
 
-# CELERY SETTINGS
-
-# settings.py
-
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'  # Set to your timezone
-
-
-
-CELERY_BEAT_SCHEDULE = {
-    'check-expiring-subscriptions': {
-        'task': 'NotifyMe.tasks.check_expiring_subscriptions',
-        'schedule': crontab(hour=0, minute=0),  # Run daily at midnight
-    },
-}

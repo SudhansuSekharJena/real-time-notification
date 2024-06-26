@@ -32,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
             logger.error(f"IntegrityError creating user: {e}", exc_info=True)
             raise e
         except Exception as e:
-            logger.error(f"Unexpected error while creating user: {e}", exc_info=True)
+            logger.error(f"An Unexpected error while creating user: {e}", exc_info=True)
             raise e
 
     def to_representation(self, instance):
