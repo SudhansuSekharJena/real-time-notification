@@ -30,10 +30,10 @@ class UserService:
             return users
         except DatabaseError as e:
             logger.error(f"Failed to retireve all users due to a database error: {e}")
-            raise
+            raise 
         except Exception as e:
             logger.error(f"General error: {e}")
-            raise ValidationError(f"General error: {e}")
+            raise 
 
     def get_user_by_id(self, data):
         
@@ -61,8 +61,8 @@ class UserService:
             logger.error(f"User with id {user_id} does not exist")
             raise
         except Exception as e:
-            logger.error(f"An error occurred while fetching user data: {str(e)}")
-            raise ValidationError(f"An error occurred while fetching user data: {str(e)}")
+            logger.error(f"An error occurred while fetching user data: {e}")
+            raise
 
 class UserService:
     def get_end_time(self, subscription_plan, start_date):
@@ -93,7 +93,7 @@ class UserService:
             logger.error(f"Duration not found for plan type: {plan_type}")
             raise
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while calculating end date: {str(e)}")
+            logger.error(f"An Unexpected error occurred while calculating end date: {e}")
             raise
         
     def create_user(self, validated_data):
@@ -132,16 +132,14 @@ class UserService:
             logger.info(f"User created successfully with ID: {user.id}")
             return user
         except IntegrityError as e:
-            logger.error(f"IntegrityError while creating user: {str(e)}")
+            logger.error(f"IntegrityError while creating user: {e}")
             raise
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while creating user: {str(e)}")
+            logger.error(f"An Unexpected error occurred while creating user: {e}")
+            raise
         
 
-class SubscriptionService:
-    
-    
-    
+class SubscriptionService: 
     def get_all_subscriptions(self, request):
         
         """
@@ -165,6 +163,7 @@ class SubscriptionService:
             raise
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscriptions: {e}", exc_info=True)
+            raise
         
     def get_subscription_by_id(self, data):
         """
@@ -194,6 +193,7 @@ class SubscriptionService:
             raise
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}: {e}", exc_info=True)
+            raise
         
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
@@ -218,6 +218,7 @@ class SubscriptionPlanService:
             raise
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscription plans: {e}", exc_info=True)
+            raise
         
         
     def get_subscription_plan_by_id(self, data):
@@ -248,6 +249,7 @@ class SubscriptionPlanService:
             raise
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}",exc_info=True)
+            raise
         
 
        
