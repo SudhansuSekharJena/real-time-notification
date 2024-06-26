@@ -1,21 +1,15 @@
 import logging
-from django.utils import timezone
-from datetime import timedelta
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer
-from ..serializers import MaintenanceSerializer
 from NotifyMe.models.user import User
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
-from NotifyMe.models.maintenanceModel import MaintenanceModel
-from datetime import datetime
 from rest_framework import status 
 from rest_framework.views import APIView
-from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService, SubscriptionNotificationService, MaintenanceNotificationService
-from NotifyMe.constants import plans, plans_duration, plans_id
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
 
 
 
@@ -36,45 +30,15 @@ def get_response_data(success, message=None, data=None):
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-import json
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
 
-class NotifySubscriptionEndAPI(APIView):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.subscription_notification_service = SubscriptionNotificationService()
-
-    def get(self, request):
-        try:
-            expiration_threshold = timezone.now() + timedelta(days=7)
-            expired_subscriptions = self.subscription_notification_service.get_expiring_subscriptions(expiration_threshold)
-            
-            for subscription in expired_subscriptions:
-                try:
-                    self.subscription_notification_service.send_expiration_notification(subscription)
-                except Exception as e:
-                    logger.error(f"Failed to send notification for subscription {subscription.id}: {e}")
-                    continue
-            
-            response_data = get_response_data(success=True, message="Notifications sent")
-            return Response(response_data, status=status.HTTP_200_OK)
-        
-        except Exception as e:
-            logger.error(f"Failed to check expiring subscriptions: {e}")
-            response_data = get_response_data(success=False, message=str(e))
-            return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                           
-        
+     
 class UserAPI(APIView):
-    
-    def __init__(self):
-        self.user_service = UserService()
         
     def get(self, request):
+        user_service = UserService()
         try:
             logger.info("Fetching user data")
-            objects = self.user_service.get_user_data()
+            objects = user_service.get_all_users()
             serializer = UserSerializer(objects, many=True)
             logger.info("Successfully fetched user data")
             return Response(get_response_data(True, data=serializer.data))
@@ -111,10 +75,11 @@ class UserAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     def put(self, request):
+        user_service = UserService()
         try:
             logger.info("Updating a user")
             data = request.data
-            user = self.user_service.get_userId_data(data)
+            user = user_service.get_user_by_id(data)
             serializer = UserSerializer(user, data=data)
             if serializer.is_valid():
                 serializer.save()
@@ -137,10 +102,11 @@ class UserAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     def patch(self, request):
+        user_service = UserService()
         try:
             logger.info("Patching a user")
             data = request.data
-            user = self.user_service.get_userId_data(data)
+            user = user_service.get_user_by_id(data)
             serializer = UserSerializer(user, data=data, partial=True)
             if serializer.is_valid():
                 serializer.save()
@@ -163,10 +129,11 @@ class UserAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     def delete(self, request):
+        user_service = UserService()
         try:
             logger.info("Deleting a user")
             data = request.data
-            user = self.user_service.get_userId_data(data)
+            user = user_service.get_user_by_id(data)
             user.delete()
             logger.info("User deleted successfully")
             return Response(get_response_data(True, "Deleted successfully"))
@@ -185,14 +152,12 @@ class UserAPI(APIView):
  
 #----------SUBSCRIPTION-API----------------      
     
-class SubscriptionAPI(APIView):
-    def __init__(self):
-        self.subscription_service = SubscriptionService()
-        
+class SubscriptionAPI(APIView):       
 
     def get(self, request):
+        subscription_service = SubscriptionService()
         try:
-            objects = self.subscription_service.get_subscription_data(request)
+            objects = subscription_service.get_all_subscriptions(request)
             serializer = SubscriptionSerializer(objects, many=True)
             return Response(get_response_data(True, data=serializer.data))
         except Subscription.DoesNotExist:
@@ -226,9 +191,10 @@ class SubscriptionAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self, request):
+        subscription_service = SubscriptionService()
         try:
             data = request.data
-            subscription = self.subscription_service.get_subscriptionId_data(data)
+            subscription = subscription_service.get_subscription_by_id(data)
             serializer = SubscriptionSerializer(subscription, data=data)
             if serializer.is_valid():
                 serializer.save()
@@ -250,9 +216,10 @@ class SubscriptionAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def patch(self, request):
+        subscription_service = SubscriptionService()
         try:
             data = request.data
-            subscription = self.subscription_service.get_subscriptionId_data(data)
+            subscription = subscription_service.get_subscription_by_id(data)
             serializer = SubscriptionSerializer(subscription, data=data, partial=True)
             if serializer.is_valid():
                 serializer.save()
@@ -274,9 +241,10 @@ class SubscriptionAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request):
+        subscription_service = SubscriptionService()
         try:
             data = request.data
-            subscription = self.subscription_service.get_subscriptionId_data(data)
+            subscription = subscription_service.get_subscription_by_id(data)
             subscription.delete()
             logger.info(f"Subscription {subscription.id} deleted by user {request.user}")
             return Response(get_response_data(True, "Deleted successfully"))
@@ -294,13 +262,12 @@ class SubscriptionAPI(APIView):
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class SubscriptionPlanAPI(APIView):
-    def __init__(self):
-        self.subscriptionPlan_service = SubscriptionPlanService()
         
     def get(self, request):
+        subscription_plan_service = SubscriptionPlanService()
         try:
             logger.info("Fetching Subscription-Plan data")
-            objects = self.subscriptionPlan_service.get_subscriptionPlan_data(request)
+            objects = subscription_plan_service.get_all_subscription_plans(request)
             serializer = SubscriptionPlanSerializer(objects, many=True)
             logger.info("Successfully fetched SubscriptionPlan data")
             return Response(get_response_data(True, data=serializer.data))
@@ -324,10 +291,11 @@ class SubscriptionPlanAPI(APIView):
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
             
     def delete(self, request):
+        subscription_plan_service = SubscriptionPlanService()
         try:
             logger.info("Deleting a Subscription-Plan")
             data = request.data # id came in Json--deserialize it
-            subscriptionPlan = self.subscriptionPlan_service.get_subscriptionPlan_id(data)
+            subscriptionPlan = subscription_plan_service.get_subscription_plan_by_id(data)
             subscriptionPlan.delete()
             logger.info("Subscription-Plan deleted successfully")
             return Response(get_response_data(True, "Deleted successfully"))
@@ -343,31 +311,8 @@ class SubscriptionPlanAPI(APIView):
         except Exception as e:
             logger.error(f"Unexpected error occurred while deleting a Subscription-Plan: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
-        
-        
-class MaintenanceNotificationAPI(APIView):
-    def __init__(self):
-        self.maintenance_notification_service = MaintenanceNotificationService()
-        
-    def get(self, request):
-        objects = self.maintenance_notification_service.get_maintenance_data()
-        serializer = MaintenanceSerializer(objects, many=True)
-        logger.info("Successfully fetched Maintenance data")
-        return Response(get_response_data(True, data=serializer.data))
-    
-    
-    def post(self, request):
-        logger.info("Creating new Maintenance Notification")
-        data = request.data 
-        serializer = MaintenanceSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            logger.info("Maintenance Alert created Successfully")
-            return Response(get_response_data(True, "Maintenance Alert added successfully"), status=status.HTTP_201_CREATED)
-        else:
-            logger.warning(f"Validation error occurred while creating a maintenance alert: {serializer.errors}")
-            return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+
+
     
         
     

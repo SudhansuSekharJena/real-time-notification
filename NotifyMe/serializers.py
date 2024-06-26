@@ -1,4 +1,3 @@
-
 import logging
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -9,10 +8,10 @@ from .models.notification import Notification
 from .models.subscription import Subscription
 from .models.subscriptionPlan import SubscriptionPlan
 from .models.user import User
-from .models.maintenanceModel import MaintenanceModel
 from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
+from NotifyMe.constants import NotificationTypeId 
 
 logger = logging.getLogger(__name__)
 
@@ -21,16 +20,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email_id', 'first_name', 'last_name', 'subscription_plan', 'created_at', 'updated_at')
+        fields = '__all__'
         depth = 1
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.user_service = UserService()
-
     def create(self, validated_data):
+        user_service = UserService()
         try:
-            return self.user_service.create_user(validated_data)
+            return user_service.create_user(validated_data)
         except IntegrityError as e:
             error_message = str(e)
             raise ValidationError(f"IntegrityError: {error_message}")
@@ -79,7 +75,5 @@ class SubscriptionPlanSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MaintenanceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MaintenanceModel
-        fields = '__all__'
+
+ 

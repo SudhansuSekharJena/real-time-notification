@@ -1,6 +1,6 @@
 # NotifyMe/constants.py
 
-plans = {
+Plans = {
   "BASIC_PLAN":"BASIC",
   "REGULAR_PLAN": "REGULAR",
   "STANDARD_PLAN": "STANDARD",
@@ -8,21 +8,21 @@ plans = {
 }
 
 
-plans_duration = {
+PlansDuration = {
   "BASIC": 30,
   "REGULAR": 90,
   "STANDARD": 180,
   "PREMIUM": 365
 }
 
-plans_id = {
+PlansId = {
   1: "BASIC",
   2: "REGULAR",
   3: "STANDARD",
   4: "PREMIUM"
 }
 
-notification_type_id={
+NotificationTypeId={
   1: "NEW FEATURE ADDED",
   2: "SESSION STARTED",
   3:"SESSION ENDED",

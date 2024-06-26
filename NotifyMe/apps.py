@@ -1,9 +1,10 @@
 from django.apps import AppConfig
 
 
+
 class NotifymeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'NotifyMe'
     
-    def ready(self):
-        import NotifyMe.signals
+    
+    

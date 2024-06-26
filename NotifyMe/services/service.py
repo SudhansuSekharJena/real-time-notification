@@ -1,87 +1,138 @@
 import logging
 from django.utils import timezone
 from datetime import timedelta
-from django.http import Http404
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
-from NotifyMe.constants import plans, plans_duration, plans_id, notification_type_id
+from NotifyMe.constants import Plans, PlansDuration
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from rest_framework import status 
-from rest_framework.response import Response
-from NotifyMe.models.notification import Notification 
-from NotifyMe.models.maintenanceModel import MaintenanceModel
-from NotifyMe.models.notificationType import NotificationType
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from NotifyMe.models.user import User
 from django.db import DatabaseError
-from NotifyMe.constants import plans_id
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
+
 
 logger = logging.getLogger(__name__)
 
 class UserService:
-    def get_user_data(self):
+    def get_all_users(self):
+        """
+        Get all Users.
+        
+        Returns:
+           QuerySet of all User objects.
+           
+        Raises:
+           ValidationError: If there is an error retrieving the users.
+        
+        """
         try:
             users = User.objects.all()
             return users
         except ObjectDoesNotExist as e:
             logger.error(f"Object does not exist error: {e}")
-            return None
+            raise ValidationError(f"Object does not exist error: {e}")
         except MultipleObjectsReturned as e:
             logger.error(f"Multiple objects returned error: {e}")
-            return None
+            raise ValidationError(f"Multiple objects returned error: {e}")
         except DatabaseError as e:
             logger.error(f"Database error: {e}")
-            return None
+            raise ValidationError(f"Database error: {e}")
         except Exception as e:
             logger.error(f"General error: {e}")
-            return None
+            raise ValidationError(f"General error: {e}")
 
-    def get_userId_data(self, data):
+    def get_user_by_id(self, data):
+        
+        """
+        Retrieve a user by their ID.
+        
+        Args:
+           data(dict): A dictionary containing the user ID
+           
+        Returns:
+            User: The User object with the given ID.
+            
+        Raise:
+            ValidationError: If the user ID is missing or if there is an error retrieving th user.
+        
+        """
         try:
             user_id = data.get('id')
             if user_id is None:
-                raise ValueError("User ID is missing from the data")
+                raise ValidationError("User ID is missing from the data")
             
             user = User.objects.get(id=user_id)
             return user
         except ObjectDoesNotExist:
-            raise Http404(f"User with id {user_id} does not exist")
+            logger.error(f"User with id {user_id} does not exist")
+            raise ValidationError(f"User with id {user_id} does not exist")
         except ValueError as e:
-            raise ValueError(str(e))
+            logger.error(str(e))
+            raise ValidationError(str(e))
         except Exception as e:
-            raise Exception(f"An error occurred while fetching user data: {str(e)}")
+            logger.error(f"An error occurred while fetching user data: {str(e)}")
+            raise ValidationError(f"An error occurred while fetching user data: {str(e)}")
 
-    def get_endtime(self, subscription_plan, start_date):
+    def get_end_time(self, subscription_plan, start_date):
+        """
+        Calculate the end-date of subscription based on its plan.
+        
+        Args:
+          subscription_plan(SubscriptionPlan):  The subscription plan.
+          start_date(datetime): The start date of the subscription.
+          
+        Returns:
+            datetime: The calculated end date of the subscription according to PlanType.
+            
+        Raises:
+            ValidationError: If the subscription plan is invalid or if there are errors in the calculation.
+        
+        """
+        
         try:
             plan_type = subscription_plan.subscription_plan
             
-            if plan_type == plans["BASIC_PLAN"]:
-                return start_date + timedelta(days=plans_duration["BASIC"])
-            elif plan_type == plans["REGULAR_PLAN"]:
-                return start_date + timedelta(days=plans_duration["REGULAR"])
-            elif plan_type == plans["STANDARD_PLAN"]:
-                return start_date + timedelta(days=plans_duration["STANDARD"])
-            elif plan_type == plans["PREMIUM_PLAN"]:
-                return start_date + timedelta(days=plans_duration["PREMIUM"])
+            
+            if plan_type == Plans["BASIC_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["BASIC"])
+            elif plan_type == Plans["REGULAR_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["REGULAR"])
+            elif plan_type == Plans["STANDARD_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["STANDARD"])
+            elif plan_type == Plans["PREMIUM_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["PREMIUM"])
             else:
-                raise ValueError("Invalid subscription plan")
+                raise ValidationError("Invalid subscription plan")
         
         except KeyError as e:
-            logging.error(f"KeyError: {e} - One of the keys was not found in the plans or plans_duration dictionary.")
+            logger.error(f"KeyError: {e} - One of the keys was not found in the plans or plans_duration dictionary.")
+            raise ValidationError(f"KeyError: {e} - One of the keys was not found in the plans or plans_duration dictionary.")
         except TypeError as e:
-            logging.error(f"TypeError: {e} - There was an issue with the type of an argument.")
+            logger.error(f"TypeError: {e} - There was an issue with the type of an argument.")
+            raise ValidationError(f"TypeError: {e} - There was an issue with the type of an argument.")
         except AttributeError as e:
-            logging.error(f"AttributeError: {e} - The subscription_plan object does not have the expected attribute.")
+            logger.error(f"AttributeError: {e} - The subscription_plan object does not have the expected attribute.")
+            raise ValidationError(f"AttributeError: {e} - The subscription_plan object does not have the expected attribute.")
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
-        return None
+            logger.error(f"An unexpected error occurred: {e}")
+            raise ValidationError(f"An unexpected error occurred: {e}")
         
     def create_user(self, validated_data):
+        
+        """
+        Create a new user and their subscription.
+        
+        Args: 
+            validated_data (dict): A dictionary containing the validated user data. Eg: VALIDATED DATA: {'subscription_plan': <SubscriptionPlan: STANDARD>, 'email_id': 'raklt@gmail.com
+            
+        Returns:
+             User: A new created User object.
+             
+        Raises:
+             ValidationError: If there is any error while creating the user or their subscription.
+        """
         try:
-            subscription_plan = validated_data.pop('subscription_plan')
+            subscription_plan = validated_data.pop('subscription_plan')  # contains key:value pair of subscription_plan and its value but its an instance.
 
             if subscription_plan is None:
                 raise ValidationError("The 'subscription_plan' field is required.")
@@ -89,7 +140,7 @@ class UserService:
             user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
 
             start_date = timezone.now()
-            end_date = self.get_endtime(subscription_plan, start_date)
+            end_date = self.get_end_time(subscription_plan, start_date)
             if end_date is None:
                 raise ValidationError("Invalid subscription plan")
 
@@ -113,166 +164,143 @@ class UserService:
         
 
 class SubscriptionService:
-    def get_subscription_data(self, request):
+    
+    
+    """
+    Retrieve all subscriptions from the database.
+    
+    Args: 
+       request(HttpRequest): The request object.
+       
+    Returns:
+        QuerySet: A QuerySet of all Subscription objects.
+        
+    Raises:
+        ValidationError: If there is an error retrieving the subscriptions.
+    
+    """
+    def get_all_subscriptions(self, request):
         try:
             subscriptions = Subscription.objects.all()
-            print(f"Subscription:{subscriptions}")
+            logger.info(f"Retrieved all subscriptions: {subscriptions}")
             return subscriptions
         except ObjectDoesNotExist as e:
             logger.error(f"Object does not exist error: {e}")
-            return None
+            raise e
         except MultipleObjectsReturned as e:
             logger.error(f"Multiple objects returned error: {e}")
-            return None
+            raise e
         except DatabaseError as e:
             logger.error(f"Database error: {e}")
-            return None
+            raise e
         except Exception as e:
             logger.error(f"General error: {e}")
-            return None
+            raise e
         
-    def get_subscriptionId_data(self, data):
+    def get_subscription_by_id(self, data):
+        
+        """
+        Retrieve Subscription by ID
+        
+        Args:
+           data(dict): A dictionary containing Subscription ID.
+           
+        Returns:
+            Subscription: The Subscription object with the given ID.
+            
+        Raises:
+            ValidationError: If Subscription ID is missing or if there is an error retrieving the subscription.
+        
+        """
         try:
             subscription_id = data.get('id')
             if subscription_id is None:
-                logger.error("No ID provided in the data.")
-                return None
+                error_message = "No ID provided in the data."
+                logger.error(error_message)
+                raise ValueError(error_message)
             
             subscription = Subscription.objects.get(id=subscription_id)
+            logger.info(f"Retrieved subscription with ID {subscription_id}: {subscription}")
             return subscription
-        except ObjectDoesNotExist:
-            logger.error("Subscription with the given ID does not exist.")
-            return None
-        except MultipleObjectsReturned:
-            logger.error("Multiple subscriptions found with the same ID.")
-            return None
+        except ObjectDoesNotExist as e:
+            logger.error(f"Subscription with the given ID does not exist: {e}")
+            raise e
+        except MultipleObjectsReturned as e:
+            logger.error(f"Multiple subscriptions found with the same ID: {e}")
+            raise e
         except DatabaseError as e:
             logger.error(f"Database error: {e}")
-            return None
+            raise e
         except Exception as e:
             logger.error(f"An unexpected error occurred: {e}")
-            return None
-    
-    
-
-    
-    
-        
+            raise e     
         
 class SubscriptionPlanService:
-    def get_subscriptionPlan_data(self, request):
+    def get_all_subscription_plans(self, request):
+        """
+        Retrieves all Subscription plans from the database.
+        
+        Args:
+           request(HttpRequest): The request object.
+           
+        Returns:
+           QuerySet: A QuerySet of all SubscriptionPlan objects.
+           
+        Raise: 
+            ValidationError: If there is an error retrieving the subscription plans.
+        
+        """
+        
         try:
             subscription_plans = SubscriptionPlan.objects.all()
+            logger.info(f"Retrieved all subscription plans: {subscription_plans}")
             return subscription_plans
         except ObjectDoesNotExist as e:
             logger.error(f"Object does not exist error: {e}")
-            return None
+            raise e
         except MultipleObjectsReturned as e:
             logger.error(f"Multiple objects returned error: {e}")
-            return None
+            raise e
         except DatabaseError as e:
             logger.error(f"Database error: {e}")
-            return None
+            raise e
         except Exception as e:
             logger.error(f"General error: {e}")
-            return None
+            raise e
         
         
-    def get_subscriptionPlan_id(self, data):
+    def get_subscription_plan_by_id(self, data):
+        """
+        Retrieve a subscription plan by its ID.
+        
+        Args: 
+          data(dict): A dictionary containing the subscription with the given ID.
+          
+        Returns:
+           SubscriptionPlan: A SubscriptionPlan object with the given ID.
+           
+        Raise:
+            ValidationError: If the subscription plan ID is missing or if there is an error retrieving the subscription plan.
+        
+        """
+        
         try:
             plan_id = data.get('id')
             if plan_id is None:
-                raise ValueError("Subscription Plan ID is missing from the data")
+                error_message = "Subscription Plan ID is missing from the data"
+                logger.error(error_message)
+                raise ValueError(error_message)
             
             # Note: Use .get() instead of .all() to retrieve a single object
             subscription_plan = SubscriptionPlan.objects.get(id=plan_id)
+            logger.info(f"Retrieved subscription plan with ID {plan_id}: {subscription_plan}")
             return subscription_plan
         except ObjectDoesNotExist:
-            raise Http404(f"SubscriptionPlan with id {plan_id} does not exist")
+            logger.error(f"SubscriptionPlan with the given ID does not exist: {e}")
+            raise e
         except ValueError as e:
             raise ValueError(str(e))
         except Exception as e:
             # Log the error here if you have a logging system set up
             raise Exception(f"An error occurred while fetching subscription plan data: {str(e)}")
-
-
-class SubscriptionNotificationService:
-    
-    def get_expiring_subscriptions(self, expiration_threshold):
-        try:
-            expired_subscriptions = Subscription.objects.filter(end_date__lte=expiration_threshold, end_date__gt=timezone.now())
-            return expired_subscriptions
-        except Exception as e:
-            logger.error(f"Error fetching expiring subscriptions: {e}", exc_info=True)
-            return []
-
-    def get_recommended_plans(self, subscription_plan_id):
-        try:
-            if subscription_plan_id == 1:
-                return [plans_id.get(1), plans_id.get(2), plans_id.get(3), plans_id.get(4)]
-            elif subscription_plan_id == 2:
-                return [plans_id.get(2), plans_id.get(3), plans_id.get(4)]
-            elif subscription_plan_id == 3:
-                return [plans_id.get(3), plans_id.get(4)]
-            elif subscription_plan_id == 4:
-                return [plans_id.get(4)]
-            else:
-                return None
-        except Exception as e:
-            logger.error(f"Error getting recommended plans for subscription plan id {subscription_plan_id}: {e}", exc_info=True)
-            return None
-
-    def send_expiration_notification(self, subscription):
-        try:
-            subscription_plan_id = subscription.subscription_plan_id
-            days_left = (subscription.end_date - timezone.now()).days
-            recommended_plans = self.get_recommended_plans(subscription_plan_id)
-            
-            if recommended_plans:
-                message = f"Your plan: {plans_id.get(subscription_plan_id)} is going to expire in {days_left} days. We recommend you to upgrade your plan. Plans: {', '.join(recommended_plans)}"
-                
-                try:
-                    notification = Notification(
-                        title="Subscription Upgrade Recommendations",
-                        message=message,
-                        recipient=subscription.user_id.email_id,
-                        notification_type=notification_type_id.get(6)
-                    )
-                    notification.save()
-                    logger.info(f"Upgrade subscription notification sent to {subscription.user_id.email_id}")
-                    
-                    channel_layer = get_channel_layer()
-                    async_to_sync(channel_layer.group_send)(
-                        f"user_{subscription.user_id.id}",
-                        {
-                            "type": "send_expiry_notification",
-                            "message": message,
-                            "notification_type": "SUBSCRIPTION PLAN UPDATE"
-                        }
-                    )
-                    return "Notifications sent successfully"
-                
-                except Exception as e:
-                    logger.error(f"Unexpected error occurred while sending subscription end notifications: {e}", exc_info=True)
-                    return "An unexpected error occurred"
-        
-        except Exception as e:
-            logger.error(f"Error in send_expiration_notification method: {e}", exc_info=True)
-            return "An error occurred while processing the notification"
-
-        
-        
-class MaintenanceNotificationService:
-    
-    def get_maintenance_data(self):
-        try:
-            maintenance = MaintenanceModel.objects.all()
-            return maintenance
-        except Exception as e:
-            logger.error(f"Error fetching maintenance data: {e}", exc_info=True)
-            return None
-    
-
-        
-        
-        
+       
