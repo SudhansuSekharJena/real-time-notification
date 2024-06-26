@@ -1,9 +1,8 @@
 from django.db import models
-from datetime import timedelta
-from NotificationModule.constants import length
+from NotificationModule.constants import Length
 
 class NotificationType(models.Model):
-  notification_type = models.CharField(max_length=length['MAX_TITLE_LENGTH'])
+  notification_type = models.CharField(max_length=Length['MAX_TITLE_LENGTH'])
   
   class Meta:
     db_table='ms_notification_type'

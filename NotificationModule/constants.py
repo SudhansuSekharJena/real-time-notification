@@ -1,4 +1,4 @@
-length = {
+Length = {
 "MAX_TITLE_LENGTH": 60,
 "MESSAGE_MAX_LENGTH": 255
 }
