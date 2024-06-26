@@ -29,11 +29,11 @@ class UserService:
             users = User.objects.all()
             return users
         except DatabaseError as e:
-            logger.error(f"Failed to retireve all users due to a database error: {e}")
-            raise 
+            logger.error(f"Failed to retireve all users due to a database error: {e}", exc_info=True)
+            raise e
         except Exception as e:
-            logger.error(f"General error: {e}")
-            raise 
+            logger.error(f"General error: {e}", exc_info=True)
+            raise e 
 
     def get_user_by_id(self, data):
         
@@ -57,12 +57,12 @@ class UserService:
         
         try:
             return User.objects.get(id=user_id)
-        except ObjectDoesNotExist:
-            logger.error(f"User with id {user_id} does not exist")
-            raise
+        except ObjectDoesNotExist as e:
+            logger.error(f"User with id {user_id} does not exist: {e}", exc_info=True)
+            raise e
         except Exception as e:
-            logger.error(f"An error occurred while fetching user data: {e}")
-            raise
+            logger.error(f"An error occurred while fetching user data: {e}", exc_info=True)
+            raise e
 
 class UserService:
     def get_end_time(self, subscription_plan, start_date):
@@ -80,21 +80,25 @@ class UserService:
             ValueError: If the subscription plan is invalid.
             KeyError: If the plan or duration is not found in the dictionaries.
         """
-        plan_type = subscription_plan.subscription_plan
-        
-        if plan_type not in Plans.values():
-            logger.error(f"Invalid subscription plan: {plan_type}")
-            raise ValueError(f"Invalid subscription plan: {plan_type}")
-        
         try:
-            duration = PlansDuration[plan_type.split('_')[0]]
-            return start_date + timedelta(days=duration)
+            plan_type = subscription_plan.subscription_plan
+
+            if plan_type == Plans["BASIC_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["BASIC"])
+            elif plan_type == Plans["REGULAR_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["REGULAR"])
+            elif plan_type == Plans["STANDARD_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["STANDARD"])
+            elif plan_type == Plans["PREMIUM_PLAN"]:
+                return start_date + timedelta(days=PlansDuration["PREMIUM"])
+            else:
+                raise ValidationError("Invalid subscription plan")
         except KeyError as e:
             logger.error(f"Duration not found for plan type: {plan_type}")
-            raise
+            raise e
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while calculating end date: {e}")
-            raise
+            logger.error(f"An Unexpected error occurred while calculating end date: {e}", exc_info=True)
+            raise e
         
     def create_user(self, validated_data):
         """
@@ -132,11 +136,11 @@ class UserService:
             logger.info(f"User created successfully with ID: {user.id}")
             return user
         except IntegrityError as e:
-            logger.error(f"IntegrityError while creating user: {e}")
-            raise
+            logger.error(f"IntegrityError while creating user: {e}", exc_info=True)
+            raise e
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while creating user: {e}")
-            raise
+            logger.error(f"An Unexpected error occurred while creating user: {e}", exc_info=True)
+            raise e
         
 
 class SubscriptionService: 
@@ -160,10 +164,10 @@ class SubscriptionService:
             return subscriptions
         except DatabaseError as e:
             logger.error(f"Database error while retrieving all subscriptions: {e}", exc_info=True)
-            raise
+            raise e
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscriptions: {e}", exc_info=True)
-            raise
+            raise e
         
     def get_subscription_by_id(self, data):
         """
@@ -188,12 +192,12 @@ class SubscriptionService:
             subscription = Subscription.objects.get(id=subscription_id)
             logger.info(f"Retrieved subscription with ID {subscription_id}")
             return subscription
-        except ObjectDoesNotExist:
-            logger.error(f"Subscription with ID {subscription_id} does not exist")
-            raise
+        except ObjectDoesNotExist as e:
+            logger.error(f"Subscription with ID {subscription_id} does not exist: {e}", exc_info=True)
+            raise e
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}: {e}", exc_info=True)
-            raise
+            raise e
         
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
@@ -215,10 +219,10 @@ class SubscriptionPlanService:
             return subscription_plans
         except DatabaseError as e:
             logger.error(f"Database error while retrieving all subscription plans: {e}", exc_info=True)
-            raise
+            raise e
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscription plans: {e}", exc_info=True)
-            raise
+            raise e
         
         
     def get_subscription_plan_by_id(self, data):
@@ -244,12 +248,12 @@ class SubscriptionPlanService:
             subscription_plan = SubscriptionPlan.objects.get(id=plan_id)
             logger.info(f"Retrieved subscription plan with ID {plan_id}")
             return subscription_plan
-        except ObjectDoesNotExist:
-            logger.error(f"SubscriptionPlan with ID {plan_id} does not exist")
-            raise
+        except ObjectDoesNotExist as e:
+            logger.error(f"SubscriptionPlan with ID {plan_id} does not exist: {e}", exc_info=True)
+            raise e
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}",exc_info=True)
-            raise
+            raise e
         
 
        

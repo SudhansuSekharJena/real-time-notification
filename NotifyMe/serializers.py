@@ -29,11 +29,11 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             return user_service.create_user(validated_data)
         except IntegrityError as e:
-            logger.error(f"IntegrityError creating user: {e}")
-            raise
+            logger.error(f"IntegrityError creating user: {e}", exc_info=True)
+            raise e
         except Exception as e:
-            logger.error(f"Unexpected error while creating user: {e}")
-            raise
+            logger.error(f"Unexpected error while creating user: {e}", exc_info=True)
+            raise e
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
