@@ -64,7 +64,6 @@ class UserService:
             logger.error(f"An Unexpected error occurred while fetching user data: {e}", exc_info=True)
             raise e
 
-class UserService:
     def get_end_time(self, subscription_plan, start_date):
         """
         Calculate the end-date of subscription based on its plan.
