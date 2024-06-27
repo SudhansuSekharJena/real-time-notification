@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 class UserSerializer(serializers.ModelSerializer):
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
+    # SUBSCRIPTION_PLAN: PrimaryKeyRelatedField(queryset=<QuerySet [<SubscriptionPlan: BASIC>, <SubscriptionPlan: REGULAR>, <SubscriptionPlan: STANDARD>, <SubscriptionPlan: PREMIUM>]>)
 
     class Meta:
         model = User
@@ -28,20 +29,11 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             return user_service.create_user(validated_data)
         except IntegrityError as e:
-            error_message = str(e)
-            raise ValidationError(f"IntegrityError: {error_message}")
-        except ObjectDoesNotExist as e:
-            error_message = str(e)
-            raise ValidationError(f"Object does not exist: {error_message}")
-        except DatabaseError as e:
-            error_message = str(e)
-            raise ValidationError(f"Database error: {error_message}")
-        except MultipleObjectsReturned as e:
-            error_message = str(e)
-            raise ValidationError(f"Multiple objects returned: {error_message}")
+            logger.error(f"IntegrityError creating user: {e}", exc_info=True)
+            raise e
         except Exception as e:
-            error_message = str(e)
-            raise ValidationError(f"An unexpected error occurred: {error_message}")
+            logger.error(f"An Unexpected error while creating user: {e}", exc_info=True)
+            raise e
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
