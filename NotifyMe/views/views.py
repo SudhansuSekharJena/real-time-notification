@@ -42,9 +42,9 @@ class UserAPI(APIView):
             serializer = UserSerializer(objects, many=True)
             logger.info("Successfully fetched user data")
             return Response(get_response_data(True, data=serializer.data))
-        except PermissionDenied:
-            logger.warning("Permission denied while fetching user data")
-            return Response(get_response_data(False, "You don't have permission to access this data"), status=status.HTTP_403_FORBIDDEN)
+        except User.DoesNotExist:
+            logger.warning(f"No users found for user ")
+            return Response(get_response_data(False, "No users found"), status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             logger.error(f"Unexpected error occurred while fetching user data: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -163,9 +163,6 @@ class SubscriptionAPI(APIView):
         except Subscription.DoesNotExist:
             logger.warning(f"No subscriptions found for user {request.user}")
             return Response(get_response_data(False, "No subscriptions found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user} while accessing subscriptions")
-            return Response(get_response_data(False, "You don't have permission to access this data"), status=status.HTTP_403_FORBIDDEN)
         except Exception as e:
             logger.error(f"Unexpected error in GET /subscriptions: {e}", exc_info=True)
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -205,12 +202,6 @@ class SubscriptionAPI(APIView):
         except Subscription.DoesNotExist:
             logger.warning(f"Update attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user} while updating subscription")
-            return Response(get_response_data(False, "You don't have permission to update this subscription"), status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            logger.warning("Missing 'id' in the request data for PUT /subscriptions")
-            return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Unexpected error in PUT /subscriptions: {e}", exc_info=True)
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -230,12 +221,6 @@ class SubscriptionAPI(APIView):
         except Subscription.DoesNotExist:
             logger.warning(f"Patch attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user} while patching subscription")
-            return Response(get_response_data(False, "You don't have permission to update this subscription"), status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            logger.warning("Missing 'id' in the request data for PATCH /subscriptions")
-            return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Unexpected error in PATCH /subscriptions: {e}", exc_info=True)
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -251,12 +236,6 @@ class SubscriptionAPI(APIView):
         except Subscription.DoesNotExist:
             logger.warning(f"Deletion attempted on non-existent subscription by user {request.user}")
             return Response(get_response_data(False, "Subscription not found"), status=status.HTTP_404_NOT_FOUND)
-        except PermissionDenied:
-            logger.warning(f"Permission denied for user {request.user} while deleting subscription")
-            return Response(get_response_data(False, "You don't have permission to delete this subscription"), status=status.HTTP_403_FORBIDDEN)
-        except KeyError:
-            logger.warning("Missing 'id' in the request data for DELETE /subscriptions")
-            return Response(get_response_data(False, "Missing 'id' in the request data"), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"Unexpected error in DELETE /subscriptions: {e}", exc_info=True)
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -271,24 +250,31 @@ class SubscriptionPlanAPI(APIView):
             serializer = SubscriptionPlanSerializer(objects, many=True)
             logger.info("Successfully fetched SubscriptionPlan data")
             return Response(get_response_data(True, data=serializer.data))
-        except PermissionDenied:
-            logger.warning("Permission denied while fetching Subscription-Plan data")
-            return Response(get_response_data(False, "You don't have permission to access this data"), status=status.HTTP_403_FORBIDDEN)
+        except SubscriptionPlan.DoesNotExist:
+            logger.warning(f"No subscription plans found")
+            return Response(get_response_data(False, "No subscription plans found"), status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             logger.error(f"Unexpected error occurred while fetching user data: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     def post(self, request):
+        try:
             logger.info("Creating new Subscription-Plan")
             data = request.data
             serializer = SubscriptionPlanSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
                 logger.info("Subscription-Plan created successfully")
-                return Response(get_response_data(True, "Subscription-Plan added successfully"), status = status.HTTP_201_CREATED)
+                return Response(get_response_data(True, "Subscription-Plan added successfully"), status=status.HTTP_201_CREATED)
             else:
                 logger.warning(f"Validation error occurred while creating a Subscription-Plan: {serializer.errors}")
                 return Response(get_response_data(False, data=serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        except IntegrityError as e:
+            logger.warning(f"IntegrityError occurred while creating Subscription-Plan: {e}")
+            return Response(get_response_data(False, "A Subscription-Plan with this information already exists"), status=status.HTTP_409_CONFLICT)
+        except Exception as e:
+            logger.error(f"Unexpected error occurred while creating Subscription-Plan: {e}")
+            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
     def delete(self, request):
         subscription_plan_service = SubscriptionPlanService()
