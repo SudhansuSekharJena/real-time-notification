@@ -11,6 +11,7 @@ from .models.user import User
 from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
+from NotifyMe.utils.websocket_utils import CustomException
 from NotifyMe.constants import NotificationTypeId 
 
 logger = logging.getLogger(__name__)
@@ -30,10 +31,10 @@ class UserSerializer(serializers.ModelSerializer):
             return user_service.create_user(validated_data)
         except IntegrityError as e:
             logger.error(f"IntegrityError creating user: {e}", exc_info=True)
-            raise e
+            raise CustomException.handle_exception(e)
         except Exception as e:
             logger.error(f"An Unexpected error while creating user: {e}", exc_info=True)
-            raise e
+            raise CustomException.handle_exception(e)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
