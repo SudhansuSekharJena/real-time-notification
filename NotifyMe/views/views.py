@@ -10,7 +10,7 @@ from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from rest_framework import status 
 from rest_framework.views import APIView
 from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
-from utils.websocket_utils import CustomException
+from NotifyMe.utils.websocket_utils import CustomException
 
 
 
@@ -42,7 +42,7 @@ class UserAPI(APIView):
             objects = user_service.get_all_users()
             serializer = UserSerializer(objects, many=True)
             logger.info("Successfully fetched user data")
-            return Response(CustomException.handle_api_exception(data=serializer.data))
+            return Response(CustomException.handle_success(data=serializer.data))
         except User.DoesNotExist:
             logger.warning(f"No users found for user ")
             return Response(CustomException.handle_api_exception("No users found"), status=status.HTTP_404_NOT_FOUND)

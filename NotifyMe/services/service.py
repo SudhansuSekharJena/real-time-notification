@@ -114,7 +114,7 @@ class UserService:
              ValueError: If the subscription_plan is missing.
              IntegrityError: If there's a database integrity error.
         """
-        subscription_plan = validated_data.pop('subscription_plan', None)
+        subscription_plan = validated_data.pop('subscription_plan')
 
         if subscription_plan is None:
             logger.error("Attempt to create user without subscription plan")
