@@ -301,11 +301,4 @@ class SubscriptionPlanAPI(APIView):
 
 
     
-        
-    
-        
-        
-        
-  
-  
 
