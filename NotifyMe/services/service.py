@@ -7,6 +7,7 @@ from NotifyMe.constants import Plans, PlansDuration
 from django.core.exceptions import ObjectDoesNotExist
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
+from NotifyMe.models.notification import Notification
 from NotifyMe.models.user import User
 from django.db import DatabaseError
 
@@ -64,7 +65,6 @@ class UserService:
             logger.error(f"An Unexpected error occurred while fetching user data: {e}", exc_info=True)
             raise e
 
-class UserService:
     def get_end_time(self, subscription_plan, start_date):
         """
         Calculate the end-date of subscription based on its plan.
@@ -254,6 +254,38 @@ class SubscriptionPlanService:
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}",exc_info=True)
             raise e
+        
+        
+class NotificationService:
+    
+    def get_all_maintenance_alerts(self):
+        try:
+            maintenance_alerts = Notification.objects.filter(notification_type_id=5)
+            return maintenance_alerts
+        except DatabaseError as e:
+            logger.error(f"Database error while retrieving maintenance alerts: {e}", exc_info=True)
+            raise e
+        except Exception as e:
+            logger.error(f"An unexpected error occurred while retrieving maintenance alerts: {e}", exc_info=True)
+            raise e
+
+    def get_key_by_value(self, dictionary, value):
+        try:
+            for key, val in dictionary.items():
+                if val == value:
+                    return key
+            logger.warning(f"No key found for value '{value}' in the dictionary")
+            return None
+        except AttributeError as e:
+            logger.error(f"AttributeError: The provided argument is not a dictionary or doesn't support .items(): {e}", exc_info=True)
+            raise ValueError("The provided argument must be a dictionary")
+        except TypeError as e:
+            logger.error(f"TypeError: An error occurred while comparing values: {e}", exc_info=True)
+            raise e
+        except Exception as e:
+            logger.error(f"An unexpected error occurred in get_key_by_value: {e}", exc_info=True)
+            raise e
+            
         
 
        

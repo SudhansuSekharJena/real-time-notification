@@ -65,6 +65,16 @@ class SubscriptionPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubscriptionPlan
         fields = '__all__'
+        
+        
+class MaintenanceAlertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
+        
+    
+        
+        
 
 
 

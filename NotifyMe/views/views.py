@@ -4,12 +4,16 @@ from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer
+from ..serializers import MaintenanceAlertSerializer
 from NotifyMe.models.user import User
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
+from NotifyMe.models.notification import Notification
 from rest_framework import status 
+from NotifyMe.constants import NotificationTypeId
 from rest_framework.views import APIView
-from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService, NotificationService
+from NotifyMe.utils.websocket_utils import NotificationManager
 
 
 
@@ -297,6 +301,59 @@ class SubscriptionPlanAPI(APIView):
         except Exception as e:
             logger.error(f"Unexpected error occurred while deleting a Subscription-Plan: {e}")
             return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+class MaintenanceAlertAPI(APIView):
+     
+    def get(self, request):
+        notification_service = NotificationService()
+        try:
+            logger.info("Fetching Maintenance Alerts")
+            objects = notification_service.get_all_maintenance_alerts(request)
+            serilaizer = MaintenanceAlertSerializer(objects, many=True)
+            logger.info("Successfully fetched Maintenance Alerts")
+            return Response(get_response_data(True, data=serilaizer.data))
+        except Notification.DoesNotExist:
+            logger.warning("Maintenance Alerts not found")
+            return Response(get_response_data(False, "No Maintenanca-Alert found"), status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            logger.warning(f"An Unexpected error occured while fetching the maintenance-alerts: {e}")
+            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def post(self, request):
+        notification_manager = NotificationManager()
+        notification_service = NotificationService()
+        
+        logger.info("Creating a New Maintenance Alert Message")
+        message = request.data.get("message")
+        if not message:
+            logger.warning("Message is required to creating a maintenance alert")
+            return Response(get_response_data(False, "Message is required"), status=status.HTTP_400_BAD_REQUEST)
+        try:
+            maintenance_type = notification_service.get_key_by_value(NotificationTypeId, value="MAINTENANCE ALERT")
+            print(f"MaintenanceType: {maintenance_type}")
+            notification = Notification.objects.create(
+                title="Maintenance Alert",
+                message = message,
+                notification_type_id=maintenance_type
+            )
+            
+            message = message
+            group_name = "Our_clients"
+            notification_manager.maintenance_alert(group_name, message)
+            
+            serializer = MaintenanceAlertSerializer(notification)
+            logger.info("Maintenance Alert created successfully")
+            return Response(get_response_data(True, "Maintenance Alert added successfully", data=serializer.data))
+        except Exception as e:
+            logger.warning(f"An error occurred while creating a maintenance alert: {e}")
+            return Response(get_response_data(False, "An unexpected error occurred"), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    
+    # def delete(self, request):
+    #     pass
+        
 
 
     

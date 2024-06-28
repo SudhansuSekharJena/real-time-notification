@@ -1,4 +1,4 @@
-from NotifyMe.views.views import UserAPI, SubscriptionAPI
+from NotifyMe.views.views import UserAPI, SubscriptionAPI, MaintenanceAlertAPI
 from django.contrib import admin
 from django.urls import path
 
@@ -6,4 +6,5 @@ from django.urls import path
 urlpatterns = [
   path("user", UserAPI.as_view()),
   path("subscription", SubscriptionAPI.as_view()),
+  path("maintenance", MaintenanceAlertAPI.as_view())
 ]
