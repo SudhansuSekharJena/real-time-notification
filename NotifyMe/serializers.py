@@ -1,6 +1,5 @@
 import logging
 from django.db import IntegrityError
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from rest_framework.exceptions import ValidationError
 from django.db import IntegrityError, DatabaseError
 from rest_framework import serializers
@@ -11,8 +10,11 @@ from .models.user import User
 from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
-from NotifyMe.utils.websocket_utils import CustomException
-from NotifyMe.constants import NotificationTypeId 
+from NotifyMe.utils.exceptionManager import NotifyMeException
+from NotifyMe.constants import NotificationTypeId
+from NotifyMe.utils.error_codes import ErrorCodes, ErrorCodeMessages 
+from NotifyMe.utils.exceptionManager import NotifyMeException
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -28,13 +30,15 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_service = UserService()
         try:
-            return user_service.create_user(validated_data)
+            return user_service.create_user(validated_data)   
         except IntegrityError as e:
-            logger.error(f"IntegrityError creating user: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[1047], exc_param=str(e), status_code=ErrorCodes["INTEGRITY_ERROR_WHILE_CREATING_USER"])
+            logger.info(f"IntegrityError creating user: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error while creating user: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[1043],data=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_CREATING_USER"])
+            logger.error(f"An Unexpected error while creating user: {e}")
+            raise exception_data
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

@@ -9,7 +9,9 @@ from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from NotifyMe.models.user import User
 from django.db import DatabaseError
-from NotifyMe.utils.websocket_utils import CustomException
+from NotifyMe.utils.exceptionManager import NotifyMeException, NotifyMeException
+from NotifyMe.utils.error_codes import ErrorCodeMessages, ErrorCodes
+import json
 
 
 logger = logging.getLogger(__name__)
@@ -29,12 +31,14 @@ class UserService:
         try:
             users = User.objects.all()
             return users
+        except NotifyMeException as e:
+            raise json.dumps(e, indent=4)
         except DatabaseError as e:
-            logger.error(f"Failed to retrieve all users due to a database error: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(f"Failed to retrieve all users due to a database error: {e}", exc_param=str(e))
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occured while retrieving all users: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(f"An Unexpected error occured while retrieving all users: {e}", exc_param=str(e))
+            raise exception_data
 
     def get_user_by_id(self, data):
         
@@ -59,11 +63,13 @@ class UserService:
         try:
             return User.objects.get(id=user_id)
         except ObjectDoesNotExist as e:
-            logger.error(f"User with id {user_id} does not exist: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[101], exc_param=str(e), status_code=ErrorCodes["USER_NOT_FOUND"])
+            logger.warning(f"User with id {user_id} does not exist: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while fetching user data: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[102], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_USER"])
+            logger.warning(f"An Unexpected error occurred while fetching user data: {e}")
+            raise exception_data
 
     def get_end_time(self, subscription_plan, start_date):
         """
@@ -94,11 +100,11 @@ class UserService:
             else:
                 raise ValidationError("Invalid subscription plan")
         except KeyError as e:
-            logger.error(f"Duration not found for plan type: {plan_type}")
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(f"Duration not found for plan type: {plan_type}", exc_param=str(e))
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while calculating end date: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(f"An Unexpected error occurred while calculating end date: {e}", exc_param=str(e))
+            raise exception_data
         
     def create_user(self, validated_data):
         """
@@ -118,8 +124,8 @@ class UserService:
 
         if subscription_plan is None:
             logger.error("Attempt to create user without subscription plan")
-            raise ValueError("The 'subscription_plan' field is required.")
-
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[148], status_code=ErrorCodes["SUBSCRIPTION_PLAN_FIELD_IS_REQUIRED"])
+            raise exception_data
         try:
             user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
 
@@ -136,11 +142,13 @@ class UserService:
             logger.info(f"User created successfully with ID: {user.id}")
             return user
         except IntegrityError as e:
-            logger.error(f"IntegrityError while creating user: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[108], exc_param=str(e), status_code=ErrorCodes["INVALID_USER_ID_PROVIDED"])
+            logger.warning(f"IntegrityError while creating user: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while creating user: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[143], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_CREATING_USER"])
+            logger.info(f"An Unexpected error occurred while creating user: {e}")
+            raise exception_data
         
 
 class SubscriptionService: 
@@ -163,11 +171,13 @@ class SubscriptionService:
             logger.info(f"Retrieved {subscriptions.count()} subscriptions")
             return subscriptions
         except DatabaseError as e:
-            logger.error(f"Database error while retrieving all subscriptions: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[144], exc_param=str(e), status_code=ErrorCodes["DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS"])
+            logger.info(f"Database error while retrieving all subscriptions: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while retrieving all subscriptions: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[118], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_DATA"])
+            logger.error(f"An Unexpected error occurred while retrieving all subscriptions: {e}")
+            raise exception_data
         
     def get_subscription_by_id(self, data):
         """
@@ -193,11 +203,13 @@ class SubscriptionService:
             logger.info(f"Retrieved subscription with ID {subscription_id}")
             return subscription
         except ObjectDoesNotExist as e:
-            logger.error(f"Subscription with ID {subscription_id} does not exist: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[124], exc_param=str(e), status_code=ErrorCodes["INVALID_SUBSCRIPTION_DATA_ID_PROVIDED"]) 
+            logger.warning(f"Subscription with ID {subscription_id} does not exist: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[118], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_DATA"])
+            logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}: {e}")
+            raise exception_data
         
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
@@ -218,11 +230,13 @@ class SubscriptionPlanService:
             logger.info(f"Retrieved {subscription_plans.count()} subscription plans")
             return subscription_plans
         except DatabaseError as e:
-            logger.error(f"Database error while retrieving all subscription plans: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[145], exc_param=str(e), status_code=ErrorCodes["DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS"])
+            logger.warning(f"Database error while retrieving all subscription plans: {e}")
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while retrieving all subscription plans: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[132], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_PLANS"])
+            logger.error(f"An Unexpected error occurred while retrieving all subscription plans: {e}")
+            raise exception_data
         
         
     def get_subscription_plan_by_id(self, data):
@@ -249,11 +263,12 @@ class SubscriptionPlanService:
             logger.info(f"Retrieved subscription plan with ID {plan_id}")
             return subscription_plan
         except ObjectDoesNotExist as e:
-            logger.error(f"SubscriptionPlan with ID {plan_id} does not exist: {e}", exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(f"SubscriptionPlan with ID {plan_id} does not exist: {e}", exc_param=str(e))
+            raise exception_data
         except Exception as e:
-            logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}",exc_info=True)
-            raise CustomException.handle_exception(e)
+            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[146], exc_param=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_PLAN_BY_ID"])
+            logger.warning(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}")
+            raise exception_data
         
 
        
