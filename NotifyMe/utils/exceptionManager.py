@@ -10,13 +10,11 @@ logger = logging.getLogger(__name__)
 class NotifyMeException(Exception):  # CUSTOM EXCEPTION
     def __init__(self, message, exc_param, status_code):
         self.message = message
-        self.exc_param = str(exc_param)
         self.status_code = status_code
         super().__init__(self.message)
 
         self.return_message = {
             "message": self.message,
-            "exception_parameter": self.exc_param,
             "status": self.status_code
         }
 
@@ -34,7 +32,7 @@ class NotifyMeException(Exception):  # CUSTOM EXCEPTION
             "exception_parameter": exc_param,
             "status": status_code
         }
-        return json.dumps(response_data, indent=4)
+        return Response(response_data)
 
     @staticmethod
     def handle_api_exception(message, exc_param=None, status_code=500):
