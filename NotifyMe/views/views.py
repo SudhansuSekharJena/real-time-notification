@@ -339,6 +339,7 @@ class MaintenanceAlertAPI(APIView):
                 notification_type_id=maintenance_type
             )
             
+            # Websocket connection messaging
             message = message
             group_name = "Our_clients"
             notification_manager.maintenance_alert(group_name, message)
