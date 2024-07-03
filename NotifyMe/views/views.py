@@ -40,7 +40,8 @@ class UserAPI(APIView):
         except NotifyMeException as e:
             return NotifyMeException.handle_api_exception(
                 message=e.message,
-                status_code=e.status_code
+                status_code=e.status_code,
+                exc_param=e.exc_param
             )
         except Exception as e:
             logger.error(f"An Unexpected error occured while fetching users. Error: {e}")
