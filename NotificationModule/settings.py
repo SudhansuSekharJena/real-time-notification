@@ -13,12 +13,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import os
+import logging
+import logging.config
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# LOGS_DIR = os.path.join(BASE_DIR, '../logs')
+
+# if not os.path.exists(LOGS_DIR):
+#     os.makedirs(LOGS_DIR)
+# os.makedirs(LOGS_DIR, exist_ok=True)
+
+
 
 
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -153,7 +166,7 @@ CHANNEL_LAYERS = {
     },
 }
 
-import os
+
 
 # settings.py
 
@@ -171,24 +184,37 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console': {
+        'handlerInfo': {
             'level': 'INFO',  # Set this to a higher level to reduce verbosity
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename' : 'logs/info.log'
+        },
+        'handlerWarning': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': 'logs/warning.log'
+        },
+        'handlerError': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': 'logs/error.log'
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console'],
+        "": {
+            'handlers': ['handlerInfo', 'handlerWarning', 'handlerError'],
             'level': 'INFO',  # Set this to a higher level to reduce verbosity
-            'propagate': True,
-        },
-        'django.server': {
-            'handlers': ['console'],
-            'level': 'ERROR',  # Set this to error to avoid info/debug logs
             'propagate': False,
         },
+
     },
 }
+
+logging.config.dictConfig(LOGGING)
+# level -> DEBUG -> INFO -> WARNING -> ERROR -> CRITICAL
+
 
 

@@ -1,0 +1,7 @@
+ERROR 2024-07-03 19:57:41,700 views An Unexpected error occured while fetching users. Error: name 'objects' is not defined
+ERROR 2024-07-03 19:59:42,427 views An Unexpected error occured while fetching users. Error: name 'objects' is not defined
+ERROR 2024-07-03 19:59:57,771 views An Unexpected error occured while fetching users. Error: name 'objects' is not defined
+ERROR 2024-07-03 20:00:37,805 exceptionManager Success: USER_CREATED_SUCCESSFULLY (status: 104)
+ERROR 2024-07-03 20:00:37,805 exceptionManager RESPONSE_DATA: {'message': 'USER_CREATED_SUCCESSFULLY', 'status': 104}
+ERROR 2024-07-03 20:00:49,657 service Attempt to get user with missing ID
+ERROR 2024-07-03 20:00:49,657 views An unexpected error occured while updating user. Error: User ID is missing from the data

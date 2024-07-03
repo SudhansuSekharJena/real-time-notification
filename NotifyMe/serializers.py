@@ -32,13 +32,10 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             return user_service.create_user(validated_data)   
         except IntegrityError as e:
-            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[1047], exc_param=str(e), status_code=ErrorCodes["INTEGRITY_ERROR_WHILE_CREATING_USER"])
-            logger.info(f"IntegrityError creating user: {e}")
-            raise exception_data
+            raise NotifyMeException(message=ErrorCodeMessages[1047], exc_param=str(e), status_code=ErrorCodes["INTEGRITY_ERROR_WHILE_CREATING_USER"])
         except Exception as e:
-            exception_data = NotifyMeException.handle_exception(message=ErrorCodeMessages[1043],data=str(e), status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_CREATING_USER"])
             logger.error(f"An Unexpected error while creating user: {e}")
-            raise exception_data
+            raise json.dumps(e)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
