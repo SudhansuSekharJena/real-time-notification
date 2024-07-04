@@ -5,3 +5,33 @@ ERROR 2024-07-03 20:00:37,805 exceptionManager Success: USER_CREATED_SUCCESSFULL
 ERROR 2024-07-03 20:00:37,805 exceptionManager RESPONSE_DATA: {'message': 'USER_CREATED_SUCCESSFULLY', 'status': 104}
 ERROR 2024-07-03 20:00:49,657 service Attempt to get user with missing ID
 ERROR 2024-07-03 20:00:49,657 views An unexpected error occured while updating user. Error: User ID is missing from the data
+WARNING 2024-07-04 13:00:59,200 log Not Found: /
+WARNING 2024-07-04 13:00:59,202 runserver [33mHTTP GET / 404 [0.19, 127.0.0.1:50939][0m
+WARNING 2024-07-04 13:00:59,438 log Not Found: /favicon.ico
+WARNING 2024-07-04 13:00:59,439 runserver [33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:50939][0m
+WARNING 2024-07-04 13:01:13,621 log Not Found: /static/rest_framework/css/bootstrap.min.css
+WARNING 2024-07-04 13:01:13,622 log Not Found: /static/rest_framework/css/prettify.css
+WARNING 2024-07-04 13:01:13,623 log Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+WARNING 2024-07-04 13:01:13,624 runserver [33mHTTP GET /static/rest_framework/css/bootstrap.min.css 404 [0.11, 127.0.0.1:51034][0m
+WARNING 2024-07-04 13:01:13,626 runserver [33mHTTP GET /static/rest_framework/css/prettify.css 404 [0.10, 127.0.0.1:51040][0m
+WARNING 2024-07-04 13:01:13,628 runserver [33mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 404 [0.11, 127.0.0.1:51038][0m
+WARNING 2024-07-04 13:01:13,630 log Not Found: /static/rest_framework/js/ajax-form.js
+WARNING 2024-07-04 13:01:13,636 log Not Found: /static/rest_framework/css/default.css
+WARNING 2024-07-04 13:01:13,640 runserver [33mHTTP GET /static/rest_framework/js/ajax-form.js 404 [0.11, 127.0.0.1:51042][0m
+WARNING 2024-07-04 13:01:13,642 runserver [33mHTTP GET /static/rest_framework/css/default.css 404 [0.12, 127.0.0.1:51039][0m
+WARNING 2024-07-04 13:01:13,643 log Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+WARNING 2024-07-04 13:01:13,650 runserver [33mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 404 [0.12, 127.0.0.1:51041][0m
+WARNING 2024-07-04 13:01:13,760 log Not Found: /static/rest_framework/js/prettify-min.js
+WARNING 2024-07-04 13:01:13,760 log Not Found: /static/rest_framework/js/bootstrap.min.js
+WARNING 2024-07-04 13:01:13,760 log Not Found: /static/rest_framework/js/csrf.js
+WARNING 2024-07-04 13:01:13,761 log Not Found: /static/rest_framework/js/default.js
+WARNING 2024-07-04 13:01:13,763 runserver [33mHTTP GET /static/rest_framework/js/prettify-min.js 404 [0.12, 127.0.0.1:51038][0m
+WARNING 2024-07-04 13:01:13,766 runserver [33mHTTP GET /static/rest_framework/js/bootstrap.min.js 404 [0.13, 127.0.0.1:51040][0m
+WARNING 2024-07-04 13:01:13,767 log Not Found: /static/rest_framework/js/load-ajax-form.js
+WARNING 2024-07-04 13:01:13,768 runserver [33mHTTP GET /static/rest_framework/js/csrf.js 404 [0.14, 127.0.0.1:51034][0m
+WARNING 2024-07-04 13:01:13,770 runserver [33mHTTP GET /static/rest_framework/js/default.js 404 [0.12, 127.0.0.1:51042][0m
+WARNING 2024-07-04 13:01:13,774 runserver [33mHTTP GET /static/rest_framework/js/load-ajax-form.js 404 [0.11, 127.0.0.1:51039][0m
+ERROR 2024-07-04 13:01:39,458 exceptionManager API Exception: Validation error while creating user (status: 103)
+ERROR 2024-07-04 13:01:39,459 exceptionManager RESPONSE_DATA: {'message': 'Validation error while creating user', 'status': 103, 'exc_param': {'email_id': [ErrorDetail(string='user with this email id already exists.', code='unique')]}}
+ERROR 2024-07-04 13:01:51,931 exceptionManager API Exception: Validation error while creating user (status: 103)
+ERROR 2024-07-04 13:01:51,931 exceptionManager RESPONSE_DATA: {'message': 'Validation error while creating user', 'status': 103, 'exc_param': {'subscription_plan': [ErrorDetail(string='This field is required.', code='required')], 'email_id': [ErrorDetail(string='This field is required.', code='required')], 'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}}

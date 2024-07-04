@@ -4,14 +4,11 @@ from datetime import timedelta
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError
 from NotifyMe.constants import Plans, PlansDuration
-from django.core.exceptions import ObjectDoesNotExist
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
 from NotifyMe.models.user import User
-from django.db import DatabaseError
 from NotifyMe.utils.exceptionManager import NotifyMeException, NotifyMeException
 from NotifyMe.utils.error_codes import ErrorCodeMessages, ErrorCodes
-import json
 
 
 logger = logging.getLogger(__name__)
@@ -33,12 +30,12 @@ class UserService:
             return users
         except User.DoesNotExist as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages[153],
+                message=ErrorCodeMessages.HTTP_153_DATABASE_ERROR_WHILE_FETCHING_USERS,
                 exc_param=str(e),
-                status_code=ErrorCodes["DATABASE_ERROR_WHILE_FETCHING_USERS"])
+                status_code=ErrorCodes.HTTP_153_DATABASE_ERROR)
         except Exception as e:
             logger.error(f"An Unexpected error occured while fetching User from Database. Error: {e}")
-            raise json.dumps(e)
+            raise e
             
     def get_user_by_id(self, data):
         
@@ -63,10 +60,10 @@ class UserService:
         try:
             return User.objects.get(id=user_id)
         except User.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages[101], exc_param=str(e), status_code=ErrorCodes["USER_NOT_FOUND"])
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_101_USER_NOT_FOUND, exc_param=str(e), status_code=ErrorCodes.HTTP_101_USER_NOT_FOUND)
         except Exception as e:
             logger.warning(f"An Unexpected error occurred while fetching user data: {e}")
-            raise json.dumps(e)
+            raise e
 
     def get_end_time(self, subscription_plan, start_date):
         """
@@ -98,10 +95,10 @@ class UserService:
                 raise ValidationError("Invalid subscription plan")
         except KeyError as e:
             logger.error(f"Duration not found for plan type: {plan_type}")
-            raise NotifyMeException(message=ErrorCodeMessages[154], status_code=ErrorCodes["DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE"], exc_param=str(e))
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE, status_code=ErrorCodes.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE, exc_param=str(e))
         except Exception as e:
             logger.error(f"An Unexpected error occurred while calculating end date: {e}")
-            raise json.dumps(e)
+            raise e
         
     def create_user(self, validated_data):
         """
@@ -121,7 +118,7 @@ class UserService:
 
         if subscription_plan is None:
             logger.error("Attempt to create user without subscription plan")
-            raise NotifyMeException(message=ErrorCodeMessages[148], status_code=ErrorCodes["SUBSCRIPTION_PLAN_FIELD_IS_REQUIRED"])
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_148_SUBSCRIPTION_PLAN_FIELD_IS_REQUIRED, status_code=ErrorCodes.HTTP_148_SUBSCRIPTION_PLAN_FIELD_IS_REQUIRED)
         try:
             user = User.objects.create(subscription_plan=subscription_plan, **validated_data)
 
@@ -138,14 +135,14 @@ class UserService:
             logger.info(f"User created successfully with ID: {user.id}")
             return user
         except User.DoesNotExist:
-            return NotifyMeException.handle_exception(message=ErrorCodeMessages[102], status_code=ErrorCodes["UNEXPECTED_ERROR_WHILE_FETCHING_USER"])
+            return NotifyMeException.handle_exception(message=ErrorCodeMessages.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER, status_code=ErrorCodes.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER)
         except SubscriptionPlan.DoesNotExist:
-            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages[105], status_code=ErrorCodes["INVALID_SUBSCRIPTION_ID_PROVIDED"])
+            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED, status_code=ErrorCodes.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED)
         except IntegrityError as e:
             raise NotifyMeException(message=ErrorCodeMessages[108], exc_param=str(e), status_code=ErrorCodes["INVALID_USER_ID_PROVIDED"])
         except Exception as e:
             logger.warning(f"An Unexpected error occurred while creating user: {e}")
-            raise json.dumps(e)
+            raise e
         
 
 class SubscriptionService: 
@@ -168,10 +165,10 @@ class SubscriptionService:
             logger.info(f"Retrieved {subscriptions.count()} subscriptions")
             return subscriptions
         except Subscription.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages[144], exc_param=str(e), status_code=ErrorCodes["DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS"])
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS, exc_param=str(e), status_code=ErrorCodes.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscriptions: {e}")
-            raise json.dumps(e)
+            raise e
         
     def get_subscription_by_id(self, data):
         """
@@ -197,10 +194,10 @@ class SubscriptionService:
             logger.info(f"Retrieved subscription with ID {subscription_id}")
             return subscription
         except Subscription.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages[124], exc_param=str(e), status_code=ErrorCodes["INVALID_SUBSCRIPTION_DATA_ID_PROVIDED"]) 
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_124_INVALID_SUBSCRIPTION_DATA_ID_PROVIDED, exc_param=str(e), status_code=ErrorCodes.HTTP_124_INVALID_SUBSCRIPTION_DATA_ID_PROVIDED) 
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}: {e}")
-            raise json.dumps(e)
+            raise e
         
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
@@ -221,10 +218,10 @@ class SubscriptionPlanService:
             logger.info(f"Retrieved {subscription_plans.count()} subscription plans")
             return subscription_plans
         except SubscriptionPlan.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages[145], exc_param=str(e), status_code=ErrorCodes["DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS"])
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS, exc_param=str(e), status_code=ErrorCodes.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscription plans: {e}")
-            raise json.dumps(e)
+            raise e
         
         
     def get_subscription_plan_by_id(self, data):
@@ -254,7 +251,7 @@ class SubscriptionPlanService:
             raise NotifyMeException(f"SubscriptionPlan with ID {plan_id} does not exist: {e}", exc_param=str(e))
         except Exception as e:
             logger.warning(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}")
-            raise json.dumps(e)
+            raise e
         
 
        

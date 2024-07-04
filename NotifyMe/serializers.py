@@ -1,7 +1,7 @@
 import logging
 from django.db import IntegrityError
-from rest_framework.exceptions import ValidationError
-from django.db import IntegrityError, DatabaseError
+
+from django.db import IntegrityError
 from rest_framework import serializers
 from .models.notification import Notification 
 from .models.subscription import Subscription
@@ -11,10 +11,8 @@ from .models.notificationType import NotificationType
 from .constants import *
 from NotifyMe.services.service import UserService
 from NotifyMe.utils.exceptionManager import NotifyMeException
-from NotifyMe.constants import NotificationTypeId
 from NotifyMe.utils.error_codes import ErrorCodes, ErrorCodeMessages 
 from NotifyMe.utils.exceptionManager import NotifyMeException
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -32,10 +30,10 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             return user_service.create_user(validated_data)   
         except IntegrityError as e:
-            raise NotifyMeException(message=ErrorCodeMessages[1047], exc_param=str(e), status_code=ErrorCodes["INTEGRITY_ERROR_WHILE_CREATING_USER"])
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER, exc_param=str(e), status_code=ErrorCodes.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER)
         except Exception as e:
             logger.error(f"An Unexpected error while creating user: {e}")
-            raise json.dumps(e)
+            raise e
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
