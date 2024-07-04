@@ -18,8 +18,6 @@ logger = logging.getLogger(__name__)
 
 class UserSerializer(serializers.ModelSerializer):
     subscription_plan = serializers.PrimaryKeyRelatedField(queryset=SubscriptionPlan.objects.all())
-    # SUBSCRIPTION_PLAN: PrimaryKeyRelatedField(queryset=<QuerySet [<SubscriptionPlan: BASIC>, <SubscriptionPlan: REGULAR>, <SubscriptionPlan: STANDARD>, <SubscriptionPlan: PREMIUM>]>)
-
     class Meta:
         model = User
         fields = '__all__'
