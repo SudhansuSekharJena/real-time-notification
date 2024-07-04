@@ -14,3 +14,14 @@ api/__pycache__/urls.cpython-312.pyc
 NotificationModule/__init__.py
 NotificationModule/celery.py
 NotificationModule/constants.py
+log/warning.log
+.env
+NotificationModule/__pycache__/celery.cpython-312.pyc
+
+C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\logs
+
+C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\logs\error.log
+
+C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\logs\info.log
+
+C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\logs\warning.log
