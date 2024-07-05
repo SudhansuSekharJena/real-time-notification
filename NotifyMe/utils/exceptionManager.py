@@ -26,15 +26,28 @@ class NotifyMeException(Exception):  # CUSTOM EXCEPTION
         return self.return_message
 
     @staticmethod
-    def handle_api_exception(message, status_code):
+    def handle_api_exception(message, status_code, e=None):
         """ 
         To handle exception handling in views
         """
+        logger.error(f"MESSAGE: {message}, STATUS: {status_code}, ERROR: {e}")
+        
         response_data = {
             "message": message,
             "status": status_code
+        }  
+        return Response(response_data)
+    
+    def handle_exception(mesage, status_code):
+        """
+        To handle exception handling in serializers and servies
+        """
+        
+        response_data = {
+            "message": mesage,
+            "status": status_code
         }
-            
+        
         return Response(response_data)
 
     @staticmethod

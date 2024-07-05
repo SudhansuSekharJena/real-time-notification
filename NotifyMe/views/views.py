@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
 from NotifyMe.utils.exceptionManager import NotifyMeException, NotifyMeException, NotifyMeException
 from NotifyMe.utils.error_codes import ErrorCodes, ErrorCodeMessages
+from NotifyMe.utils.error_codes import SuccessCodes, SuccessCodeMessages
 from rest_framework import status
 
 
@@ -34,12 +35,12 @@ class UserAPI(APIView):
             objects = user_service.get_all_users()
             serializer = UserSerializer(objects, many=True)
             return NotifyMeException.handle_success(
-                message=ErrorCodeMessages.HTTP_100_USER_FETCHED_SUCCESSFULLY,
+                message=SuccessCodeMessages.HTTP_100_USER_FETCHED_SUCCESSFULLY.value,
                 data=serializer.data,
                 status_code=status.HTTP_200_OK
             )
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(
+            return NotifyMeException.handle_exception(
                 message=e.message,
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
@@ -55,17 +56,15 @@ class UserAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 logger.info("User created successfully")
-                return NotifyMeException.handle_success(message=ErrorCodeMessages.HTTP_104_USER_CREATED_SUCCESSFULLY, status_code=status.HTTP_201_CREATED)
+                return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_104_USER_CREATED_SUCCESSFULLY.value, status_code=status.HTTP_201_CREATED)
             else:
-                return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER,  status_code=status.HTTP_400_BAD_REQUEST)
+                raise ValidationError
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except IntegrityError as e:
-            logger.error(f"MESSAGE:{ErrorCodeMessages.HTTP_106_USER_ALREADY_EXISTS}, ERROR:{e}, STATUS: {ErrorCodes.HTTP_106_USER_ALREADY_EXISTS})")
-            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_106_USER_ALREADY_EXISTS, status_code=status.HTTP_409_CONFLICT) 
+            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_106_USER_ALREADY_EXISTS.value, status_code=status.HTTP_409_CONFLICT, e=e) 
         except ValidationError as e:
-            logger.error(f"MESSAGE:{ErrorCodeMessages.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER}, ERROR:{e}, STATUS: {ErrorCodes.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER})")
-            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER, status_code=status.HTTP_400_BAD_REQUEST) 
+            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER.value, status_code=status.HTTP_400_BAD_REQUEST) 
         except Exception as e:
             logger.error(f"An Unexpected error occured while posting new user in the database. ERROR: {e}")
             return Response(f"AN UNEXPECTED ERROR OCCURED WHILE POSTING NEW USER IN THE DATABASE. ERROR:{e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -79,11 +78,13 @@ class UserAPI(APIView):
             serializer = UserSerializer(user, data=data)
             if serializer.is_valid():
                 serializer.save()
-                return NotifyMeException.handle_success(message=ErrorCodeMessages.HTTP_107_USER_UPDATED_SUCCESSFULLY, status_code=status.HTTP_200_OK)
+                return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_107_USER_UPDATED_SUCCESSFULLY.value, status_code=status.HTTP_200_OK)
             else:
-                return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER,  status_code=status.HTTP_400_BAD_REQUEST) 
+                raise ValidationError
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except ValidationError as e:
+            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER.value,  status_code=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.error(f"An unexpected error occured while updating user. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_OCCURED_WHILE_UPDATING_USER. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -97,12 +98,13 @@ class UserAPI(APIView):
             serializer = UserSerializer(user, data=data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return NotifyMeException.handle_success(message=ErrorCodeMessages.HTTP_107_USER_UPDATED_SUCCESSFULLY, status_code=status.HTTP_200_OK)
+                return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_107_USER_UPDATED_SUCCESSFULLY.value, status_code=status.HTTP_200_OK)
             else:
-                logger.error(f"MESSAGE: {ErrorCodeMessages.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER}, STATUS: {ErrorCodes.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER}")
-                return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER,  status=status.HTTP_400_BAD_REQUEST)
+                raise ValidationError            
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)    
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)   
+        except ValidationError as e:
+            return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER.value,  status=status.HTTP_400_BAD_REQUEST, e=e)
         except Exception as e:
             logger.error(f"Un-expected error occured while updating user. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_OCCURED_WHILE_UPDATING_USER. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -115,9 +117,9 @@ class UserAPI(APIView):
             data = request.data
             user = user_service.get_user_by_id(data)
             user.delete()
-            return NotifyMeException.handle_success(message=ErrorCodeMessages.HTTP_113_USER_DELETED_SUCCESSFULLY, status_code=status.HTTP_204_NO_CONTENT)      
+            return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_113_USER_DELETED_SUCCESSFULLY.value, status_code=status.HTTP_204_NO_CONTENT)      
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error occured while deleting user. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_OCCURED_WHILE_DELETING_USER. ERROR: {e}",status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -133,9 +135,9 @@ class SubscriptionAPI(APIView):
             objects = subscription_service.get_all_subscriptions(request)
             serializer = SubscriptionSerializer(objects, many=True)
             return NotifyMeException.handle_success(
-                message=ErrorCodeMessages.HTTP_116_SUBSCRIPTION_DATA_FETCHED_SUCCESSFULLY, data=serializer.data, status_code=status.HTTP_200_OK)
+                message=SuccessCodeMessages.HTTP_116_SUBSCRIPTION_DATA_FETCHED_SUCCESSFULLY.value, data=serializer.data, status_code=status.HTTP_200_OK)
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"An unexpected error occured while fetching Subscription. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_DATA. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -149,20 +151,17 @@ class SubscriptionAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return NotifyMeException.handle_success(
-                    message=ErrorCodeMessages.HTTP_119_SUBSCRIPTION_DATA_CREATED_SUCCESSFULLY, status_code=status.HTTP_201_CREATED)
+                    message=SuccessCodeMessages.HTTP_119_SUBSCRIPTION_DATA_CREATED_SUCCESSFULLY.value, status_code=status.HTTP_201_CREATED)
             else:
-                return NotifyMeException.handle_api_exception(
-                    message=ErrorCodeMessages.HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA, status_code=status.HTTP_400_BAD_REQUEST)       
+                raise ValidationError       
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except IntegrityError as e:
-            logger.error(f"MESSAGE: {ErrorCodeMessages.HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS}, ERROR: {e}, STATUS: {ErrorCodes.HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS}")
             return NotifyMeException.handle_api_exception(
-                message=ErrorCodeMessages.HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS, status_code=status.HTTP_409_CONFLICT)
+                message=ErrorCodeMessages.HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS.value, status_code=status.HTTP_409_CONFLICT, e=e)
         except ValidationError as e:
-            logger.error(f"MESSAGE: {ErrorCodeMessages.HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA}, ERROR: {e}, STATUS: {ErrorCodes.HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA}")
             return NotifyMeException.handle_api_exception(
-                message=ErrorCodeMessages.HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA,  status_code=status.HTTP_400_BAD_REQUEST)
+                message=ErrorCodeMessages.HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA.value,  status_code=status.HTTP_400_BAD_REQUEST, e=e)
         except Exception as e:
             logger.error(f"Unexpected error while creating Subscription data. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -177,15 +176,13 @@ class SubscriptionAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return NotifyMeException.handle_success(
-                    message=ErrorCodeMessages.HTTP_123_SUBSCRIPTION_DATA_UPDATED_SUCCESSFULLY,
+                    message=SuccessCodeMessages.HTTP_123_SUBSCRIPTION_DATA_UPDATED_SUCCESSFULLY.value,
                     status_code=status.HTTP_200_OK)
             else:
-                return NotifyMeException.handle_api_exception(
-                    message=ErrorCodeMessages.HTTP_125_VALIDATION_ERROR_WHILE_UPDATING_SUBSCRIPTION_DATA,
-                    status_code=status.HTTP_400_BAD_REQUEST)
+                return ValidationError
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message,
-                                                        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected Error occured while updating Subscription data. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_UPDATING_SUBSCRIPTION_DATA. ERROR: {e}",  status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -199,19 +196,17 @@ class SubscriptionAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return NotifyMeException.handle_success(
-                    message=ErrorCodeMessages.HTTP_123_SUBSCRIPTION_DATA_UPDATED_SUCCESSFULLY,
+                    message=SuccessCodeMessages.HTTP_123_SUBSCRIPTION_DATA_UPDATED_SUCCESSFULLY.value,
                     status_code=status.HTTP_200_OK)
             else:
-                return NotifyMeException.handle_api_exception(
-                    message=ErrorCodeMessages.HTTP_125_VALIDATION_ERROR_WHILE_UPDATING_SUBSCRIPTION_DATA,
-                    status_code=status.HTTP_400_BAD_REQUEST)
+                raise ValidationError
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message,
-                                                          status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error occured while updating Subscription data. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_UPDATING_SUBSCRIPTION_DATA. ERROR: {e}",
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
              
 
     def delete(self, request):
@@ -221,11 +216,11 @@ class SubscriptionAPI(APIView):
             subscription = subscription_service.get_subscription_by_id(data)
             subscription.delete()
             return NotifyMeException.handle_success(
-                message=ErrorCodeMessages.HTTP_128_SUBSCRIPTION_DELETED_SUCCESSFULLY,
+                message=SuccessCodeMessages.HTTP_128_SUBSCRIPTION_DELETED_SUCCESSFULLY.value,
                 status_code=status.HTTP_204_NO_CONTENT) 
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message,
-                                                          status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error occured")
             return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_DATA. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -240,12 +235,12 @@ class SubscriptionPlanAPI(APIView):
             objects = subscription_plan_service.get_all_subscription_plans(request)
             serializer = SubscriptionPlanSerializer(objects, many=True)
             return NotifyMeException.handle_success(
-                message=ErrorCodeMessages.HTTP_130_SUBSCRIPTION_PLAN_FETCHED_SUCCESSFULLY,
+                message=SuccessCodeMessages.HTTP_130_SUBSCRIPTION_PLAN_FETCHED_SUCCESSFULLY.value,
                 data=serializer.data,
                 status_code=status.HTTP_200_OK)
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message,
-                                                          status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.info(f"Unexpected error occured while fetching fetching Subscription Plans. Error: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_PLANS. ERROR:{e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -259,19 +254,16 @@ class SubscriptionPlanAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return NotifyMeException.handle_success(
-                    message=ErrorCodeMessages.HTTP_133_SUBSCRIPTION_PLAN_CREATED_SUCCESSFULLY,
+                    message=SuccessCodeMessages.HTTP_133_SUBSCRIPTION_PLAN_CREATED_SUCCESSFULLY.value,
                     status_code=status.HTTP_201_CREATED)
             else:
-                return NotifyMeException.handle_api_exception(
-                    message=ErrorCodeMessages.HTTP_134_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN,
-                    status_code=status.HTTP_400_BAD_REQUEST)       
+                raise ValidationError      
         except NotifyMeException as e:
             return NotifyMeException.handle_api_exception(message=e.message,
-                                                          status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except IntegrityError as e:
-            logger.error(f"MESSAGE: {ErrorCodeMessages.HTTP_136_INTEGRITY_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN}, ERROR: {e}, STATUS: {ErrorCodes.HTTP_136_INTEGRITY_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN}")
             return NotifyMeException.handle_api_exception(
-                message=ErrorCodeMessages.HTTP_136_INTEGRITY_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN, status_code=status.HTTP_409_CONFLICT)     
+                message=ErrorCodeMessages.HTTP_136_INTEGRITY_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN.value, status_code=status.HTTP_409_CONFLICT, e=e)     
         except Exception as e:
             logger.error(f"Unexpected error occured while creating New Subscription-Plan. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -284,9 +276,9 @@ class SubscriptionPlanAPI(APIView):
             subscriptionPlan = subscription_plan_service.get_subscription_plan_by_id(data)
             subscriptionPlan.delete()
             return NotifyMeException.handle_success(
-                message=ErrorCodeMessages.HTTP_137_SUBSCRIPTION_PLAN_DELETED_SUCCESSFULLY, status_code=status.HTTP_204_NO_CONTENT)
+                message=SuccessCodeMessages.HTTP_137_SUBSCRIPTION_PLAN_DELETED_SUCCESSFULLY.value, status_code=status.HTTP_204_NO_CONTENT)
         except NotifyMeException as e:
-            return NotifyMeException.handle_api_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error while deleting Subscription Plan. Error: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -1,34 +1,21 @@
 # NotifyMe/constants.py
+from enum import Enum
 
-Plans = {
-  "BASIC_PLAN":"BASIC",
-  "REGULAR_PLAN": "REGULAR",
-  "STANDARD_PLAN": "STANDARD",
-  "PREMIUM_PLAN": "PREMIUM"
-}
+class Plans(Enum):
+  BASIC_PLAN="BASIC"
+  REGULAR_PLAN= "REGULAR"
+  STANDARD_PLAN= "STANDARD"
+  PREMIUM_PLAN= "PREMIUM"
 
 
-PlansDuration = {
-  "BASIC": 30,
-  "REGULAR": 90,
-  "STANDARD": 180,
-  "PREMIUM": 365
-}
 
-PlansId = {
-  1: "BASIC",
-  2: "REGULAR",
-  3: "STANDARD",
-  4: "PREMIUM"
-}
+class PlansDuration(Enum):
+  BASIC = 30,
+  REGULAR = 90,
+  STANDARD = 180,
+  PREMIUM = 365
 
-NotificationTypeId={
-  1:"FEATURE INTRODUCATION",
-  2:"ANNOUNCEMENTS",
-  3:"SEND PERSONALIZED MESSAGES",
-  4:"NEW FEATURE ADDED",
-  5:"MAINTENANCE ALERT",
-  6:"SUBSCRIPTION PLAN END & UPGRADATION NOTIFICATION",
-  7:"USER FEEDBACK"
-}
+
+
+
 

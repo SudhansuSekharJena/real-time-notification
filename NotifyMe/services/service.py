@@ -31,8 +31,8 @@ class UserService:
             return users
         except User.DoesNotExist as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_153_DATABASE_ERROR_WHILE_FETCHING_USERS,
-                status_code=ErrorCodes.HTTP_153_DATABASE_ERROR,
+                message=ErrorCodeMessages.HTTP_153_DATABASE_ERROR_WHILE_FETCHING_USERS.value,
+                status_code=ErrorCodes.HTTP_153_DATABASE_ERROR.value,
                 e=e
                 )
         except Exception as e:
@@ -61,21 +61,21 @@ class UserService:
         try:
             return User.objects.get(id=user_id)
         except User.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_101_USER_NOT_FOUND,
-                                    status_code=ErrorCodes.HTTP_101_USER_NOT_FOUND,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_101_USER_NOT_FOUND.value,
+                                    status_code=ErrorCodes.HTTP_101_USER_NOT_FOUND.value,
                                     e=e)
         except KeyError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE,
-                                    status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value,
+                                    status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value,
                                     e=e)
         except ValueError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_157_USER_ID_MISSING,
-                                    status_code=ErrorCodes.HTTP_157_USER_ID_MISSING,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_157_USER_ID_MISSING.value,
+                                    status_code=ErrorCodes.HTTP_157_USER_ID_MISSING.value,
                                     e=e)
         except PermissionDenied as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_112_PERMISSION_DENIED_WHILE_DELETING_USER_DATA,
-                status_code=ErrorCodes.HTTP_112_PERMISSION_DENIED_WHILE_DELETING_USER_DATA,
+                message=ErrorCodeMessages.HTTP_112_PERMISSION_DENIED_WHILE_DELETING_USER_DATA.value,
+                status_code=ErrorCodes.HTTP_112_PERMISSION_DENIED_WHILE_DELETING_USER_DATA.value,
                 e=e
                 )
         except Exception as e:
@@ -100,22 +100,22 @@ class UserService:
         try:
             plan_type = subscription_plan.subscription_plan
 
-            if plan_type == Plans["BASIC_PLAN"]:
-                return start_date + timedelta(days=PlansDuration["BASIC"])
-            elif plan_type == Plans["REGULAR_PLAN"]:
-                return start_date + timedelta(days=PlansDuration["REGULAR"])
-            elif plan_type == Plans["STANDARD_PLAN"]:
-                return start_date + timedelta(days=PlansDuration["STANDARD"])
-            elif plan_type == Plans["PREMIUM_PLAN"]:
-                return start_date + timedelta(days=PlansDuration["PREMIUM"])
+            if plan_type == Plans.BASIC_PLAN.value:
+                return start_date + timedelta(days=PlansDuration.BASIC.value)
+            elif plan_type == Plans.REGULAR_PLAN.value:
+                return start_date + timedelta(days=PlansDuration.REGULAR.value)
+            elif plan_type == Plans.STANDARD_PLAN.value:
+                return start_date + timedelta(days=PlansDuration.STANDARD.value)
+            elif plan_type == Plans.PREMIUM_PLAN.value:
+                return start_date + timedelta(days=PlansDuration.PREMIUM.value)
             else:
                 raise ValidationError
         except KeyError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE, status_code=ErrorCodes.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE.value, status_code=ErrorCodes.HTTP_154_DURATION_NOT_FOUND_ERROR_FOR_SUBSCRIPTION_PLAN_TYPE.value,
                                     e=e)
         except ValidationError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_158_INVALID_SUBSCRIPTION_PLAN_PROVIDED,
-                                    status_code=ErrorCodes.HTTP_158_INVALID_SUBSCRIPTION_PLAN_PROVIDED,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_158_INVALID_SUBSCRIPTION_PLAN_PROVIDED.value,
+                                    status_code=ErrorCodes.HTTP_158_INVALID_SUBSCRIPTION_PLAN_PROVIDED.value,
                                     e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while calculating end date. ERROR: {e}")
@@ -155,20 +155,20 @@ class UserService:
             logger.info(f"User created successfully with ID: {user.id}")
             return user
         except User.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER,
-                                    status_code=ErrorCodes.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER.value,
+                                    status_code=ErrorCodes.HTTP_102_UNEXPECTED_ERROR_WHILE_FETCHING_USER.value,
                                     e=e)
         except SubscriptionPlan.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED,
-                                    status_code=ErrorCodes.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED.value,
+                                    status_code=ErrorCodes.HTTP_105_INVALID_SUBSCRIPTION_ID_PROVIDED.value,
                                     e=e)
         except ValidationError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING,
-                                    status_code=ErrorCodes.HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING.value,
+                                    status_code=ErrorCodes.HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING.value,
                                     e=e)
         except IntegrityError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_108_INVALID_USER_ID_PROVIDED,
-                                    status_code=ErrorCodes.HTTP_108_INVALID_USER_ID_PROVIDED,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_108_INVALID_USER_ID_PROVIDED.value,
+                                    status_code=ErrorCodes.HTTP_108_INVALID_USER_ID_PROVIDED.value,
                                     e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while creating user. ERROR: {e}")
@@ -195,7 +195,7 @@ class SubscriptionService:
             logger.info(f"Retrieved {subscriptions.count()} subscriptions")
             return subscriptions
         except Subscription.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS,       status_code=ErrorCodes.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS.value,       status_code=ErrorCodes.HTTP_144_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS.value,
                                     e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscriptions: ERROR: {e}")
@@ -225,26 +225,26 @@ class SubscriptionService:
             return subscription
         except KeyError as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE, 
-                status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE,
+                message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value, 
+                status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value,
                 e=e
             )
         except ValueError as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_159_SUBSCRIPTION_ID_IS_MISSING,
-                status_code=ErrorCodes.HTTP_159_SUBSCRIPTION_ID_IS_MISSING,
+                message=ErrorCodeMessages.HTTP_159_SUBSCRIPTION_ID_IS_MISSING.value,
+                status_code=ErrorCodes.HTTP_159_SUBSCRIPTION_ID_IS_MISSING.value,
                 e=e
             )
         except Subscription.DoesNotExist as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND,
-                status_code=ErrorCodes.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND,
+                message=ErrorCodeMessages.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND.value,
+                status_code=ErrorCodes.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND.value,
                 e=e
                 ) 
         except PermissionDenied as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_156_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_DATA,
-                status_code=ErrorCodes.HTTP_156_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_DATA,
+                message=ErrorCodeMessages.HTTP_156_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_DATA.value,
+                status_code=ErrorCodes.HTTP_156_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_DATA.value,
                 e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}. ERROR: {e}")
@@ -270,8 +270,8 @@ class SubscriptionPlanService:
             return subscription_plans
         except SubscriptionPlan.DoesNotExist as e:
             raise NotifyMeException(
-                    message=ErrorCodeMessages.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS,
-                    status_code=ErrorCodes.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS,
+                    message=ErrorCodeMessages.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS.value,
+                    status_code=ErrorCodes.HTTP_145_DATABASE_ERROR_WHILE_RETRIEVING_ALL_SUBSCRIPTIONS_PLANS.value,
                     e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving all subscription plans. ERROR: {e}")
@@ -302,21 +302,21 @@ class SubscriptionPlanService:
             return subscription_plan
         except KeyError as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE,
-                status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE,
+                message=ErrorCodeMessages.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value,
+                status_code=ErrorCodes.HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE.value,
                 e=e)
         except ValueError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING,
-                                    status_code=ErrorCodes.HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING.value,
+                                    status_code=ErrorCodes.HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING.value,
                                     e=e)
         except SubscriptionPlan.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND,
-                                    status_code=ErrorCodes.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND,
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND.value,
+                                    status_code=ErrorCodes.HTTP_131_SUBSCRIPTION_PLANS_NOT_FOUND.value,
                                     e=e)
         except PermissionDenied as e:
             raise NotifyMeException(
-                message=ErrorCodeMessages.HTTP_139_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_PLAN_DATA,
-                status_code=ErrorCodes.HTTP_139_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_PLAN_DATA,
+                message=ErrorCodeMessages.HTTP_139_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_PLAN_DATA.value,
+                status_code=ErrorCodes.HTTP_139_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_PLAN_DATA.value,
                 e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}")

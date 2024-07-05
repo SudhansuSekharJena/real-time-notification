@@ -1,0 +1,115 @@
+WARNING 2024-07-05 13:52:52,153 log Not Found: /
+WARNING 2024-07-05 13:52:52,154 runserver [33mHTTP GET / 404 [1.27, 127.0.0.1:54121][0m
+WARNING 2024-07-05 13:52:52,693 log Not Found: /favicon.ico
+WARNING 2024-07-05 13:52:52,694 runserver [33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:54121][0m
+WARNING 2024-07-05 13:52:56,646 log Not Found: /api/
+WARNING 2024-07-05 13:52:56,647 runserver [33mHTTP GET /api/ 404 [0.01, 127.0.0.1:54121][0m
+ERROR 2024-07-05 13:53:10,640 log Internal Server Error: /api/announcement
+Traceback (most recent call last):
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\core\handlers\exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\core\handlers\base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py", line 300, in get
+    objects = announcement_service.get_all_announcements()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: AnnouncementService.get_all_announcements() missing 1 required positional argument: 'request'
+ERROR 2024-07-05 13:53:10,648 runserver [35;1mHTTP GET /api/announcement 500 [0.50, 127.0.0.1:54121][0m
+WARNING 2024-07-05 14:52:52,651 log Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+WARNING 2024-07-05 14:52:52,652 log Not Found: /static/rest_framework/css/default.css
+WARNING 2024-07-05 14:52:52,653 log Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+WARNING 2024-07-05 14:52:52,653 runserver [33mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 404 [0.07, 127.0.0.1:61027][0m
+WARNING 2024-07-05 14:52:52,653 log Not Found: /static/rest_framework/js/ajax-form.js
+WARNING 2024-07-05 14:52:52,655 runserver [33mHTTP GET /static/rest_framework/css/default.css 404 [0.09, 127.0.0.1:61026][0m
+WARNING 2024-07-05 14:52:52,656 runserver [33mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 404 [0.09, 127.0.0.1:61024][0m
+WARNING 2024-07-05 14:52:52,656 log Not Found: /static/rest_framework/css/prettify.css
+WARNING 2024-07-05 14:52:52,656 runserver [33mHTTP GET /static/rest_framework/js/ajax-form.js 404 [0.06, 127.0.0.1:61028][0m
+WARNING 2024-07-05 14:52:52,659 runserver [33mHTTP GET /static/rest_framework/css/prettify.css 404 [0.10, 127.0.0.1:61025][0m
+WARNING 2024-07-05 14:52:52,662 log Not Found: /static/rest_framework/css/bootstrap.min.css
+WARNING 2024-07-05 14:52:52,664 runserver [33mHTTP GET /static/rest_framework/css/bootstrap.min.css 404 [0.10, 127.0.0.1:61020][0m
+WARNING 2024-07-05 14:52:52,769 log Not Found: /static/rest_framework/js/bootstrap.min.js
+WARNING 2024-07-05 14:52:52,770 runserver [33mHTTP GET /static/rest_framework/js/bootstrap.min.js 404 [0.11, 127.0.0.1:61026][0m
+WARNING 2024-07-05 14:52:52,771 log Not Found: /static/rest_framework/js/csrf.js
+WARNING 2024-07-05 14:52:52,772 log Not Found: /static/rest_framework/js/prettify-min.js
+WARNING 2024-07-05 14:52:52,772 runserver [33mHTTP GET /static/rest_framework/js/csrf.js 404 [0.12, 127.0.0.1:61027][0m
+WARNING 2024-07-05 14:52:52,783 runserver [33mHTTP GET /static/rest_framework/js/prettify-min.js 404 [0.12, 127.0.0.1:61024][0m
+WARNING 2024-07-05 14:52:52,786 log Not Found: /static/rest_framework/js/load-ajax-form.js
+WARNING 2024-07-05 14:52:52,786 log Not Found: /static/rest_framework/js/default.js
+WARNING 2024-07-05 14:52:52,788 runserver [33mHTTP GET /static/rest_framework/js/load-ajax-form.js 404 [0.09, 127.0.0.1:61025][0m
+WARNING 2024-07-05 14:52:52,789 runserver [33mHTTP GET /static/rest_framework/js/default.js 404 [0.13, 127.0.0.1:61028][0m
+WARNING 2024-07-05 14:57:17,322 log Bad Request: /api/announcement
+WARNING 2024-07-05 14:57:17,323 runserver [31;1mHTTP POST /api/announcement 400 [0.01, 127.0.0.1:61127][0m
+WARNING 2024-07-05 14:59:29,708 log Bad Request: /api/announcement
+WARNING 2024-07-05 14:59:29,708 runserver [31;1mHTTP POST /api/announcement 400 [0.44, 127.0.0.1:61158][0m
+WARNING 2024-07-05 15:03:05,493 log Bad Request: /api/announcement
+WARNING 2024-07-05 15:03:05,494 runserver [31;1mHTTP POST /api/announcement 400 [0.11, 127.0.0.1:61214][0m
+WARNING 2024-07-05 15:05:17,352 log Bad Request: /api/announcement
+WARNING 2024-07-05 15:05:17,353 runserver [31;1mHTTP POST /api/announcement 400 [0.33, 127.0.0.1:61226][0m
+ERROR 2024-07-05 17:01:25,152 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:01:25,157 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:01:25,159 runserver [35;1mHTTP GET /api/announcement 500 [0.32, 127.0.0.1:49307][0m
+ERROR 2024-07-05 17:08:02,876 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:08:02,880 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:08:02,881 runserver [35;1mHTTP GET /api/announcement 500 [0.05, 127.0.0.1:49682][0m
+ERROR 2024-07-05 17:10:00,007 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:10:00,017 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:10:00,018 runserver [35;1mHTTP GET /api/announcement 500 [0.05, 127.0.0.1:49734][0m
+ERROR 2024-07-05 17:10:56,055 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:10:56,125 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:10:56,126 runserver [35;1mHTTP GET /api/announcement 500 [0.09, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,218 log Not Found: /static/rest_framework/css/bootstrap.min.css
+WARNING 2024-07-05 17:10:57,219 runserver [33mHTTP GET /static/rest_framework/css/bootstrap.min.css 404 [0.02, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,354 log Not Found: /static/rest_framework/css/default.css
+WARNING 2024-07-05 17:10:57,354 log Not Found: /static/rest_framework/css/prettify.css
+WARNING 2024-07-05 17:10:57,355 log Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+WARNING 2024-07-05 17:10:57,355 runserver [33mHTTP GET /static/rest_framework/css/default.css 404 [0.06, 127.0.0.1:49770][0m
+WARNING 2024-07-05 17:10:57,355 log Not Found: /static/rest_framework/js/csrf.js
+WARNING 2024-07-05 17:10:57,356 runserver [33mHTTP GET /static/rest_framework/css/prettify.css 404 [0.06, 127.0.0.1:49769][0m
+WARNING 2024-07-05 17:10:57,357 runserver [33mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 404 [0.07, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,357 log Not Found: /static/rest_framework/js/ajax-form.js
+WARNING 2024-07-05 17:10:57,357 runserver [33mHTTP GET /static/rest_framework/js/csrf.js 404 [0.06, 127.0.0.1:49773][0m
+WARNING 2024-07-05 17:10:57,358 log Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+WARNING 2024-07-05 17:10:57,360 runserver [33mHTTP GET /static/rest_framework/js/ajax-form.js 404 [0.07, 127.0.0.1:49772][0m
+WARNING 2024-07-05 17:10:57,362 runserver [33mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 404 [0.07, 127.0.0.1:49771][0m
+WARNING 2024-07-05 17:10:57,389 log Not Found: /static/rest_framework/js/prettify-min.js
+WARNING 2024-07-05 17:10:57,390 log Not Found: /static/rest_framework/js/bootstrap.min.js
+WARNING 2024-07-05 17:10:57,390 log Not Found: /static/rest_framework/js/load-ajax-form.js
+WARNING 2024-07-05 17:10:57,391 runserver [33mHTTP GET /static/rest_framework/js/prettify-min.js 404 [0.03, 127.0.0.1:49769][0m
+WARNING 2024-07-05 17:10:57,391 log Not Found: /static/rest_framework/js/default.js
+WARNING 2024-07-05 17:10:57,392 runserver [33mHTTP GET /static/rest_framework/js/bootstrap.min.js 404 [0.03, 127.0.0.1:49770][0m
+WARNING 2024-07-05 17:10:57,393 runserver [33mHTTP GET /static/rest_framework/js/load-ajax-form.js 404 [0.03, 127.0.0.1:49773][0m
+WARNING 2024-07-05 17:10:57,393 runserver [33mHTTP GET /static/rest_framework/js/default.js 404 [0.03, 127.0.0.1:49767][0m
+ERROR 2024-07-05 17:11:11,018 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:11:11,021 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:11:11,022 runserver [35;1mHTTP GET /api/announcement 500 [0.07, 127.0.0.1:49777][0m

@@ -28,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             return user_service.create_user(validated_data)   
         except IntegrityError as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER, e=e, status_code=ErrorCodes.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER)
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER.value, e=e, status_code=ErrorCodes.HTTP_147_INTEGRITY_ERROR_WHILE_CREATING_USER.value)
         except Exception as e:
             logger.error(f"An Unexpected error while creating user. ERROR: {e}")
             raise e

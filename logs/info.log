@@ -1,0 +1,1648 @@
+INFO 2024-07-05 13:17:36,049 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 13:17:36,186 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 13:17:36,186 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 13:17:36,187 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 13:20:10,729 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotificationModule\settings.py changed, reloading.
+INFO 2024-07-05 13:20:11,860 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 13:20:12,011 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 13:20:12,011 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 13:20:12,013 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 13:21:00,047 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotificationModule\settings.py changed, reloading.
+INFO 2024-07-05 13:29:04,646 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 13:29:04,855 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 13:29:04,856 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 13:29:04,856 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 13:29:17,532 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotificationModule\settings.py changed, reloading.
+INFO 2024-07-05 13:30:09,135 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 13:30:09,277 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 13:30:09,277 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 13:30:09,277 server Listening on TCP address 127.0.0.1:8000
+WARNING 2024-07-05 13:52:52,153 log Not Found: /
+WARNING 2024-07-05 13:52:52,154 runserver [33mHTTP GET / 404 [1.27, 127.0.0.1:54121][0m
+WARNING 2024-07-05 13:52:52,693 log Not Found: /favicon.ico
+WARNING 2024-07-05 13:52:52,694 runserver [33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:54121][0m
+WARNING 2024-07-05 13:52:56,646 log Not Found: /api/
+WARNING 2024-07-05 13:52:56,647 runserver [33mHTTP GET /api/ 404 [0.01, 127.0.0.1:54121][0m
+INFO 2024-07-05 13:53:10,150 views Fetching Announcements
+ERROR 2024-07-05 13:53:10,640 log Internal Server Error: /api/announcement
+Traceback (most recent call last):
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\core\handlers\exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\core\handlers\base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\asgiref\sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py", line 300, in get
+    objects = announcement_service.get_all_announcements()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: AnnouncementService.get_all_announcements() missing 1 required positional argument: 'request'
+ERROR 2024-07-05 13:53:10,648 runserver [35;1mHTTP GET /api/announcement 500 [0.50, 127.0.0.1:54121][0m
+INFO 2024-07-05 13:54:52,248 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 13:54:53,666 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 13:54:53,913 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 13:54:53,913 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 13:54:53,914 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 14:52:52,184 views Fetching Announcements
+INFO 2024-07-05 14:52:52,442 runserver [mHTTP GET /api/announcement 200 [0.27, 127.0.0.1:61020][0m
+WARNING 2024-07-05 14:52:52,651 log Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+WARNING 2024-07-05 14:52:52,652 log Not Found: /static/rest_framework/css/default.css
+WARNING 2024-07-05 14:52:52,653 log Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+WARNING 2024-07-05 14:52:52,653 runserver [33mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 404 [0.07, 127.0.0.1:61027][0m
+WARNING 2024-07-05 14:52:52,653 log Not Found: /static/rest_framework/js/ajax-form.js
+WARNING 2024-07-05 14:52:52,655 runserver [33mHTTP GET /static/rest_framework/css/default.css 404 [0.09, 127.0.0.1:61026][0m
+WARNING 2024-07-05 14:52:52,656 runserver [33mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 404 [0.09, 127.0.0.1:61024][0m
+WARNING 2024-07-05 14:52:52,656 log Not Found: /static/rest_framework/css/prettify.css
+WARNING 2024-07-05 14:52:52,656 runserver [33mHTTP GET /static/rest_framework/js/ajax-form.js 404 [0.06, 127.0.0.1:61028][0m
+WARNING 2024-07-05 14:52:52,659 runserver [33mHTTP GET /static/rest_framework/css/prettify.css 404 [0.10, 127.0.0.1:61025][0m
+WARNING 2024-07-05 14:52:52,662 log Not Found: /static/rest_framework/css/bootstrap.min.css
+WARNING 2024-07-05 14:52:52,664 runserver [33mHTTP GET /static/rest_framework/css/bootstrap.min.css 404 [0.10, 127.0.0.1:61020][0m
+WARNING 2024-07-05 14:52:52,769 log Not Found: /static/rest_framework/js/bootstrap.min.js
+WARNING 2024-07-05 14:52:52,770 runserver [33mHTTP GET /static/rest_framework/js/bootstrap.min.js 404 [0.11, 127.0.0.1:61026][0m
+WARNING 2024-07-05 14:52:52,771 log Not Found: /static/rest_framework/js/csrf.js
+WARNING 2024-07-05 14:52:52,772 log Not Found: /static/rest_framework/js/prettify-min.js
+WARNING 2024-07-05 14:52:52,772 runserver [33mHTTP GET /static/rest_framework/js/csrf.js 404 [0.12, 127.0.0.1:61027][0m
+WARNING 2024-07-05 14:52:52,783 runserver [33mHTTP GET /static/rest_framework/js/prettify-min.js 404 [0.12, 127.0.0.1:61024][0m
+WARNING 2024-07-05 14:52:52,786 log Not Found: /static/rest_framework/js/load-ajax-form.js
+WARNING 2024-07-05 14:52:52,786 log Not Found: /static/rest_framework/js/default.js
+WARNING 2024-07-05 14:52:52,788 runserver [33mHTTP GET /static/rest_framework/js/load-ajax-form.js 404 [0.09, 127.0.0.1:61025][0m
+WARNING 2024-07-05 14:52:52,789 runserver [33mHTTP GET /static/rest_framework/js/default.js 404 [0.13, 127.0.0.1:61028][0m
+INFO 2024-07-05 14:57:17,318 views Creating New Announcements
+WARNING 2024-07-05 14:57:17,322 log Bad Request: /api/announcement
+WARNING 2024-07-05 14:57:17,323 runserver [31;1mHTTP POST /api/announcement 400 [0.01, 127.0.0.1:61127][0m
+INFO 2024-07-05 14:59:29,274 views Creating New Announcements
+WARNING 2024-07-05 14:59:29,708 log Bad Request: /api/announcement
+WARNING 2024-07-05 14:59:29,708 runserver [31;1mHTTP POST /api/announcement 400 [0.44, 127.0.0.1:61158][0m
+INFO 2024-07-05 15:03:00,148 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:03:02,618 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:03:02,988 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:03:02,988 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:03:02,988 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:03:05,398 views Creating New Announcements
+WARNING 2024-07-05 15:03:05,493 log Bad Request: /api/announcement
+WARNING 2024-07-05 15:03:05,494 runserver [31;1mHTTP POST /api/announcement 400 [0.11, 127.0.0.1:61214][0m
+INFO 2024-07-05 15:05:17,023 views Creating New Announcements
+WARNING 2024-07-05 15:05:17,352 log Bad Request: /api/announcement
+WARNING 2024-07-05 15:05:17,353 runserver [31;1mHTTP POST /api/announcement 400 [0.33, 127.0.0.1:61226][0m
+INFO 2024-07-05 15:08:04,309 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:08:05,621 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:05,907 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:05,907 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:05,908 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:08:13,478 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:14,533 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:14,746 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:14,746 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:14,746 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:08:17,229 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:18,218 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:18,426 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:18,426 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:18,427 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:08:21,780 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:23,006 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:24,418 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:25,820 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:32,457 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:33,497 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:33,712 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:33,712 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:33,713 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:08:35,061 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:36,115 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:36,300 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:36,300 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:36,301 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:08:39,763 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 15:08:40,781 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:08:40,966 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:08:40,966 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:08:40,967 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:10:20,780 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:22,016 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:10:22,202 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:10:22,203 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:10:22,203 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:10:23,544 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:24,565 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:10:27,899 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:28,929 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:10:49,832 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:50,911 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:10:52,307 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:53,343 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:10:55,666 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:10:56,751 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:00,070 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:01,105 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:05,567 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:06,633 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:08,005 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:09,151 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:13,556 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:14,605 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:18,958 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:20,076 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:21,331 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:22,547 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:11:23,950 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:11:25,353 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:07,029 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:08,118 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:09,440 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:10,470 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:17,909 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:18,894 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:20,240 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:21,220 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:33,859 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:34,976 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:36,343 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:37,814 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:39,228 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:40,460 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:13:45,908 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:13:46,935 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:13,162 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:14,208 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:22,766 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:23,789 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:26,151 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:27,183 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:29,490 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:30,472 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:33,789 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:34,939 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:38,247 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:39,339 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:42,014 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:43,640 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:45,036 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:46,317 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:14:47,643 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:14:48,902 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:15:04,765 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:15:05,737 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:16:21,260 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:16:22,339 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:16:33,954 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:16:35,069 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:16:39,520 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:16:40,549 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:16:42,982 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:16:44,009 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:18:30,625 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:18:31,640 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:18:35,072 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:18:36,236 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:18:51,937 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:18:53,065 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:18:54,397 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:18:55,383 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:18:59,714 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:00,720 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:01,996 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:02,985 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:12,516 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:13,581 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:20,234 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:21,469 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:23,906 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:24,912 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:34,445 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:35,546 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:52,287 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:53,373 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:19:58,853 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:19:59,806 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:03,144 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:04,389 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:06,845 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:08,353 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:14,991 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:16,004 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:19,348 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:20,339 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:22,624 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:23,804 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:37,458 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:38,529 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:45,039 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:46,092 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:47,336 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:48,457 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:52,908 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:54,215 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:20:55,584 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:20:56,899 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:02,443 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:03,435 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:07,796 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:08,852 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:12,168 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:13,169 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:19,750 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:21,443 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:21,756 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:21,756 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:21,757 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:24,225 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:25,426 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:25,630 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:25,630 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:25,631 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:29,131 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:30,178 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:30,343 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:30,343 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:30,343 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:36,892 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:37,925 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:38,115 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:38,115 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:38,115 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:42,517 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:43,651 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:43,810 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:43,810 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:43,810 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:45,191 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:46,690 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:46,891 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:46,891 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:46,892 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:48,434 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:21:49,894 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:21:50,086 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:21:50,086 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:21:50,087 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:21:59,766 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:00,840 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:06,306 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:07,320 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:10,611 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:11,778 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:12,040 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:22:12,041 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:22:12,043 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:22:29,017 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:30,137 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:34,576 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:35,608 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:35,850 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:22:35,850 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:22:35,851 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:22:43,421 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:44,732 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:44,983 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:22:44,984 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:22:44,984 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:22:55,769 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:56,800 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:57,230 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:22:57,230 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:22:57,230 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:22:58,438 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:22:59,494 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:22:59,656 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:22:59,657 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:22:59,657 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:23:01,035 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:23:02,245 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:23:11,992 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:23:13,143 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:23:16,606 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:23:17,671 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:23:17,862 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:23:17,862 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:23:17,863 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:23:19,137 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:23:20,343 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:23:20,561 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:23:20,561 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:23:20,562 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:23:26,073 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:23:27,131 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:23:27,306 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:23:27,306 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:23:27,306 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:28:24,558 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:28:25,712 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:17,488 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:18,481 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:18,670 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:18,670 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:18,671 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:24,184 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:25,223 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:25,377 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:25,377 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:25,378 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:27,723 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:28,692 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:28,885 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:28,885 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:28,886 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:36,438 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:37,462 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:37,621 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:37,621 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:37,622 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:38,933 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:40,001 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:40,201 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:40,201 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:40,202 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:42,620 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:43,659 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:43,882 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:43,882 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:43,886 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:48,302 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:49,506 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:49,673 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:49,674 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:49,675 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:30:52,111 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:30:53,331 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:30:53,556 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:30:53,556 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:30:53,557 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:31:11,459 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:12,484 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:31:12,710 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:31:12,710 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:31:12,711 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:31:20,356 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:21,929 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:31:29,570 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:30,512 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:31:30,663 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:31:30,663 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:31:30,664 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:31:35,092 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:36,066 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:31:36,205 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:31:36,206 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:31:36,206 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:31:39,623 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:40,609 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:31:41,848 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:31:42,773 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:16,045 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:17,012 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:23,558 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:24,546 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:24,735 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:32:24,735 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:32:24,736 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:32:28,307 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:29,218 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:31,515 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:32,457 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:32,624 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:32:32,624 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:32:32,624 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:32:39,128 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:40,169 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:40,381 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:32:40,381 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:32:40,382 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:32:51,034 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:52,015 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:32:55,396 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:32:56,534 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:33:22,701 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:33:23,732 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:33:41,550 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:33:42,811 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:34:03,685 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:34:04,698 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:34:05,996 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:34:06,927 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:34:09,250 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:34:10,486 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:00,247 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:01,338 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:02,723 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:03,936 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:20,703 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:21,735 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:29,299 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:30,379 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:30,611 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:35:30,611 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:35:30,613 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:35:31,964 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:32,972 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:33,111 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:35:33,111 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:35:33,111 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:35:38,709 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:40,029 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:40,255 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:35:40,255 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:35:40,256 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:35:46,979 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:35:48,909 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:35:49,248 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:35:49,248 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:35:49,249 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:35:59,247 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:00,462 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:03,010 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:04,289 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:04,486 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:04,486 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:04,487 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:12,086 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:13,105 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:13,293 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:13,293 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:13,294 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:17,768 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:18,801 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:18,948 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:18,948 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:18,948 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:25,482 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:26,460 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:26,625 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:26,625 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:26,625 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:32,084 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:33,071 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:33,254 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:33,255 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:33,255 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:35,547 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:36,554 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:36,842 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:36,842 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:36,843 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:40,300 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:41,698 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:45,295 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:46,555 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:46,784 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:46,784 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:46,785 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:49,211 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:50,695 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:50,966 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:50,966 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:50,967 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:36:53,327 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:54,923 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:56,224 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:36:57,175 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:36:57,678 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:36:57,678 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:36:57,679 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:37:00,919 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:37:02,123 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:37:25,037 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:37:26,156 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:37:38,772 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:37:39,856 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:37:40,071 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:37:40,071 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:37:40,072 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:37:41,391 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:37:42,355 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:01,179 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:02,263 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:06,669 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:07,754 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:07,982 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:38:07,982 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:38:07,983 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:38:21,773 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:22,798 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:34,442 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:35,360 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:41,795 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:42,901 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:43,061 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:38:43,061 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:38:43,062 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:38:49,561 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:50,554 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:50,751 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:38:50,751 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:38:50,751 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:38:54,103 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:38:55,161 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:38:55,341 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:38:55,341 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:38:55,341 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:03,928 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:05,023 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:08,407 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:09,375 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:10,620 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:11,623 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:15,996 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:16,966 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:17,133 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:39:17,134 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:39:17,134 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:20,508 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:21,517 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:21,655 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:39:21,656 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:39:21,656 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:24,007 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:24,937 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:25,150 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:39:25,150 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:39:25,151 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:28,655 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:29,982 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:34,403 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:35,475 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:35,651 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:39:35,651 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:39:35,651 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:36,955 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:38,266 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:47,794 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:39:48,846 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:39:49,180 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 15:39:49,180 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 15:39:49,180 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 15:39:59,546 views Fetching Announcements
+INFO 2024-07-05 15:39:59,578 runserver [mHTTP GET /api/announcement 200 [0.04, 127.0.0.1:62277][0m
+INFO 2024-07-05 15:40:17,756 views Fetching Announcements
+INFO 2024-07-05 15:40:17,772 runserver [mHTTP GET /api/announcement 200 [0.02, 127.0.0.1:62277][0m
+INFO 2024-07-05 15:40:45,744 views Creating New Announcements
+INFO 2024-07-05 15:40:45,775 exceptionManager {'message': 'Announcement created successfully', 'status': 201}
+INFO 2024-07-05 15:40:45,777 runserver [mHTTP POST /api/announcement 200 [0.04, 127.0.0.1:62277][0m
+INFO 2024-07-05 15:41:31,207 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:41:32,430 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:41:40,981 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:41:42,263 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:11,436 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:12,467 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:14,834 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:15,960 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:19,321 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:20,275 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:26,678 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:27,767 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:29,027 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:30,172 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:32,505 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:34,043 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:46,794 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:47,861 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:42:51,306 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:42:52,323 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:43:01,935 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:43:03,017 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:43:07,428 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:43:08,496 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:19,637 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:20,697 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:22,083 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:23,053 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:24,304 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:25,299 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:26,571 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:27,512 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:35,004 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:36,055 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:38,415 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:39,477 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:41,839 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:42,864 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:49,290 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:50,694 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:56,158 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:46:57,228 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:46:59,496 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:47:00,476 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:47:02,745 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:47:03,858 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:47:05,170 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:47:06,436 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:55:05,844 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:55:07,010 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:55:09,432 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:55:10,430 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 15:55:27,197 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 15:55:28,272 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:45:51,564 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:46:08,100 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:46:16,144 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:46:17,397 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:46:19,166 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:46:19,167 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:46:19,167 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:46:20,542 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:46:21,926 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:46:22,933 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:46:22,934 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:46:22,934 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:46:26,263 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:46:28,034 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:46:28,346 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:46:28,346 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:46:28,347 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:46:33,787 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:46:35,497 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:05,914 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:07,423 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:07,674 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:47:07,674 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:47:07,675 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:47:10,253 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:11,532 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:11,812 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:47:11,812 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:47:11,812 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:47:22,424 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:23,605 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:23,829 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:47:23,829 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:47:23,830 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:47:30,430 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:31,701 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:31,891 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:47:31,892 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:47:31,892 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:47:39,496 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:40,733 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:47:40,908 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:47:40,908 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:47:40,909 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:47:54,759 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:47:56,009 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:00,436 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:02,104 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:02,309 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:02,309 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:02,309 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:48:06,953 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:08,554 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:09,997 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:11,547 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:11,837 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:11,838 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:11,838 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:48:13,395 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:14,981 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:17,373 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:18,964 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:26,579 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:27,910 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:30,372 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:31,786 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:43,476 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:44,606 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:44,862 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:44,863 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:44,864 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:48:49,432 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:50,613 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:50,784 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:50,785 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:50,785 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:48:55,318 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:56,332 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:56,487 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:56,487 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:56,488 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:48:57,842 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:48:59,118 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:48:59,350 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:48:59,350 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:48:59,351 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:49:17,263 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:49:18,559 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:49:19,864 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:49:21,126 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:49:21,331 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:49:21,332 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:49:21,332 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:49:22,857 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:49:24,137 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:50:04,675 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:50:05,770 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:50:11,343 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:50:12,673 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:50:23,258 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:50:24,544 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:50:24,896 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:50:24,896 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:50:24,897 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:50:36,808 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:50:38,168 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:50:38,537 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:50:38,537 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:50:38,538 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:51:05,150 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:51:06,101 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:51:06,256 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:51:06,257 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:51:06,257 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:53:31,386 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:53:32,640 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:53:32,906 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:53:32,906 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:53:32,907 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:53:37,249 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:53:38,308 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:53:38,487 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:53:38,488 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:53:38,488 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:53:40,844 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:53:42,037 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:53:42,257 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:53:42,257 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:53:42,258 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:53:47,874 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:53:48,887 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:53:49,068 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:53:49,069 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:53:49,069 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:54:04,886 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:54:05,929 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:54:06,159 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:54:06,159 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:54:06,160 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:54:12,715 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:54:13,748 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:54:13,936 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:54:13,936 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:54:13,936 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:54:15,332 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:54:16,634 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:54:16,907 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:54:16,908 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:54:16,908 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:54:34,865 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:54:35,971 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:54:36,257 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:54:36,257 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:54:36,258 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:56:42,709 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:56:43,837 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:56:44,141 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:56:44,141 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:56:44,141 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:56:52,673 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:56:53,822 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:56:53,986 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:56:53,986 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:56:53,986 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:03,752 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:05,248 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:05,492 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:05,493 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:05,493 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:10,993 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:12,452 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:12,770 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:12,771 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:12,771 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:17,237 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:18,591 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:18,782 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:18,783 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:18,783 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:23,305 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:24,552 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:24,803 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:24,804 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:24,805 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:30,438 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:31,736 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:31,960 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:31,960 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:31,961 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:36,452 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:37,602 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:37,810 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:37,810 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:37,810 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:39,230 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:40,511 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:40,788 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:40,788 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:40,789 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:43,199 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:44,501 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:44,699 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:44,700 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:44,700 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:49,302 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:50,493 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:50,699 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:50,700 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:50,700 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:57:56,267 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:57:57,499 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:57:57,681 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:57:57,682 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:57:57,682 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:58:03,246 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:04,313 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:04,468 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:58:04,469 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:58:04,471 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:58:08,981 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:10,438 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:10,708 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:58:10,708 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:58:10,709 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:58:13,314 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:14,623 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:14,912 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:58:14,912 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:58:14,913 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:58:18,382 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:19,757 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:20,012 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:58:20,012 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:58:20,013 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 16:58:22,503 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:23,561 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:31,099 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 16:58:32,038 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 16:58:32,202 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 16:58:32,203 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 16:58:32,203 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:01:24,852 views Fetching Announcements
+ERROR 2024-07-05 17:01:25,152 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:01:25,157 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:01:25,159 runserver [35;1mHTTP GET /api/announcement 500 [0.32, 127.0.0.1:49307][0m
+INFO 2024-07-05 17:05:48,779 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:05:50,571 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:05:50,840 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:05:50,840 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:05:50,841 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:05:54,225 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:05:55,615 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:05:55,831 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:05:55,831 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:05:55,832 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:05:57,134 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:05:58,356 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:05:58,600 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:05:58,600 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:05:58,601 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:06:13,366 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:06:14,718 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:06:14,950 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:06:14,950 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:06:14,951 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:06:31,864 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:06:32,979 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:06:33,244 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:06:33,244 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:06:33,245 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:06:43,946 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:06:45,332 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:06:45,629 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:06:45,629 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:06:45,630 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:07:02,574 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:07:03,910 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:07:04,118 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:07:04,118 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:07:04,119 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:07:11,668 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:07:12,744 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:07:12,938 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:07:12,938 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:07:12,939 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:07:28,838 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:07:30,057 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:07:30,289 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:07:30,289 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:07:30,290 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:07:31,680 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:07:32,827 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:07:33,026 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:07:33,026 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:07:33,027 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:07:41,667 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\services\service.py changed, reloading.
+INFO 2024-07-05 17:07:42,890 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:07:43,127 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:07:43,127 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:07:43,128 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:08:02,845 views Fetching Announcements
+ERROR 2024-07-05 17:08:02,876 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:08:02,880 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:08:02,881 runserver [35;1mHTTP GET /api/announcement 500 [0.05, 127.0.0.1:49682][0m
+INFO 2024-07-05 17:09:00,481 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:09:01,983 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:09:02,168 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:09:02,168 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:09:02,169 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:09:11,827 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:09:13,187 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:09:13,393 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:09:13,393 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:09:13,393 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:09:15,763 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:09:17,079 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:09:17,293 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:09:17,293 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:09:17,293 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:09:29,006 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:09:30,279 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:09:30,489 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:09:30,489 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:09:30,490 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:09:59,984 views Fetching Announcements
+ERROR 2024-07-05 17:10:00,007 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:10:00,017 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:10:00,018 runserver [35;1mHTTP GET /api/announcement 500 [0.05, 127.0.0.1:49734][0m
+INFO 2024-07-05 17:10:32,292 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:10:32,454 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:10:32,455 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:10:32,455 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:10:56,039 views Fetching Announcements
+ERROR 2024-07-05 17:10:56,055 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:10:56,125 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:10:56,126 runserver [35;1mHTTP GET /api/announcement 500 [0.09, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,218 log Not Found: /static/rest_framework/css/bootstrap.min.css
+WARNING 2024-07-05 17:10:57,219 runserver [33mHTTP GET /static/rest_framework/css/bootstrap.min.css 404 [0.02, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,354 log Not Found: /static/rest_framework/css/default.css
+WARNING 2024-07-05 17:10:57,354 log Not Found: /static/rest_framework/css/prettify.css
+WARNING 2024-07-05 17:10:57,355 log Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+WARNING 2024-07-05 17:10:57,355 runserver [33mHTTP GET /static/rest_framework/css/default.css 404 [0.06, 127.0.0.1:49770][0m
+WARNING 2024-07-05 17:10:57,355 log Not Found: /static/rest_framework/js/csrf.js
+WARNING 2024-07-05 17:10:57,356 runserver [33mHTTP GET /static/rest_framework/css/prettify.css 404 [0.06, 127.0.0.1:49769][0m
+WARNING 2024-07-05 17:10:57,357 runserver [33mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 404 [0.07, 127.0.0.1:49767][0m
+WARNING 2024-07-05 17:10:57,357 log Not Found: /static/rest_framework/js/ajax-form.js
+WARNING 2024-07-05 17:10:57,357 runserver [33mHTTP GET /static/rest_framework/js/csrf.js 404 [0.06, 127.0.0.1:49773][0m
+WARNING 2024-07-05 17:10:57,358 log Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+WARNING 2024-07-05 17:10:57,360 runserver [33mHTTP GET /static/rest_framework/js/ajax-form.js 404 [0.07, 127.0.0.1:49772][0m
+WARNING 2024-07-05 17:10:57,362 runserver [33mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 404 [0.07, 127.0.0.1:49771][0m
+WARNING 2024-07-05 17:10:57,389 log Not Found: /static/rest_framework/js/prettify-min.js
+WARNING 2024-07-05 17:10:57,390 log Not Found: /static/rest_framework/js/bootstrap.min.js
+WARNING 2024-07-05 17:10:57,390 log Not Found: /static/rest_framework/js/load-ajax-form.js
+WARNING 2024-07-05 17:10:57,391 runserver [33mHTTP GET /static/rest_framework/js/prettify-min.js 404 [0.03, 127.0.0.1:49769][0m
+WARNING 2024-07-05 17:10:57,391 log Not Found: /static/rest_framework/js/default.js
+WARNING 2024-07-05 17:10:57,392 runserver [33mHTTP GET /static/rest_framework/js/bootstrap.min.js 404 [0.03, 127.0.0.1:49770][0m
+WARNING 2024-07-05 17:10:57,393 runserver [33mHTTP GET /static/rest_framework/js/load-ajax-form.js 404 [0.03, 127.0.0.1:49773][0m
+WARNING 2024-07-05 17:10:57,393 runserver [33mHTTP GET /static/rest_framework/js/default.js 404 [0.03, 127.0.0.1:49767][0m
+INFO 2024-07-05 17:11:10,957 views Fetching Announcements
+ERROR 2024-07-05 17:11:11,018 views Unexpected error occured while fetching. ERROR: NotifyMeException.handle_success() got an unexpected keyword argument 'status' 
+ERROR 2024-07-05 17:11:11,021 log Internal Server Error: /api/announcement
+ERROR 2024-07-05 17:11:11,022 runserver [35;1mHTTP GET /api/announcement 500 [0.07, 127.0.0.1:49777][0m
+INFO 2024-07-05 17:11:40,184 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:11:41,295 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:11:41,640 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:11:41,641 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:11:41,641 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:11:50,202 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:11:51,285 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:11:54,690 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:11:55,827 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:11:56,001 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:11:56,001 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:11:56,001 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:12:01,452 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:12:02,551 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:12:02,714 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:12:02,715 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:12:02,716 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:12:08,270 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:12:09,312 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:12:11,627 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:12:12,992 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:12:13,213 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:12:13,214 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:12:13,214 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:12:14,735 views Fetching Announcements
+INFO 2024-07-05 17:12:14,756 runserver [mHTTP GET /api/announcement 200 [0.03, 127.0.0.1:49815][0m
+INFO 2024-07-05 17:12:37,610 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:12:38,720 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:12:38,876 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:12:38,876 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:12:38,878 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:13:04,256 views Fetching user data
+INFO 2024-07-05 17:13:05,657 exceptionManager {'message': 'User Fetched Successfully', 'status': 200, 'data': [{'id': 1, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-25T09:43:15.695949Z', 'updated_at': '2024-06-25T09:43:15.695949Z', 'email_id': 'sss375@gmail.com', 'first_name': 'Soumya', 'last_name': 'Sahoo'}, {'id': 2, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-25T09:43:32.623265Z', 'updated_at': '2024-06-25T09:43:32.623265Z', 'email_id': 'sss3785@gmail.com', 'first_name': 'Soumya', 'last_name': 'Sahoo'}, {'id': 3, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-26T06:45:21.521483Z', 'updated_at': '2024-06-26T06:45:21.521483Z', 'email_id': 'raklt@gmail.com', 'first_name': 'rakht', 'last_name': 'sahu'}, {'id': 4, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-26T06:55:26.095609Z', 'updated_at': '2024-06-26T06:55:26.095609Z', 'email_id': 'rakl9t@gmail.com', 'first_name': 'rakht', 'last_name': 'sahu'}, {'id': 5, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-26T06:55:54.290793Z', 'updated_at': '2024-06-26T06:55:54.291794Z', 'email_id': 'rakld9t@gmail.com', 'first_name': 'rakht', 'last_name': 'sahu'}, {'id': 6, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-26T08:31:06.918389Z', 'updated_at': '2024-06-26T08:31:06.918389Z', 'email_id': 'ra9t@gmail.com', 'first_name': 'rakht', 'last_name': 'sahu'}, {'id': 7, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-26T08:32:38.850595Z', 'updated_at': '2024-06-26T08:32:38.850595Z', 'email_id': 'ra559t@gmail.com', 'first_name': 'rakht', 'last_name': 'sahu'}, {'id': 8, 'subscription_plan': 'STANDARD', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-06-30T19:57:58.759435Z', 'updated_at': '2024-06-30T19:57:58.759435Z', 'email_id': 'sdklsdm@gmail.com', 'first_name': 'abi', 'last_name': 'bhu'}, {'id': 9, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T11:46:13.487685Z', 'updated_at': '2024-07-03T11:46:13.487685Z', 'email_id': 'kjk@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 10, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T11:47:00.335513Z', 'updated_at': '2024-07-03T11:47:00.335513Z', 'email_id': 'kjggk@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 11, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T11:49:26.374057Z', 'updated_at': '2024-07-03T11:49:26.374057Z', 'email_id': 'kjgfgk@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 12, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T13:56:24.721467Z', 'updated_at': '2024-07-03T13:56:24.721467Z', 'email_id': 'kqqfgk@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 13, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T13:57:17.865044Z', 'updated_at': '2024-07-03T13:57:17.866040Z', 'email_id': 'kqqfgkaa@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 14, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T14:01:21.716021Z', 'updated_at': '2024-07-03T14:01:21.716021Z', 'email_id': 'kqqfgkaVa@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 15, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T14:06:10.625759Z', 'updated_at': '2024-07-03T14:06:10.625759Z', 'email_id': 'ggggg@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 16, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T14:07:20.506599Z', 'updated_at': '2024-07-03T14:07:20.506599Z', 'email_id': 'gggg@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}, {'id': 17, 'subscription_plan': 'REGULAR', 'deleted': None, 'deleted_by_cascade': False, 'created_at': '2024-07-03T14:30:37.779180Z', 'updated_at': '2024-07-03T14:30:37.780177Z', 'email_id': 'kkxx@gmail.com', 'first_name': 'sdsdfj', 'last_name': 'sdfds'}]}
+INFO 2024-07-05 17:13:05,660 runserver [mHTTP GET /api/user 200 [1.41, 127.0.0.1:49824][0m
+INFO 2024-07-05 17:13:34,377 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:13:35,674 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:13:35,828 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:13:35,828 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:13:35,829 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:13:45,046 views Fetching Announcements
+INFO 2024-07-05 17:13:45,051 exceptionManager {'message': 'User Fetched Successfully', 'status': 200}
+INFO 2024-07-05 17:13:45,055 runserver [mHTTP GET /api/announcement 200 [0.02, 127.0.0.1:49835][0m
+INFO 2024-07-05 17:14:02,149 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:14:03,158 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:14:03,305 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:14:03,305 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:14:03,306 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:14:07,746 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:14:08,685 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:14:08,846 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:14:08,847 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:14:08,848 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:14:11,194 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:14:12,217 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:14:12,413 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:14:12,413 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:14:12,414 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:14:16,867 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:14:17,837 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:14:18,001 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:14:18,001 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:14:18,002 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:35:46,650 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:35:47,699 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:35:47,929 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:35:47,929 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:35:47,929 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:35:51,344 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:35:52,420 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:35:52,621 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:35:52,621 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:35:52,622 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:35:58,064 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:35:59,104 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:35:59,267 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:35:59,268 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:35:59,268 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:05,778 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:06,777 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:06,918 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:06,918 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:06,919 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:11,385 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:12,412 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:12,613 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:12,613 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:12,614 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:13,930 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:15,100 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:15,364 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:15,364 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:15,365 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:20,018 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:20,998 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:21,168 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:21,168 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:21,170 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:30,819 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:31,871 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:32,162 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:32,163 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:32,164 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:36,588 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:37,662 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:37,826 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:37,826 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:37,827 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:39,166 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:40,139 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:40,302 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:40,303 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:40,304 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:43,781 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:36:44,843 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:36:45,027 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:36:45,027 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:36:45,028 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:36:58,277 views Creating New Announcements
+INFO 2024-07-05 17:36:58,477 exceptionManager {'message': 'Announcement created successfully', 'status': 201}
+INFO 2024-07-05 17:36:58,480 runserver [mHTTP POST /api/announcement 200 [0.21, 127.0.0.1:50268][0m
+INFO 2024-07-05 17:37:12,502 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:13,493 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:13,640 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:13,640 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:13,640 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:18,047 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:19,105 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:19,294 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:19,294 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:19,294 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:22,692 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:23,719 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:23,920 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:23,920 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:23,921 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:28,349 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:29,357 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:29,552 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:29,552 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:29,553 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:31,881 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:32,970 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:33,167 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:33,167 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:33,168 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:36,709 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:37,951 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:38,168 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:38,169 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:38,170 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:39,589 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:37:40,778 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:37:40,995 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:37:40,995 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:37:40,996 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:37:44,929 views Creating New Announcements
+INFO 2024-07-05 17:37:44,992 exceptionManager {'message': 'Announcement created successfully', 'status': 201}
+INFO 2024-07-05 17:37:44,995 runserver [mHTTP POST /api/announcement 200 [0.07, 127.0.0.1:50314][0m
+INFO 2024-07-05 17:38:15,618 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:38:16,673 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:38:16,931 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:38:16,931 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:38:16,932 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:38:18,236 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:38:19,201 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:38:19,358 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:38:19,358 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:38:19,359 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:38:20,683 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:38:21,818 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:38:22,061 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:38:22,062 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:38:22,062 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:38:37,903 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:38:39,048 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:38:39,338 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:38:39,338 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:38:39,339 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:38:41,702 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:38:42,736 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:38:42,902 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:38:42,902 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:38:42,903 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:39:25,700 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:39:26,730 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:39:26,946 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:39:26,947 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:39:26,948 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:40:59,351 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:00,503 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:03,903 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:04,896 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:13,368 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:14,378 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:14,537 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:41:14,537 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:41:14,538 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:41:21,065 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:22,066 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:22,352 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:41:22,353 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:41:22,353 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:41:23,665 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:24,590 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:24,744 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:41:24,744 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:41:24,745 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:41:41,599 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:41:42,628 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:41:42,787 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:41:42,788 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:41:42,788 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:44:00,863 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:44:02,007 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:44:02,252 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 17:44:02,253 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 17:44:02,253 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 17:44:06,688 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:44:07,742 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:44:43,106 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:44:44,102 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:46:07,927 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:46:09,281 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:46:42,529 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:46:43,497 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:47:42,622 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:47:43,675 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:47:54,326 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:47:55,256 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:48:40,934 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:48:41,908 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:00,746 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:01,787 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:07,251 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:08,450 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:19,064 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:20,094 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:29,635 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:30,606 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:34,033 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:35,033 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:40,487 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:41,528 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:42,829 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:43,781 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:54,334 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:55,367 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:49:56,701 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:49:57,695 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:50:54,786 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:50:55,741 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:51:08,430 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:51:09,453 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:51:27,287 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:51:28,329 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:51:38,936 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:51:40,016 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:51:44,399 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:51:45,571 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:51:58,335 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:51:59,302 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:52:01,639 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:52:02,687 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:52:03,953 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:52:05,009 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:52:06,246 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:52:07,154 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:52:11,516 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:52:12,538 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:52:23,069 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:52:24,037 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 17:53:48,896 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 17:53:49,963 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:04:11,944 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:04:13,047 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:32,922 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:34,018 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:35,350 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:36,362 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:37,648 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:38,595 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:42,924 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:43,970 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:45,250 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:46,359 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:05:50,903 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:05:52,160 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:08:47,834 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:08:48,853 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:09:05,646 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:09:06,730 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:09:14,291 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:09:15,396 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:09:33,271 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:09:34,354 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:09:54,289 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:09:55,669 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:09:58,017 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:09:59,013 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:01,308 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:02,723 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:04,081 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:05,091 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:15,694 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:16,734 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:17,153 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:17,153 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:17,155 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:10:24,517 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:25,444 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:25,587 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:25,587 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:25,588 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:10:27,938 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:29,107 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:29,316 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:29,316 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:29,316 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:10:30,674 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:31,809 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:32,013 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:32,013 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:32,014 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:10:35,547 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:36,637 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:36,806 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:36,807 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:36,808 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:10:53,698 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:10:54,732 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:10:54,957 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:10:54,958 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:10:54,958 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:11:03,516 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:11:04,665 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:11:04,832 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:11:04,832 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:11:04,832 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:11:08,226 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:11:09,283 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:11:09,492 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:11:09,493 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:11:09,494 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:11:10,804 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:11:11,786 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:11:11,995 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:11:11,995 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:11:11,996 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:11:15,356 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:11:16,453 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:11:16,619 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:11:16,619 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:11:16,621 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:12:24,323 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:12:25,512 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:12:25,703 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:12:25,704 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:12:25,704 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:19:17,904 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:19:18,958 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:19:19,222 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:19:19,222 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:19:19,222 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:19:38,094 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:19:39,051 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:20:17,780 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:20:18,834 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:20:22,408 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:20:23,433 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:20:25,988 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:20:26,933 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:11,815 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:12,771 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:25,624 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:26,601 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:30,262 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:31,315 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:33,797 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:34,770 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:40,359 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:41,339 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:43,811 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:44,896 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:21:49,503 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:21:50,548 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:22:01,350 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:22:02,277 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:22:05,892 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:22:06,852 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:22:09,341 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:22:10,332 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:22:44,864 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:22:45,888 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:22:46,071 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:22:46,071 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:22:46,073 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:22:51,580 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:22:52,540 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:23:12,571 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:23:13,527 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:23:13,699 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:23:13,700 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:23:13,701 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:23:20,284 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:23:21,303 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:23:21,436 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:23:21,436 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:23:21,437 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:23:40,428 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:23:41,574 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:23:41,779 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:23:41,779 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:23:41,779 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:23:47,217 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:23:48,204 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:23:48,403 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:23:48,403 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:23:48,404 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:25:35,219 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:25:36,256 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:25:36,417 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:25:36,418 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:25:36,419 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:25:41,926 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:25:42,925 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:25:43,059 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:25:43,059 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:25:43,060 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:25:46,447 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:25:47,555 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:25:47,785 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:25:47,785 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:25:47,786 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:25:56,396 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:25:57,443 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:26:08,357 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:26:09,348 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:26:09,513 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:26:09,513 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:26:09,514 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:26:34,700 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:26:35,662 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:26:35,816 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:26:35,816 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:26:35,817 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:26:53,707 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:26:54,717 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:26:54,855 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:26:54,855 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:26:54,856 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:01,417 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:27:02,444 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:02,599 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:02,599 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:02,600 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:04,968 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\consumers.py changed, reloading.
+INFO 2024-07-05 18:27:06,077 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:06,272 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:06,272 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:06,273 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:20,048 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:27:21,079 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:21,335 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:21,335 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:21,336 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:35,096 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:27:36,127 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:41,535 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:27:42,749 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:42,942 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:42,943 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:42,944 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:46,374 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:27:47,404 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:47,625 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:47,626 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:47,626 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:27:49,951 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:27:50,971 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:27:51,137 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:27:51,137 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:27:51,138 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:29:01,828 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:29:02,963 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:29:07,401 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:29:08,426 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:29:08,667 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:29:08,667 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:29:08,669 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:29:14,263 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:29:15,218 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:29:15,396 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:29:15,397 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:29:15,397 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:29:29,121 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:29:30,115 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:29:30,298 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:29:30,298 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:29:30,299 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:30:43,191 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:30:44,343 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:30:47,772 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:30:48,835 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:30:53,190 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:30:54,218 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:30:58,569 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:30:59,524 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:16,285 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:31:17,190 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:17,406 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:31:17,407 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:31:17,407 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:31:37,336 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:31:38,418 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:38,645 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:31:38,645 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:31:38,646 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:31:43,145 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:31:44,278 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:44,439 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:31:44,440 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:31:44,440 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:31:46,795 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:31:47,850 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:47,996 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:31:47,996 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:31:47,997 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:31:51,419 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:31:52,394 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:31:52,550 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:31:52,550 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:31:52,551 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:17,653 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:18,629 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:18,781 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:18,782 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:18,782 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:22,199 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:23,245 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:23,387 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:23,387 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:23,388 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:26,778 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:27,794 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:27,991 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:27,991 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:27,992 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:30,335 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:31,566 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:31,763 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:31,763 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:31,764 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:33,184 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:34,298 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:34,510 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:34,510 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:34,511 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:35,967 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:37,194 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:42,654 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:43,709 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:43,886 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:43,886 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:43,887 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:32:48,319 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:32:49,301 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:32:49,457 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:32:49,457 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:32:49,458 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:33:03,229 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:33:04,304 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:33:04,508 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:33:04,509 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:33:04,509 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:33:52,537 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:33:53,534 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:33:53,760 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:33:53,760 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:33:53,762 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:35:50,924 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:35:52,126 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:35:52,337 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:35:52,337 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:35:52,338 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:36:16,463 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:36:17,498 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:36:17,779 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:36:17,779 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:36:17,780 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 18:36:19,106 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 18:36:20,055 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 18:36:20,196 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 18:36:20,196 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 18:36:20,197 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:10:22,769 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:10:23,945 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:10:24,203 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:10:24,204 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:10:24,204 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:10:29,626 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:10:30,632 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:10:30,774 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:10:30,774 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:10:30,775 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:10:37,358 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:10:38,378 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:10:38,554 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:10:38,554 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:10:38,555 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:10:54,314 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:10:55,362 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:10:55,611 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:10:55,611 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:10:55,611 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:12:27,893 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:12:28,897 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:12:29,382 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:12:29,382 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:12:29,382 server Listening on TCP address 127.0.0.1:8000
+INFO 2024-07-05 19:12:33,549 autoreload C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\NotifyMe\views\views.py changed, reloading.
+INFO 2024-07-05 19:12:34,705 autoreload Watching for file changes with StatReloader
+INFO 2024-07-05 19:12:34,879 server HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+INFO 2024-07-05 19:12:34,879 server Configuring endpoint tcp:port=8000:interface=127.0.0.1
+INFO 2024-07-05 19:12:34,880 server Listening on TCP address 127.0.0.1:8000
