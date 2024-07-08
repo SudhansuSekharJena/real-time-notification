@@ -14,7 +14,7 @@ from NotifyMe.utils.exceptionManager import NotifyMeException, NotifyMeException
 from NotifyMe.utils.error_codes import ErrorCodes, ErrorCodeMessages
 from NotifyMe.utils.error_codes import SuccessCodes, SuccessCodeMessages
 from rest_framework import status
-
+from asgiref import async_to_sync
 
 logger = logging.getLogger(__name__)
 
