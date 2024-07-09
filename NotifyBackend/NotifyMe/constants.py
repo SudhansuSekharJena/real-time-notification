@@ -14,6 +14,7 @@ class PlansDuration(Enum):
   REGULAR = 90,
   STANDARD = 180,
   PREMIUM = 365
+  
 
 
 

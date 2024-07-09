@@ -5,6 +5,6 @@ from .baseModel import BaseModel
 
 class User(BaseModel):
   email_id = models.EmailField(unique=True)
-  first_name = models.CharField(max_length=Length['MAX_TITLE_LENGTH'])
-  last_name = models.CharField(max_length=Length['MAX_TITLE_LENGTH'])
+  first_name = models.CharField(max_length=Length.MAX_TITLE_LENGTH.value)
+  last_name = models.CharField(max_length=Length.MAX_TITLE_LENGTH.value)
   subscription_plan = models.ForeignKey(SubscriptionPlan, null=False, on_delete=models.CASCADE)
