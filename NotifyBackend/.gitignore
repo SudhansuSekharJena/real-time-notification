@@ -1,47 +1,18 @@
 NotificationModule/__pycache__/urls.cpython-312.pyc
 NotificationModule/__pycache__/settings.cpython-312.pyc
 NotificationModule/__pycache__/asgi.cpython-312.pyc
-NotifyMe/signals.py
 NotificationModule/__pycache__/__init__.cpython-312.pyc
 NotificationModule/__pycache__/constants.cpython-312.pyc
-NotifyMe/models/.py
-NotifyMe/routing.py
-NotifyMe/management/commands.py
 api/__pycache__/__init__.cpython-312.pyc
 NotificationModule/__init__.py
 NotificationModule/__init__.py
 api/__pycache__/urls.cpython-312.pyc
 NotificationModule/__init__.py
-NotificationModule/celery.py
-NotificationModule/constants.py
 log/warning.log
+log/error.log
+log/info.log
 .env
 
-C:\Users\Guddu\Desktop\Django\NotificationService\NotificationModule\logs\warning.log
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\.env
-
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\logs
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\logs\error.log
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\logs\info.log
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\logs\warning.log
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotificationModule\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotificationModule\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\env
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\env\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\migrations\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\migrations\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\models\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\models\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\services\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\services\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\utils\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\utils\__pycache__\
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\views\__pycache__
-C:\Users\Guddu\Desktop\Notification_Management\real-time-notification\backend\NotifyMe\views\__pycache__\
 
 # Django #
 *.log
@@ -182,3 +153,45 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+
+# logs
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\logs
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\logs\info.log
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\logs\warning.log
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\logs\error.log
+
+# utils __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\views\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\views\__pycache__\
+
+# env
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\.env
+
+# utils __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\utils\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\utils\__pycache__\
+
+# services __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\services\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\services\__pycache__\
+
+# models __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\models\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\models\__pycache__\
+
+# NotifyMe __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotifyMe\__pycache__\
+
+# NotificationModule __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotificationModule\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\NotificationModule\__pycache__\
+
+# env
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\env
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\env\
+
+# api __pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\api\__pycache__
+C:\Users\Guddu\Desktop\new Notification\real-time-notification\NotifyBackend\api\__pycache__\

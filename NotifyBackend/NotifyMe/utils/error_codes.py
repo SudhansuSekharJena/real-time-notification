@@ -61,7 +61,10 @@ class ErrorCodes(Enum):
   HTTP_159_SUBSCRIPTION_ID_IS_MISSING = 159 
   HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING = 160 
   HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING = 161 
-
+  HTTP_162_USER_DATA_NOT_GIVEN = 162
+  HTTP_163_SUBSCRIPTION_DATA_NOT_GIVEN = 163
+  HTTP_164_USER_PATCH = 164
+  HTTP_165_SUBSCRIPTION_PATCH = 165
 
 class ErrorCodeMessages(Enum):
   
@@ -80,7 +83,7 @@ class ErrorCodeMessages(Enum):
   HTTP_117_SUBSCRIPTION_DATA_NOT_FOUND = "Subscription data not found"
   HTTP_118_UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_DATA = "Unexpected error while fetching Subscription data"
   HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS = "Subscription data already exists"
-  HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA = "Validation error while creating Subscription data. You need to give value to these fields. FIELDS: ( user_id, subscription_plan )"
+  HTTP_121_VALIDATION_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA = "Validation error while creating Subscription data. You need to give value to these fields. FIELDS: ( id, user_id, subscription_plan )"
   HTTP_122_UNEXPECTED_ERROR_WHILE_CREATING_SUBSCRIPTION_DATA = "Unexpected error while creating Subscription data"
   HTTP_124_INVALID_SUBSCRIPTION_DATA_ID_PROVIDED = "Invalid Subscription data id provided"
   HTTP_125_VALIDATION_ERROR_WHILE_UPDATING_SUBSCRIPTION_DATA = "Validation error while updating Subscription data"
@@ -95,7 +98,7 @@ class ErrorCodeMessages(Enum):
   HTTP_136_INTEGRITY_ERROR_WHILE_CREATING_SUBSCRIPTION_PLAN = "Unexpected error while creating Subscription_plan"
   HTTP_138_UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN = "Unexpected error while deleting Subscription_plan"
   HTTP_139_PERMISSION_DENIED_WHILE_DELETING_SUBSCRIPTION_PLAN_DATA = "Permission denied while deleting Subscription_plan data"
-  HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER = "Validation error while updating user"
+  HTTP_140_VALIDATION_ERROR_WHILE_UPDATING_USER = "Validation error while updating user. See among these fields whose value you have not given. FIELDS: < id, email_id, subscription_plan, first_name, last_name >"
   HTTP_141_FAILED_TO_RETRIEVE_ALL_USERS_FROM_DATABASE = "Failed to retrieve all users from database"
   HTTP_142_UNEXPECTED_ERROR_WHILE_RETRIEVING_ALL_USERS = "Unexpected error while retrieving all users"
   HTTP_143_UNEXPECTED_ERROR_WHILE_CREATING_USER = "Unexpected error while creating user"
@@ -117,6 +120,13 @@ class ErrorCodeMessages(Enum):
   HTTP_159_SUBSCRIPTION_ID_IS_MISSING = "Subscription_id is missing from the data"
   HTTP_160_SUBSCRIPTION_PLAN_FIELD_IS_MISSING = "Value in the Subscription_plan field is missing"
   HTTP_161_SUBSCRIPTION_PLAN_ID_MISSING = "Subscription-Plan id missing"
+  HTTP_162_USER_DATA_NOT_GIVEN = "No data has been sent. You have to provide values to fields. FIELDS: < subscription_plan, email_id, first_name, last_name >"
+  HTTP_163_SUBSCRIPTION_DATA_NOT_GIVEN = "No data has been sent. You have to provide values to fields. FIELDS: < user_id, subscription_plan >"
+  HTTP_164_USER_PATCH = "No data given. You have to provide values to fields. FIELDS: Mandatory_Field: < email_id >, Field whose value you want to change: < subscription_plan, first_name, last_name>"
+  HTTP_165_SUBSCRIPTION_DATA_PATCH = "No data given. You have to provide values to fields. FIELDS: Mandatory_Field: user_id, Field whose value you want to change: < subscription_plan >"
+  HTTP_166_USER_DELETE = "No data has been sent. Provide value to field. FIELD: id"
+  HTTP_167_SUBSCRIPTION_DATA_DELETE = "No data has been sent. Provide value to field. FIELD: id"
+  HTTP_168_SUBSCRIPTION_PLAN_DATA_NOT_GIVEN = "No data given. You have to provide value to field. FIELDS: subscription_plan"
   
 class SuccessCodes(Enum):
   HTTP_100_USER_FETCHED_SUCCESSFULLY = 100

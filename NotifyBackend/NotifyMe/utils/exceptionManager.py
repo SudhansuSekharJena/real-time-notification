@@ -38,13 +38,13 @@ class NotifyMeException(Exception):  # CUSTOM EXCEPTION
         }  
         return Response(response_data)
     
-    def handle_exception(mesage, status_code):
+    def handle_exception(message, status_code):
         """
         To handle exception handling in serializers and servies
         """
         
         response_data = {
-            "message": mesage,
+            "message": message,
             "status": status_code
         }
         
