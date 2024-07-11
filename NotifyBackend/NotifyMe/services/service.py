@@ -176,7 +176,7 @@ class UserService:
         
 
 class SubscriptionService: 
-    def get_all_subscriptions(self, request):
+    def get_all_subscriptions(self):
         
         """
         Retrieve all subscriptions from the database.
