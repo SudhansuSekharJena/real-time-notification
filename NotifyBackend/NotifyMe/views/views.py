@@ -3,17 +3,22 @@ from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from rest_framework.response import Response
-from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer
+from ..serializers import UserSerializer, SubscriptionSerializer, SubscriptionPlanSerializer, NotificationSerializer
 from NotifyMe.models.user import User
 from NotifyMe.models.subscription import Subscription
 from NotifyMe.models.subscriptionPlan import SubscriptionPlan
+from NotifyMe.models.notification import Notification
+from NotifyMe.models.notificationType import NotificationType
 from rest_framework import status 
 from rest_framework.views import APIView
-from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService
+from NotifyMe.services.service import UserService, SubscriptionService, SubscriptionPlanService, AnnouncementsService
 from NotifyMe.utils.exceptionManager import NotifyMeException, NotifyMeException, NotifyMeException
 from NotifyMe.utils.error_codes import ErrorCodes, ErrorCodeMessages
 from NotifyMe.utils.error_codes import SuccessCodes, SuccessCodeMessages
 from rest_framework import status
+from NotifyMe.constants import NotificationTypeId
+from NotifyMe.utils.websocket_utils import NotificationManager
+
 logger = logging.getLogger(__name__)
 
 
@@ -54,16 +59,21 @@ class UserAPI(APIView):
             if serializer.is_valid():
                 serializer.save()
                 logger.info("User created successfully")
-                return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_104_USER_CREATED_SUCCESSFULLY.value, status_code=status.HTTP_201_CREATED)
+                return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_104_USER_CREATED_SUCCESSFULLY.value,
+                status_code=status.HTTP_201_CREATED)
             else:
                 return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_162_USER_DATA_NOT_GIVEN.value, status_code=status.HTTP_400_BAD_REQUEST)
         except NotifyMeException as e:
+            print(f"ERROR: {e}")
             return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except IntegrityError as e:
+            print(f"ERROR: {e}")
             return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_106_USER_ALREADY_EXISTS.value, status_code=status.HTTP_409_CONFLICT, e=e) 
         except ValidationError as e:
+            print(f"ERROR: {e}")
             return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_103_VALIDATION_ERROR_WHILE_CREATING_USER.value, status_code=status.HTTP_400_BAD_REQUEST, e=e) 
         except Exception as e:
+            print(f"ERROR: {e}")
             logger.error(f"An Unexpected error occured while posting new user in the database. ERROR: {e}")
             return Response(f"AN UNEXPECTED ERROR OCCURED WHILE POSTING NEW USER IN THE DATABASE. ERROR:{e}", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
@@ -224,7 +234,6 @@ class SubscriptionAPI(APIView):
         subscription_service = SubscriptionService()
         try:
             data = request.data
-            data = request.data
             if not data:
                 return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_167_SUBSCRIPTION_DATA_DELETE.value, status_code=status.HTTP_400_BAD_REQUEST) 
             subscription = subscription_service.get_subscription_by_id(data)
@@ -299,9 +308,68 @@ class SubscriptionPlanAPI(APIView):
             return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error while deleting Subscription Plan. Error: {e}")
-            return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN. ERROR", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
              
-
-
-    
+class AnnouncementAPI(APIView):
+    def get(self, request):
+        announcements_service = AnnouncementsService()
+        try:
+            objects = announcements_service.get_all_announcements()
+            serializer = NotificationSerializer(objects, many=True)
+            return NotifyMeException.handle_success(message=ErrorCodeMessages.HTTP_170_ANNOUNCEMETS_FETCHED_SUCCESSFULY.value, data=serializer.data, status_code=status.HTTP_100_CONTINUE)
+        except NotifyMeException as e:
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            logger.error(f"An unexpected error occured while fetching announcements from the database. ERROR: {e}")
+            return Response(f"An unexpected error occured while fetching announcements from the database. ERROR: {e}", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def post(self, request):
+        try:
+            notification_manager = NotificationManager()
+            data = request.data
+            announcement_message = data.get("message")
+            if announcement_message is None:
+                return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_174_NOTIFICATION_DATA_NOT_GIVEN.value, status_code=status.HTTP_400_BAD_REQUEST)
+            
+            announcement_object = {
+                "message": announcement_message,
+                "title": NotificationTypeId.ANNOUNCEMENTS.name,
+                "notification_type": NotificationTypeId.ANNOUNCEMENTS.value
+            }
+            
+            serializer = NotificationSerializer(data=announcement_object)
+            if serializer.is_valid():
+                serializer.save()
+                notification_manager.announcement_notification("Our_clients", announcement_message, NotificationTypeId.ANNOUNCEMENTS.value)
+                
+                return NotifyMeException.handle_success(
+                    message=SuccessCodeMessages.HTTP_173_NOTIFICATION_CREATED_SUCCESSFULLY.value,
+                    status_code=status.HTTP_201_CREATED)
+            else:
+                return NotifyMeException.handle_api_exception(message=serializer.errors,
+                status_code=status.HTTP_400_BAD_REQUEST)
+        except NotifyMeException as e:
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            return Response(f"UNEXPECTED ERROR OCCURED WHILE CREATING NEW NOTIFICATION.")
+        
+    def delete(self, request):
+        announcements_service = AnnouncementsService()
+        try:
+            data = request.data
+            if not data:
+                return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_174_NOTIFICATION_DELETE.value, status_code=ErrorCodes.HTTP_174_NOTIFICATION_DELETE.value)
+            object = announcements_service.get_announcement_by_id(data)
+            object.delete()
+            return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_178_NOTIFICATION_DELETED_SUCCESSFULLY.value, status_code=SuccessCodes.HTTP_178_NOTIFICATION_DELETED_SUCCESSFULLY.value)
+        except NotifyMeException as e:
+            return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            return Response(f"UNEXPECTED ERROR OCCUED WHILE DELETING ANNOUNCEMENT.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
+        
+        
+        
+        
+        
 

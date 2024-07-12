@@ -65,6 +65,13 @@ class ErrorCodes(Enum):
   HTTP_163_SUBSCRIPTION_DATA_NOT_GIVEN = 163
   HTTP_164_USER_PATCH = 164
   HTTP_165_SUBSCRIPTION_PATCH = 165
+  HTTP_169_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS = 169
+  HTTP_171_NOTIFICATION_DATABASE_ERROR = 171
+  HTTP_172_INTEGRITY_ERROR_WHILE_CREATING_NOTIFICATION = 172
+  HTTP_174_NOTIFICATION_DELETE = 174
+  HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION = 175
+  HTTP_176_NOTIFICATION_ID_MISSING = 176
+  HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION = 177
 
 class ErrorCodeMessages(Enum):
   
@@ -78,8 +85,10 @@ class ErrorCodeMessages(Enum):
   HTTP_110_MISSING_ID_WHILE_REQUESTING_FOR_UPDATE = "Missing id while requesting for update"
   HTTP_111_UNEXPECTED_ERROR_OCCURED_WHILE_UPDATING_USER = "Unexpected error occured while updating user"
   HTTP_112_PERMISSION_DENIED_WHILE_DELETING_USER_DATA = "Permission denied while deleting user data"
+
   HTTP_114_UNEXPECTED_ERROR_OCCURED_WHILE_DELETING_USER = "Unexpected error occured while deleting user"
   HTTP_115_MISSING_ID_IN_REQUEST_FOR_USER_DELETION = "Missing id in request for User deletion"
+
   HTTP_117_SUBSCRIPTION_DATA_NOT_FOUND = "Subscription data not found"
   HTTP_118_UNEXPECTED_ERROR_WHILE_FETCHING_SUBSCRIPTION_DATA = "Unexpected error while fetching Subscription data"
   HTTP_120_SUBSCRIPTION_DATA_ALREADY_EXISTS = "Subscription data already exists"
@@ -127,7 +136,15 @@ class ErrorCodeMessages(Enum):
   HTTP_166_USER_DELETE = "No data has been sent. Provide value to field. FIELD: id"
   HTTP_167_SUBSCRIPTION_DATA_DELETE = "No data has been sent. Provide value to field. FIELD: id"
   HTTP_168_SUBSCRIPTION_PLAN_DATA_NOT_GIVEN = "No data given. You have to provide value to field. FIELDS: subscription_plan"
-  
+  HTTP_169_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS = "Database error while fetching Announcements"
+  HTTP_170_ANNOUNCEMETS_FETCHED_SUCCESSFULY = "Announcements fetched successfully"
+  HTTP_171_NOTIFICATION_DATABASE_ERROR = "Failed to create notification object. ERROR: Notification database doesnot exist"
+  HTTP_172_INTEGRITY_ERROR_WHILE_CREATING_NOTIFICATION = "Failed to create notification object. Give data to fields. FIELDS: ( title, message, notification_type )"
+  HTTP_174_NOTIFICATION_DATA_NOT_GIVEN = "No data given. You have to provide value to field. FIELDS: ( notification_type, title, message)"
+  HTTP_174_NOTIFICATION_DELETE = "No data has been sent. Provide value to field. FIELD: id"
+  HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION = "Missing id for Notification Deletion"
+  HTTP_176_NOTIFICATION_ID_MISSING = "id missing from the data"
+  HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION = "Permission denied while deleting notificaition"
 class SuccessCodes(Enum):
   HTTP_100_USER_FETCHED_SUCCESSFULLY = 100
   HTTP_104_USER_CREATED_SUCCESSFULLY = 104 #
@@ -140,6 +157,8 @@ class SuccessCodes(Enum):
   HTTP_130_SUBSCRIPTION_PLAN_FETCHED_SUCCESSFULLY = 130 #
   HTTP_137_SUBSCRIPTION_PLAN_DELETED_SUCCESSFULLY = 137 #
   HTTP_133_SUBSCRIPTION_PLAN_CREATED_SUCCESSFULLY = 133
+  HTTP_173_NOTIFICATION_CREATED_SUCCESSFULLY = 173
+  HTTP_178_NOTIFICATION_DELETED_SUCCESSFULLY = 178
   
   
 class SuccessCodeMessages(Enum):
@@ -154,4 +173,6 @@ class SuccessCodeMessages(Enum):
   HTTP_130_SUBSCRIPTION_PLAN_FETCHED_SUCCESSFULLY = "Subscription_plan fetched successfully"
   HTTP_133_SUBSCRIPTION_PLAN_CREATED_SUCCESSFULLY = "Subscription_plan created successfully"
   HTTP_137_SUBSCRIPTION_PLAN_DELETED_SUCCESSFULLY = "Subscription_plan deleted successfully"
+  HTTP_173_NOTIFICATION_CREATED_SUCCESSFULLY = "Notification created successfully"
+  HTTP_178_NOTIFICATION_DELETED_SUCCESSFULLY = "Notification deleted successfully"
   
