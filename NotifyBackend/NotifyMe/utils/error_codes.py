@@ -140,6 +140,7 @@ class ErrorCodeMessages(Enum):
   HTTP_170_ANNOUNCEMETS_FETCHED_SUCCESSFULY = "Announcements fetched successfully"
   HTTP_171_NOTIFICATION_DATABASE_ERROR = "Failed to create notification object. ERROR: Notification database doesnot exist"
   HTTP_172_INTEGRITY_ERROR_WHILE_CREATING_NOTIFICATION = "Failed to create notification object. Give data to fields. FIELDS: ( title, message, notification_type )"
+  HTTP_181_NOTIFICATION_DATA_NOT_GIVEN = "No data given. You have to provide value to fields. FIELDS: ( notification_type, title, message )"
   HTTP_174_NOTIFICATION_DATA_NOT_GIVEN = "No data given. You have to provide value to field. FIELDS: ( notification_type, title, message)"
   HTTP_174_NOTIFICATION_DELETE = "No data has been sent. Provide value to field. FIELD: id"
   HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION = "Missing id for Notification Deletion"

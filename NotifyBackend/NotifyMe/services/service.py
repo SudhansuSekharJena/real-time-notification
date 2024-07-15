@@ -345,16 +345,14 @@ class AnnouncementsService:
         try:
             return Notification.objects.get(id=announcement_id)
         except Notification.DoesNotExist as e:
-            print(f"SERVICE_ERROR: {e}")
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, status_code=ErrorCodes.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, e=e)
         except KeyError as e:
-            print(f"KEY_SERVICE_ERROR: {e}")
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, status_code=ErrorCodes.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, e=e)
         except ValueError as e:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_176_NOTIFICATION_ID_MISSING.value, status_code=ErrorCodes.HTTP_176_NOTIFICATION_ID_MISSING.value, e=e)
         except PermissionDenied as e:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION.value, status_code=ErrorCodes.HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION.value, e=e)
         except Exception as e:
-            logger.info(f"An unexpected error occured while fetching notification data. ERROR: {e}")
+            logger.error(f"An unexpected error occured while fetching notification data. ERROR: {e}")
             raise e
             
