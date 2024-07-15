@@ -244,7 +244,7 @@ class SubscriptionAPI(APIView):
             return NotifyMeException.handle_exception(message=e.message,
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
-            logger.error(f"Unexpected error occured")
+            logger.error(f"Unexpected error occured while deleting subscription data. ERROR: {e}")
             return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_DATA.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
              
@@ -305,7 +305,7 @@ class SubscriptionPlanAPI(APIView):
             return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             logger.error(f"Unexpected error while deleting Subscription Plan. Error: {e}")
-            return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN. ERROR", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(f"UNEXPECTED_ERROR_WHILE_DELETING_SUBSCRIPTION_PLAN.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
              
 class AnnouncementAPI(APIView):
     def get(self, request):
@@ -347,7 +347,7 @@ class AnnouncementAPI(APIView):
         except NotifyMeException as e:
             return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
-            logger.error(f"An unepected errpr occured while creating new notification.")
+            logger.error(f"An unexpected errpr occured while creating new notification. ERROR: {e}")
             return Response(f"UNEXPECTED ERROR OCCURED WHILE CREATING NEW NOTIFICATION.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     def delete(self, request):

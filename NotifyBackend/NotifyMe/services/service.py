@@ -387,12 +387,5 @@ class MaintenanceService:
         except Exception as e:
             logger.info(f"An unexpected error occured while fetching maintenance notification data. ERROR: {e}")
             raise e
-            
-                
-                
-            
-            
-            
-    
-    
+
     
