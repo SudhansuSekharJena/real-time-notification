@@ -345,10 +345,8 @@ class AnnouncementsService:
         try:
             return Notification.objects.get(id=announcement_id)
         except Notification.DoesNotExist as e:
-            print(f"SERVICE_ERROR: {e}")
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, status_code=ErrorCodes.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, e=e)
         except KeyError as e:
-            print(f"KEY_SERVICE_ERROR: {e}")
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, status_code=ErrorCodes.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, e=e)
         except ValueError as e:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_176_NOTIFICATION_ID_MISSING.value, status_code=ErrorCodes.HTTP_176_NOTIFICATION_ID_MISSING.value, e=e)
@@ -357,4 +355,44 @@ class AnnouncementsService:
         except Exception as e:
             logger.info(f"An unexpected error occured while fetching notification data. ERROR: {e}")
             raise e
+        
+
+class MaintenanceService:
+    def get_all_maintenance_notifications(self):
+        try:
+            maintenances = Notification.objects.filter(notification_type_id=NotificationTypeId.MAINTENANCE_ALERT.value)
+            logger.info(f"Retrieved {maintenances.count()} maintenances notifications")
+            return maintenances
+        except Notification.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_179_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS.value, status_code=ErrorCodes.HTTP_179_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS.value, e=e)
+        except Exception as e:
+            logger.info(f"An Unexpected error while fetching maintenance notifications from the database. ERROR: {e}")
+            raise e
+        
+        
+    def get_maintenance_notification_by_id(self, data):
+        maintenance_id = data.get('id')
+        if maintenance_id is None:
+            raise ValueError
+        try:
+            return Notification.objects.get(id=maintenance_id)
+        except Notification.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, status_code=ErrorCodes.HTTP_171_NOTIFICATION_DATABASE_ERROR.value, e=e)
+        except KeyError as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, status_code=ErrorCodes.HTTP_175_MISSING_ID_FOR_NOTIFICATION_DELETION.value, e=e)
+        except ValueError as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_176_NOTIFICATION_ID_MISSING.value, status_code=ErrorCodes.HTTP_176_NOTIFICATION_ID_MISSING.value, e=e)
+        except PermissionDenied as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION.value, status_code=ErrorCodes.HTTP_177_PERMISSION_DENIED_WHILE_DELETING_NOTIFICATION.value, e=e)
+        except Exception as e:
+            logger.info(f"An unexpected error occured while fetching maintenance notification data. ERROR: {e}")
+            raise e
             
+                
+                
+            
+            
+            
+    
+    
+    

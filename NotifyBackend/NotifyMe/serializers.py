@@ -45,6 +45,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
         fields = '__all__'
+        depth = 1
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -57,12 +58,14 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = '__all__'
+        depth = 1
         
 
 class SubscriptionPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubscriptionPlan
         fields = '__all__'
+        depth = 1
 
 
 

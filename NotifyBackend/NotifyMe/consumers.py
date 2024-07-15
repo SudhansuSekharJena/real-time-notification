@@ -31,6 +31,12 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         message = event['message']
         notification_type = event['notification_type']
         await self.send(text_data=json.dumps({"message": message}))
+        
+    async def send_maintenance_alert(self, event):
+        message = event['message']
+        notification_type = event['notification_type']
+        await self.send(text_data=json.dumps({"message":message}))
+        
     
 
 
