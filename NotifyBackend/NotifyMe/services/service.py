@@ -353,7 +353,7 @@ class AnnouncementsService:
     
     def get_all_announcements(self):
         try:
-            announcements = Notification.objects.filter(notification_type_id=2) # return query set of Notification instances
+            announcements = Notification.objects.filter(notification_type_id=NotificationTypeId.ANNOUNCEMENTS.value) # return query set of Notification instances
             logger.info(f"Retrieved {announcements.count()} announcement notifications")
             return announcements
         except Notification.DoesNotExist as e:
