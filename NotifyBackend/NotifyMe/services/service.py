@@ -175,6 +175,14 @@ class UserService:
             logger.error(f"An Unexpected error occurred while creating user. ERROR: {e}")
             raise e
         
+    def delete_user(self, user_object):
+        try:
+            user_object.delete()
+        except User.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
+        except Exception as e:
+            logger.error(f"An Unexpected error occurred while deleting user. ERROR: {e}")
+        
 
 class SubscriptionService: 
     def get_all_subscriptions(self):
@@ -251,6 +259,14 @@ class SubscriptionService:
             logger.error(f"An Unexpected error occurred while retrieving subscription with ID {subscription_id}. ERROR: {e}")
             raise e
         
+    def delete_subscription(self, subscription_object):
+        try:
+            subscription_object.delete()
+        except Subscription.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
+        except Exception as e:
+            logger.error(f"An unexpected error occured while deleting subscription data. ERROR: {e}")
+        
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
         """
@@ -322,7 +338,13 @@ class SubscriptionPlanService:
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}")
             raise e
-        
+    def delete_subscription_plan(self, subscription_plan_object):
+        try:
+            subscription_plan_object.delete()
+        except SubscriptionPlan.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
+        except Exception as e:
+            logger.error(f"An unexpected error occured while deleting subscription plan data. ERROR: {e}")
 
 class AnnouncementsService:
     
@@ -355,4 +377,14 @@ class AnnouncementsService:
         except Exception as e:
             logger.error(f"An unexpected error occured while fetching notification data. ERROR: {e}")
             raise e
+            
+    def delete_announcement(self, announcement_object):
+        try:
+            announcement_object.delete()
+        except Notification.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
+        except Exception as e:
+            logger.error(f"An unexpected error occured while deleting notification data. ERROR: {e}")
+            raise e
+            
             
