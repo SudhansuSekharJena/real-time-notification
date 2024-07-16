@@ -420,8 +420,10 @@ class MaintenanceAPI(APIView):
             data = request.data 
             if not data:
                 return NotifyMeException.handle_api_exception(message=ErrorCodeMessages.HTTP_174_NOTIFICATION_DELETE.value, status_code=status.HTTP_200_OK)
-            object = maintenance_service.get_maintenance_notification_by_id(data)
-            object.delete()
+            maintenance_alert = maintenance_service.get_maintenance_notification_by_id(data)
+            
+            maintenance_service.delete_maintenance(maintenance_alert)
+            
             return NotifyMeException.handle_success(message=SuccessCodeMessages.HTTP_178_NOTIFICATION_DELETED_SUCCESSFULLY.value, status_code=status.HTTP_200_OK)
         except NotifyMeException as e:
             return NotifyMeException.handle_exception(message=e.message, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

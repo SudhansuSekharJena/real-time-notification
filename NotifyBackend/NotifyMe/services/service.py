@@ -340,6 +340,7 @@ class SubscriptionPlanService:
         except Exception as e:
             logger.error(f"An Unexpected error occurred while retrieving subscription plan with ID {plan_id}: {e}")
             raise e
+        
     def delete_subscription_plan(self, subscription_plan_object):
         try:
             subscription_plan_object.delete()
@@ -353,7 +354,7 @@ class AnnouncementsService:
     
     def get_all_announcements(self):
         try:
-            announcements = Notification.objects.filter(notification_type_id=2) # return query set of Notification instances
+            announcements = Notification.objects.filter(notification_type_id=NotificationTypeId.ANNOUNCEMENTS.value) # return query set of Notification instances
             logger.info(f"Retrieved {announcements.count()} announcement notifications")
             return announcements
         except Notification.DoesNotExist as e:
@@ -381,6 +382,15 @@ class AnnouncementsService:
             logger.error(f"An unexpected error occured while fetching notification data. ERROR: {e}")
             raise e
         
+    def delete_announcement(self, announcement_object):
+        try:
+            announcement_object.delete()
+        except Notification.DoesNotExist as e:
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
+        except Exception as e:
+            logger.error(f"An unexpected error occured while deleting notification data. ERROR: {e}")
+            raise e
+        
 
 class MaintenanceService:
     def get_all_maintenance_notifications(self):
@@ -389,7 +399,7 @@ class MaintenanceService:
             logger.info(f"Retrieved {maintenances.count()} maintenances notifications")
             return maintenances
         except Notification.DoesNotExist as e:
-            raise NotifyMeException(message=ErrorCodeMessages.HTTP_179_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS.value, status_code=ErrorCodes.HTTP_179_DATABASE_ERROR_WHILE_RETRIEVING_ANNOUNCEMENTS.value, e=e)
+            raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
         except Exception as e:
             logger.info(f"An Unexpected error while fetching maintenance notifications from the database. ERROR: {e}")
             raise e
@@ -413,15 +423,14 @@ class MaintenanceService:
             logger.info(f"An unexpected error occured while fetching maintenance notification data. ERROR: {e}")
             raise e
 
-    
             
-    def delete_announcement(self, announcement_object):
+    def delete_maintenance(self, maintenance_object):
         try:
-            announcement_object.delete()
+            maintenance_object.delete()
         except Notification.DoesNotExist as e:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
         except Exception as e:
-            logger.error(f"An unexpected error occured while deleting notification data. ERROR: {e}")
+            logger.error(f"An unexpected error occured while deleting maintenance-alert data. ERROR: {e}")
             raise e
             
             
