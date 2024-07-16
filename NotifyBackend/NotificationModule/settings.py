@@ -217,5 +217,3 @@ LOGGING = {
 logging.config.dictConfig(LOGGING)
 # level -> DEBUG -> INFO -> WARNING -> ERROR -> CRITICAL
 
-
-
