@@ -182,6 +182,7 @@ class UserService:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
         except Exception as e:
             logger.error(f"An Unexpected error occurred while deleting user. ERROR: {e}")
+            raise e
         
 
 class SubscriptionService: 
@@ -266,6 +267,7 @@ class SubscriptionService:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
         except Exception as e:
             logger.error(f"An unexpected error occured while deleting subscription data. ERROR: {e}")
+            raise e
         
 class SubscriptionPlanService:
     def get_all_subscription_plans(self, request):
@@ -345,6 +347,7 @@ class SubscriptionPlanService:
             raise NotifyMeException(message=ErrorCodeMessages.HTTP_182_DATABASE_NOT_FOUND.value, status_code=ErrorCodes.HTTP_182_DATABASE_NOT_FOUND.value, e=e)
         except Exception as e:
             logger.error(f"An unexpected error occured while deleting subscription plan data. ERROR: {e}")
+            raise e
 
 class AnnouncementsService:
     
