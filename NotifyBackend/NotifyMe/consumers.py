@@ -6,7 +6,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         # Join room group
         await self.channel_layer.group_add(self.group_name, self.channel_name) 
-        # self.channel_layer.group_add() takes self.group_name and self_channel_name as argument
+
 
         await self.accept()
 
@@ -27,4 +27,17 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         # Send message to WebSocket
         await self.send(text_data=json.dumps({'message':message}))
     
+    async def send_announcement_notification(self, event):
+        message = event['message']
+        notification_type = event['notification_type']
+        await self.send(text_data=json.dumps({"message": message}))
+        
+    async def send_maintenance_alert(self, event):
+        message = event['message']
+        notification_type = event['notification_type']
+        await self.send(text_data=json.dumps({"message":message}))
+        
+    
+
+
     
